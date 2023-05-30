@@ -11,26 +11,26 @@ namespace Chilano.Common.Design;
 [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 public class MultiPaneControlToolboxItem : ToolboxItem
 {
-	public MultiPaneControlToolboxItem()
-		: base(typeof(MultiPaneControl))
-	{
-	}
+    public MultiPaneControlToolboxItem()
+        : base(typeof(MultiPaneControl))
+    {
+    }
 
-	public MultiPaneControlToolboxItem(SerializationInfo theInfo, StreamingContext theContext)
-	{
-		Deserialize(theInfo, theContext);
-	}
+    public MultiPaneControlToolboxItem(SerializationInfo theInfo, StreamingContext theContext)
+    {
+        Deserialize(theInfo, theContext);
+    }
 
-	protected override IComponent[] CreateComponentsCore(IDesignerHost theHost)
-	{
-		return DesignerTransactionUtility.DoInTransaction(theHost, "MultiPaneControlTooblxItem_CreateControl", CreateControlWithOnePage, null) as IComponent[];
-	}
+    protected override IComponent[] CreateComponentsCore(IDesignerHost theHost)
+    {
+        return DesignerTransactionUtility.DoInTransaction(theHost, "MultiPaneControlTooblxItem_CreateControl", CreateControlWithOnePage, null) as IComponent[];
+    }
 
-	public object CreateControlWithOnePage(IDesignerHost theHost, object theParam)
-	{
-		MultiPaneControl multiPaneControl = (MultiPaneControl)theHost.CreateComponent(typeof(MultiPaneControl));
-		MultiPanePage value = (MultiPanePage)theHost.CreateComponent(typeof(MultiPanePage));
-		multiPaneControl.Controls.Add(value);
-		return new IComponent[1] { multiPaneControl };
-	}
+    public object CreateControlWithOnePage(IDesignerHost theHost, object theParam)
+    {
+        MultiPaneControl multiPaneControl = (MultiPaneControl)theHost.CreateComponent(typeof(MultiPaneControl));
+        MultiPanePage value = (MultiPanePage)theHost.CreateComponent(typeof(MultiPanePage));
+        multiPaneControl.Controls.Add(value);
+        return new IComponent[1] { multiPaneControl };
+    }
 }

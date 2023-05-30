@@ -5,13 +5,13 @@ namespace Chilano.Iso2God;
 
 public class Iso2GodProgressArgs : EventArgs
 {
-	public int Percentage;
+    public int Percentage;
 
-	public string Message;
+    public string Message;
 
-	public Iso2GodProgressArgs(ProgressChangedEventArgs e)
-	{
-		Percentage = e.ProgressPercentage;
-		Message = e.UserState.ToString();
-	}
+    public Iso2GodProgressArgs(ProgressChangedEventArgs e)
+    {
+        Percentage = e.ProgressPercentage;
+        Message = e.UserState.ToString();
+    }
 }

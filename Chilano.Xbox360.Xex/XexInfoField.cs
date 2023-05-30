@@ -4,30 +4,30 @@ namespace Chilano.Xbox360.Xex;
 
 public class XexInfoField
 {
-	public uint Address;
+    public uint Address;
 
-	private bool flags;
+    private bool flags;
 
-	public bool Found => Address != 0;
+    public bool Found => Address != 0;
 
-	public bool Flags
-	{
-		get
-		{
-			return flags;
-		}
-		set
-		{
-			flags = value;
-		}
-	}
+    public bool Flags
+    {
+        get
+        {
+            return flags;
+        }
+        set
+        {
+            flags = value;
+        }
+    }
 
-	public XexInfoField(uint address)
-	{
-		Address = address;
-	}
+    public XexInfoField(uint address)
+    {
+        Address = address;
+    }
 
-	public virtual void Parse(CBinaryReader br)
-	{
-	}
+    public virtual void Parse(CBinaryReader br)
+    {
+    }
 }

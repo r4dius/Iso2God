@@ -2,19 +2,19 @@ namespace Chilano.Xbox360.Iso;
 
 public struct GDFVolumeDescriptor
 {
-	public byte[] Identifier;
+    public byte[] Identifier;
 
-	public uint RootDirSector;
+    public uint RootDirSector;
 
-	public uint RootDirSize;
+    public uint RootDirSize;
 
-	public byte[] ImageCreationTime;
+    public byte[] ImageCreationTime;
 
-	public uint SectorSize;
+    public uint SectorSize;
 
-	public uint RootOffset;
+    public uint RootOffset;
 
-	public ulong VolumeSize;
+    public ulong VolumeSize;
 
-	public uint VolumeSectors;
+    public uint VolumeSectors;
 }

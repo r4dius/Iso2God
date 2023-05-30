@@ -2,6 +2,6 @@ namespace Chilano.Iso2God;
 
 internal enum IsoDetailsPlatform
 {
-	Xbox,
-	Xbox360
+    Xbox,
+    Xbox360
 }

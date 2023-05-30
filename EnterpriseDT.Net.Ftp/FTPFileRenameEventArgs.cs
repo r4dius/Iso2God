@@ -1,35 +1,35 @@
+using EnterpriseDT.Util;
 using System;
 using System.ComponentModel;
-using EnterpriseDT.Util;
 
 namespace EnterpriseDT.Net.Ftp;
 
 public class FTPFileRenameEventArgs : FTPCancelableEventArgs
 {
-	private string oldFilePath;
+    private string oldFilePath;
 
-	private string newFilePath;
+    private string newFilePath;
 
-	public string OldFileName => PathUtil.GetFileName(oldFilePath);
+    public string OldFileName => PathUtil.GetFileName(oldFilePath);
 
-	public string OldFilePath => oldFilePath;
+    public string OldFilePath => oldFilePath;
 
-	public string OldDirectory => PathUtil.GetFolderPath(oldFilePath);
+    public string OldDirectory => PathUtil.GetFolderPath(oldFilePath);
 
-	public string NewFileName => PathUtil.GetFileName(newFilePath);
+    public string NewFileName => PathUtil.GetFileName(newFilePath);
 
-	public string NewFilePath => newFilePath;
+    public string NewFilePath => newFilePath;
 
-	public string NewDirectory => PathUtil.GetFolderPath(newFilePath);
+    public string NewDirectory => PathUtil.GetFolderPath(newFilePath);
 
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	[Obsolete("Use Cancel")]
-	public bool RenameCompleted => !base.Cancel;
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    [Obsolete("Use Cancel")]
+    public bool RenameCompleted => !base.Cancel;
 
-	internal FTPFileRenameEventArgs(bool canBeCancelled, string oldFilePath, string newFilePath, bool cancel, Exception ex)
-		: base(canBeCancelled, cancel, ex)
-	{
-		this.oldFilePath = oldFilePath;
-		this.newFilePath = newFilePath;
-	}
+    internal FTPFileRenameEventArgs(bool canBeCancelled, string oldFilePath, string newFilePath, bool cancel, Exception ex)
+        : base(canBeCancelled, cancel, ex)
+    {
+        this.oldFilePath = oldFilePath;
+        this.newFilePath = newFilePath;
+    }
 }
