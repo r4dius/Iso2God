@@ -81,18 +81,18 @@ public class frmSwitchPages : Form
 
     private void InitializeComponent()
     {
-        this.myCtlLblSwitchPage = new System.Windows.Forms.Label();
-        this.myCtlCmbItems = new System.Windows.Forms.ComboBox();
-        this.myCtlChkSetSelectedPage = new System.Windows.Forms.CheckBox();
-        this.myCtlBtnOK = new System.Windows.Forms.Button();
-        this.myCtlBtnCancel = new System.Windows.Forms.Button();
+        this.myCtlLblSwitchPage = new Label();
+        this.myCtlCmbItems = new ComboBox();
+        this.myCtlChkSetSelectedPage = new CheckBox();
+        this.myCtlBtnOK = new Button();
+        this.myCtlBtnCancel = new Button();
         base.SuspendLayout();
         this.myCtlLblSwitchPage.AutoSize = true;
         this.myCtlLblSwitchPage.Location = new System.Drawing.Point(9, 9);
         this.myCtlLblSwitchPage.Name = "myCtlLblSwitchPage";
         this.myCtlLblSwitchPage.TabIndex = 0;
         this.myCtlLblSwitchPage.Text = "Switch the page to:";
-        this.myCtlCmbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        this.myCtlCmbItems.DropDownStyle = ComboBoxStyle.DropDownList;
         this.myCtlCmbItems.Location = new System.Drawing.Point(12, 25);
         this.myCtlCmbItems.Name = "myCtlCmbItems";
         this.myCtlCmbItems.Size = new System.Drawing.Size(227, 21);
@@ -102,15 +102,15 @@ public class frmSwitchPages : Form
         this.myCtlChkSetSelectedPage.Size = new System.Drawing.Size(220, 17);
         this.myCtlChkSetSelectedPage.TabIndex = 2;
         this.myCtlChkSetSelectedPage.Text = "Also set the SelectedPage property";
-        this.myCtlBtnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-        this.myCtlBtnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+        this.myCtlBtnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        this.myCtlBtnOK.DialogResult = DialogResult.OK;
         this.myCtlBtnOK.Location = new System.Drawing.Point(77, 97);
         this.myCtlBtnOK.Name = "myCtlBtnOK";
         this.myCtlBtnOK.TabIndex = 3;
         this.myCtlBtnOK.Text = "OK";
         this.myCtlBtnOK.Click += new System.EventHandler(Handler_OK);
-        this.myCtlBtnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-        this.myCtlBtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        this.myCtlBtnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        this.myCtlBtnCancel.DialogResult = DialogResult.Cancel;
         this.myCtlBtnCancel.Location = new System.Drawing.Point(164, 97);
         this.myCtlBtnCancel.Name = "myCtlBtnCancel";
         this.myCtlBtnCancel.TabIndex = 4;
@@ -122,7 +122,7 @@ public class frmSwitchPages : Form
         base.Controls.Add(this.myCtlChkSetSelectedPage);
         base.Controls.Add(this.myCtlBtnCancel);
         base.Controls.Add(this.myCtlBtnOK);
-        base.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+        base.FormBorderStyle = FormBorderStyle.FixedDialog;
         base.MaximizeBox = false;
         base.MinimizeBox = false;
         base.Name = "frmSwitchPages";

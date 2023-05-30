@@ -94,49 +94,49 @@ public class Main : Form
 
     private void InitializeComponent()
     {
-        this.components = new System.ComponentModel.Container();
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-        this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-        this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-        this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-        this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-        this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.selectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.completedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-        this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-        this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-        this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-        this.cmQueue = new System.Windows.Forms.ContextMenuStrip(this.components);
-        this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-        this.restartFTPUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-        this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
-        this.jobCheck = new System.Windows.Forms.Timer(this.components);
-        this.ftpCheck = new System.Windows.Forms.Timer(this.components);
-        this.freeDiskCheck = new System.Windows.Forms.Timer(this.components);
-        this.listView1 = new Chilano.Common.CListView();
-        this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-        this.toolStrip1.SuspendLayout();
-        this.cmQueue.SuspendLayout();
-        this.statusStrip1.SuspendLayout();
-        this.SuspendLayout();
-        // 
-        // toolStrip1
-        // 
-        this.toolStrip1.AutoSize = false;
-        this.toolStrip1.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.ToolbarBg;
-        this.toolStrip1.CanOverflow = false;
-        this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-        this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.completedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.cmQueue = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.restartFTPUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.jobCheck = new System.Windows.Forms.Timer(this.components);
+            this.ftpCheck = new System.Windows.Forms.Timer(this.components);
+            this.freeDiskCheck = new System.Windows.Forms.Timer(this.components);
+            this.listView1 = new Chilano.Common.CListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStrip1.SuspendLayout();
+            this.cmQueue.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.ToolbarBg;
+            this.toolStrip1.CanOverflow = false;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel2,
             this.toolStripButton1,
             this.toolStripDropDownButton1,
@@ -144,187 +144,187 @@ public class Main : Form
             this.toolStripSeparator1,
             this.toolStripButton3,
             this.toolStripButton4});
-        this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-        this.toolStrip1.Name = "toolStrip1";
-        this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-        this.toolStrip1.Size = new System.Drawing.Size(783, 70);
-        this.toolStrip1.TabIndex = 0;
-        this.toolStrip1.Text = "toolStrip1";
-        // 
-        // toolStripLabel2
-        // 
-        this.toolStripLabel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-        this.toolStripLabel2.Image = global::Chilano_Iso2God_Properties_Resources.LogoToolbar;
-        this.toolStripLabel2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripLabel2.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-        this.toolStripLabel2.Name = "toolStripLabel2";
-        this.toolStripLabel2.Size = new System.Drawing.Size(194, 70);
-        // 
-        // toolStripButton1
-        // 
-        this.toolStripButton1.Image = global::Chilano_Iso2God_Properties_Resources.Create;
-        this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-        this.toolStripButton1.Margin = new System.Windows.Forms.Padding(25, 1, 0, 2);
-        this.toolStripButton1.Name = "toolStripButton1";
-        this.toolStripButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-        this.toolStripButton1.Size = new System.Drawing.Size(83, 67);
-        this.toolStripButton1.Text = "Add ISO";
-        this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-        // 
-        // toolStripDropDownButton1
-        // 
-        this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStrip1.Size = new System.Drawing.Size(784, 70);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.toolStripLabel2.Image = global::Chilano_Iso2God_Properties_Resources.LogoToolbar;
+            this.toolStripLabel2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripLabel2.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(194, 70);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = global::Chilano_Iso2God_Properties_Resources.Create;
+            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(25, 1, 0, 2);
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripButton1.Size = new System.Drawing.Size(83, 67);
+            this.toolStripButton1.Text = "Add ISO";
+            this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.allToolStripMenuItem,
             this.selectedToolStripMenuItem,
             this.completedToolStripMenuItem});
-        this.toolStripDropDownButton1.Image = global::Chilano_Iso2God_Properties_Resources.No_entry;
-        this.toolStripDropDownButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-        this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
-        this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-        this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-        this.toolStripDropDownButton1.Size = new System.Drawing.Size(92, 67);
-        this.toolStripDropDownButton1.Text = "Remove";
-        this.toolStripDropDownButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-        // 
-        // allToolStripMenuItem
-        // 
-        this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-        this.allToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-        this.allToolStripMenuItem.Text = "All";
-        this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
-        // 
-        // selectedToolStripMenuItem
-        // 
-        this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
-        this.selectedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-        this.selectedToolStripMenuItem.Text = "Selected";
-        this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
-        // 
-        // completedToolStripMenuItem
-        // 
-        this.completedToolStripMenuItem.Name = "completedToolStripMenuItem";
-        this.completedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-        this.completedToolStripMenuItem.Text = "Completed";
-        this.completedToolStripMenuItem.Click += new System.EventHandler(this.completedToolStripMenuItem_Click);
-        // 
-        // toolStripButton2
-        // 
-        this.toolStripButton2.Image = global::Chilano_Iso2God_Properties_Resources.Go;
-        this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-        this.toolStripButton2.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
-        this.toolStripButton2.Name = "toolStripButton2";
-        this.toolStripButton2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-        this.toolStripButton2.Size = new System.Drawing.Size(82, 67);
-        this.toolStripButton2.Text = "Convert";
-        this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-        // 
-        // toolStripSeparator1
-        // 
-        this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-        this.toolStripSeparator1.Name = "toolStripSeparator1";
-        this.toolStripSeparator1.Size = new System.Drawing.Size(6, 70);
-        // 
-        // toolStripButton3
-        // 
-        this.toolStripButton3.Image = global::Chilano_Iso2God_Properties_Resources.Application;
-        this.toolStripButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-        this.toolStripButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
-        this.toolStripButton3.Name = "toolStripButton3";
-        this.toolStripButton3.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-        this.toolStripButton3.Size = new System.Drawing.Size(82, 67);
-        this.toolStripButton3.Text = "Settings";
-        this.toolStripButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-        // 
-        // toolStripButton4
-        // 
-        this.toolStripButton4.Image = global::Chilano_Iso2God_Properties_Resources.Info;
-        this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-        this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-        this.toolStripButton4.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
-        this.toolStripButton4.Name = "toolStripButton4";
-        this.toolStripButton4.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-        this.toolStripButton4.Size = new System.Drawing.Size(73, 67);
-        this.toolStripButton4.Text = "About";
-        this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-        this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-        // 
-        // cmQueue
-        // 
-        this.cmQueue.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1.Image = global::Chilano_Iso2God_Properties_Resources.No_entry;
+            this.toolStripDropDownButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(92, 67);
+            this.toolStripDropDownButton1.Text = "Remove";
+            this.toolStripDropDownButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // allToolStripMenuItem
+            // 
+            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.allToolStripMenuItem.Text = "All";
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
+            // 
+            // selectedToolStripMenuItem
+            // 
+            this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
+            this.selectedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.selectedToolStripMenuItem.Text = "Selected";
+            this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
+            // 
+            // completedToolStripMenuItem
+            // 
+            this.completedToolStripMenuItem.Name = "completedToolStripMenuItem";
+            this.completedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.completedToolStripMenuItem.Text = "Completed";
+            this.completedToolStripMenuItem.Click += new System.EventHandler(this.completedToolStripMenuItem_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Image = global::Chilano_Iso2God_Properties_Resources.Go;
+            this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripButton2.Size = new System.Drawing.Size(82, 67);
+            this.toolStripButton2.Text = "Convert";
+            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 70);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Image = global::Chilano_Iso2God_Properties_Resources.Application;
+            this.toolStripButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripButton3.Size = new System.Drawing.Size(82, 67);
+            this.toolStripButton3.Text = "Settings";
+            this.toolStripButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.Image = global::Chilano_Iso2God_Properties_Resources.Info;
+            this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripButton4.Size = new System.Drawing.Size(73, 67);
+            this.toolStripButton4.Text = "About";
+            this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // cmQueue
+            // 
+            this.cmQueue.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem,
             this.toolStripSeparator2,
             this.restartFTPUploadToolStripMenuItem});
-        this.cmQueue.Name = "cmQueue";
-        this.cmQueue.Size = new System.Drawing.Size(174, 76);
-        // 
-        // editToolStripMenuItem
-        // 
-        this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-        this.editToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-        this.editToolStripMenuItem.Text = "Edit";
-        this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-        // 
-        // removeToolStripMenuItem
-        // 
-        this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-        this.removeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-        this.removeToolStripMenuItem.Text = "Remove";
-        this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-        // 
-        // toolStripSeparator2
-        // 
-        this.toolStripSeparator2.Name = "toolStripSeparator2";
-        this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
-        // 
-        // restartFTPUploadToolStripMenuItem
-        // 
-        this.restartFTPUploadToolStripMenuItem.Name = "restartFTPUploadToolStripMenuItem";
-        this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-        this.restartFTPUploadToolStripMenuItem.Text = "Restart FTP Upload";
-        this.restartFTPUploadToolStripMenuItem.Click += new System.EventHandler(this.restartFTPUploadToolStripMenuItem_Click);
-        // 
-        // statusStrip1
-        // 
-        this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmQueue.Name = "cmQueue";
+            this.cmQueue.Size = new System.Drawing.Size(174, 76);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
+            // 
+            // restartFTPUploadToolStripMenuItem
+            // 
+            this.restartFTPUploadToolStripMenuItem.Name = "restartFTPUploadToolStripMenuItem";
+            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.restartFTPUploadToolStripMenuItem.Text = "Restart FTP Upload";
+            this.restartFTPUploadToolStripMenuItem.Click += new System.EventHandler(this.restartFTPUploadToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsStatus});
-        this.statusStrip1.Location = new System.Drawing.Point(0, 339);
-        this.statusStrip1.Name = "statusStrip1";
-        this.statusStrip1.Size = new System.Drawing.Size(784, 22);
-        this.statusStrip1.SizingGrip = false;
-        this.statusStrip1.TabIndex = 2;
-        this.statusStrip1.Text = "statusStrip1";
-        // 
-        // tsStatus
-        // 
-        this.tsStatus.Name = "tsStatus";
-        this.tsStatus.Size = new System.Drawing.Size(26, 17);
-        this.tsStatus.Text = "Idle";
-        // 
-        // freeDiskCheck
-        // 
-        this.freeDiskCheck.Enabled = true;
-        this.freeDiskCheck.Interval = 30000;
-        // 
-        // listView1
-        // 
-        this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-        | System.Windows.Forms.AnchorStyles.Left)
-        | System.Windows.Forms.AnchorStyles.Right)));
-        this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-        this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.statusStrip1.Location = new System.Drawing.Point(0, 339);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tsStatus
+            // 
+            this.tsStatus.Name = "tsStatus";
+            this.tsStatus.Size = new System.Drawing.Size(26, 17);
+            this.tsStatus.Text = "Idle";
+            // 
+            // freeDiskCheck
+            // 
+            this.freeDiskCheck.Enabled = true;
+            this.freeDiskCheck.Interval = 30000;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader5,
             this.columnHeader1,
@@ -332,74 +332,74 @@ public class Main : Form
             this.columnHeader7,
             this.columnHeader4,
             this.columnHeader6});
-        this.listView1.ContextMenuStrip = this.cmQueue;
-        this.listView1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        this.listView1.FullRowSelect = true;
-        this.listView1.GridLines = true;
-        this.listView1.HideSelection = false;
-        this.listView1.Location = new System.Drawing.Point(0, 70);
-        this.listView1.Name = "listView1";
-        this.listView1.Size = new System.Drawing.Size(784, 267);
-        this.listView1.TabIndex = 1;
-        this.listView1.UseCompatibleStateImageBehavior = false;
-        this.listView1.View = System.Windows.Forms.View.Details;
-        // 
-        // columnHeader3
-        // 
-        this.columnHeader3.Text = "Name";
-        this.columnHeader3.Width = 190;
-        // 
-        // columnHeader5
-        // 
-        this.columnHeader5.Text = "Title ID";
-        this.columnHeader5.Width = 65;
-        // 
-        // columnHeader1
-        // 
-        this.columnHeader1.Text = "Disc";
-        this.columnHeader1.Width = 35;
-        // 
-        // columnHeader2
-        // 
-        this.columnHeader2.Text = "Size";
-        this.columnHeader2.Width = 50;
-        // 
-        // columnHeader7
-        // 
-        this.columnHeader7.Text = "Padding";
-        this.columnHeader7.Width = 55;
-        // 
-        // columnHeader4
-        // 
-        this.columnHeader4.Text = "Progress";
-        this.columnHeader4.Width = 100;
-        // 
-        // columnHeader6
-        // 
-        this.columnHeader6.Text = "Status Message";
-        this.columnHeader6.Width = 270;
-        // 
-        // Main
-        // 
-        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(784, 361);
-        this.Controls.Add(this.statusStrip1);
-        this.Controls.Add(this.listView1);
-        this.Controls.Add(this.toolStrip1);
-        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-        this.MaximizeBox = false;
-        this.MinimumSize = new System.Drawing.Size(800, 400);
-        this.Name = "Main";
-        this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-        this.Text = "Iso2God";
-        this.toolStrip1.ResumeLayout(false);
-        this.toolStrip1.PerformLayout();
-        this.cmQueue.ResumeLayout(false);
-        this.statusStrip1.ResumeLayout(false);
-        this.statusStrip1.PerformLayout();
-        this.ResumeLayout(false);
-        this.PerformLayout();
+            this.listView1.ContextMenuStrip = this.cmQueue;
+            this.listView1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(0, 70);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(784, 267);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 190;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Title ID";
+            this.columnHeader5.Width = 65;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Disc";
+            this.columnHeader1.Width = 35;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Size";
+            this.columnHeader2.Width = 50;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Padding";
+            this.columnHeader7.Width = 55;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Progress";
+            this.columnHeader4.Width = 100;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Status Message";
+            this.columnHeader6.Width = 270;
+            // 
+            // Main
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(784, 361);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 400);
+            this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Iso2God";
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.cmQueue.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
