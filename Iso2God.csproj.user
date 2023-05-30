@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Chilano.Common.Design\frmSwitchPages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\CButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\CGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\CListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\CTextLog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\MultiPaneControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Common\MultiPanePage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God.Ftp\FtpUploader.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\AddISO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\Iso2God.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\IsoDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Chilano.Iso2God\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EnterpriseDT.Net.Ftp\FTPConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Chilano.Iso2God.Properties.Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
