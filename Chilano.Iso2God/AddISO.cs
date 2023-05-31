@@ -692,6 +692,7 @@ public class AddISO : Form
 
         if(fileList.Length > 1)
         {
+            if (!checkFields()) return;
             IsoEntryPadding isoEntryPadding = new IsoEntryPadding();
             isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryPadding.TempPath = Path.GetTempPath();
@@ -756,22 +757,22 @@ public class AddISO : Form
 
             if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
             {
-                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageGOD + "\n- " + messageRebuild);
+                MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageGOD + "\n- " + messageRebuild);
                 return false;
             }
             if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0)
             {
-                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageGOD);
+                MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageGOD);
                 return false;
             }
             if (txtISO.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
             {
-                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageRebuild);
+                MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageRebuild);
                 return false;
             }
             if (txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
             {
-                MessageBox.Show(messageStart + "\n- " + messageGOD + "\n- " + messageRebuild);
+                MessageBox.Show(messageStart + ":\n- " + messageGOD + "\n- " + messageRebuild);
                 return false;
             }
             if (txtISO.Text.Length == 0)
@@ -860,10 +861,6 @@ public class AddISO : Form
             fileList = openFileDialog.FileNames;
             txtISO.Text = openFileDialog.FileName;
             clearXexFields();
-            if(fileList.Length > 1 && !checkFields()) {
-                return;
-            }
-
             switch (entry.Platform)
             {
                 case IsoEntryPlatform.Xbox360:
