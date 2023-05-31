@@ -91,7 +91,13 @@ public class AddISO : Form
 
     private IsoDetails isoDetails = new IsoDetails();
 
+    private IsoDetails isoMultiDetails = new IsoDetails();
+
     private bool edit;
+
+    private string[] filelist;
+
+    private int file;
 
     private IsoEntryPlatform platform = IsoEntryPlatform.Xbox360;
 
@@ -612,6 +618,8 @@ public class AddISO : Form
         entry.Platform = platform;
         isoDetails.ProgressChanged += isoDetails_ProgressChanged;
         isoDetails.RunWorkerCompleted += isoDetails_RunWorkerCompleted;
+        isoMultiDetails.ProgressChanged += isoMultiDetails_ProgressChanged;
+        isoMultiDetails.RunWorkerCompleted += isoMultiDetails_RunWorkerCompleted;
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
         cbSaveRebuilt.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
@@ -672,7 +680,7 @@ public class AddISO : Form
         bool flag = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
         int result = 0;
         int.TryParse(isoDetailsResults.DiscCount, out result);
-        txtName.Text = ((flag && result > 1) ? (isoDetailsResults.Name + " Disc " + isoDetailsResults.DiscNumber) : isoDetailsResults.Name);
+        txtName.Text = ((flag && result > 1) ? (isoDetailsResults.Name + " - Disc " + isoDetailsResults.DiscNumber) : isoDetailsResults.Name);
         txtTitleID.Text = isoDetailsResults.TitleID;
         txtMediaID.Text = isoDetailsResults.MediaID;
         txtPlatform.Text = isoDetailsResults.Platform;
@@ -697,6 +705,78 @@ public class AddISO : Form
         {
             txtName.Text = isoDetailsResults.ProgressMessage;
         }
+    }
+
+    private void isoMultiDetails_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    {
+        if (e.Result == null)
+        {
+            txtName.Text = "Failed to read details from ISO image.";
+            return;
+        }
+        txtISO.Text = filelist[file];
+        clearXexFields();
+        IsoDetailsResults isoDetailsResults = (IsoDetailsResults)e.Result;
+        switch (isoDetailsResults.ConsolePlatform)
+        {
+            case IsoDetailsPlatform.Xbox:
+                platform = IsoEntryPlatform.Xbox;
+                break;
+            case IsoDetailsPlatform.Xbox360:
+                platform = IsoEntryPlatform.Xbox360;
+                break;
+        }
+        bool flag = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
+        int result = 0;
+        int.TryParse(isoDetailsResults.DiscCount, out result);
+        txtName.Text = ((flag && result > 1) ? (isoDetailsResults.Name + " - Disc " + isoDetailsResults.DiscNumber) : isoDetailsResults.Name);
+        txtTitleID.Text = isoDetailsResults.TitleID;
+        txtMediaID.Text = isoDetailsResults.MediaID;
+        txtPlatform.Text = isoDetailsResults.Platform;
+        txtExType.Text = isoDetailsResults.ExType;
+        txtDiscNum.Text = isoDetailsResults.DiscNumber;
+        txtDiscCount.Text = isoDetailsResults.DiscCount;
+        if (isoDetailsResults.Thumbnail != null && isoDetailsResults.RawThumbnail != null)
+        {
+            pbThumb.Image = (Image)isoDetailsResults.Thumbnail.Clone();
+            pbThumb.Tag = (byte[])isoDetailsResults.RawThumbnail.Clone();
+        }
+
+        IsoEntryPadding isoEntryPadding = new IsoEntryPadding();
+        isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
+        isoEntryPadding.TempPath = Path.GetTempPath();
+        isoEntryPadding.IsoPath = txtRebuiltIso.Text;
+        isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
+        if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        {
+            isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
+        }
+        if (!isoEntryPadding.IsoPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        {
+            isoEntryPadding.IsoPath += Path.DirectorySeparatorChar;
+        }
+        IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
+        FileInfo fileInfo = new FileInfo(txtISO.Text);
+        IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding);
+        if (edit)
+        {
+            (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
+        }
+        else
+        {
+            (base.Owner as Main).AddISOEntry(isoEntry);
+        }
+
+        file++;
+        if (file < filelist.Length)
+        {
+            isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+        }
+    }
+
+    private void isoMultiDetails_ProgressChanged(object sender, ProgressChangedEventArgs e)
+    {
+
     }
 
     private void button1_Click(object sender, EventArgs e)
@@ -773,61 +853,6 @@ public class AddISO : Form
         }
     }
 
-    private void multiAdd(object sender, EventArgs e)
-    {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
-        openFileDialog.Title = "Choose location of your ISO.";
-        openFileDialog.Multiselect = true;
-        openFileDialog.Filter = "ISO Images (*.iso, *.000)|*.iso;*.000";
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
-        {
-            txtISO.Text = openFileDialog.FileName;
-            clearXexFields();
-            switch (entry.Platform)
-            {
-                case IsoEntryPlatform.Xbox360:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    txtName.Text = "Reading default.xex...";
-                    break;
-                case IsoEntryPlatform.Xbox:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    txtName.Text = "Reading default.xbe...";
-                    break;
-            }
-        }
-
-        if (checkFields())
-        {
-            IsoEntryPadding isoEntryPadding = new IsoEntryPadding();
-            isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
-            isoEntryPadding.TempPath = Path.GetTempPath();
-            isoEntryPadding.IsoPath = txtRebuiltIso.Text;
-            isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
-            if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
-            }
-            if (!isoEntryPadding.IsoPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                isoEntryPadding.IsoPath += Path.DirectorySeparatorChar;
-            }
-            IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
-            FileInfo fileInfo = new FileInfo(txtISO.Text);
-            IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding);
-            if (edit)
-            {
-                (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
-            }
-            else
-            {
-                (base.Owner as Main).AddISOEntry(isoEntry);
-            }
-            GC.Collect();
-            Close();
-        }
-    }
-
     private void btnISOBrowse_Click(object sender, EventArgs e)
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -837,16 +862,20 @@ public class AddISO : Form
         openFileDialog.Filter = "ISO Images (*.iso, *.000)|*.iso;*.000";
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
+            file = 0;
+            filelist = openFileDialog.FileNames;
             txtISO.Text = openFileDialog.FileName;
             clearXexFields();
             switch (entry.Platform)
             {
                 case IsoEntryPlatform.Xbox360:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    if (filelist.Length > 1) isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    else isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
                     txtName.Text = "Reading default.xex...";
                     break;
                 case IsoEntryPlatform.Xbox:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    if (filelist.Length > 1) isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    else isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
                     txtName.Text = "Reading default.xbe...";
                     break;
             }
