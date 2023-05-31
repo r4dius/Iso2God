@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Remoting.Lifetime;
 using System.Windows.Forms;
 
 namespace Chilano.Iso2God;
@@ -91,11 +92,9 @@ public class AddISO : Form
 
     private IsoDetails isoDetails = new IsoDetails();
 
-    private IsoDetails isoMultiDetails = new IsoDetails();
-
     private bool edit;
 
-    private string[] filelist;
+    private string[] fileList;
 
     private int file;
 
@@ -201,9 +200,9 @@ public class AddISO : Form
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 28;
-            this.label1.Text = "ISO File:";
+            this.label1.Text = "ISO Image:";
             // 
             // txtISO
             // 
@@ -618,8 +617,6 @@ public class AddISO : Form
         entry.Platform = platform;
         isoDetails.ProgressChanged += isoDetails_ProgressChanged;
         isoDetails.RunWorkerCompleted += isoDetails_RunWorkerCompleted;
-        isoMultiDetails.ProgressChanged += isoMultiDetails_ProgressChanged;
-        isoMultiDetails.RunWorkerCompleted += isoMultiDetails_RunWorkerCompleted;
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
         cbSaveRebuilt.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
@@ -692,6 +689,42 @@ public class AddISO : Form
             pbThumb.Image = (Image)isoDetailsResults.Thumbnail.Clone();
             pbThumb.Tag = (byte[])isoDetailsResults.RawThumbnail.Clone();
         }
+
+        if(fileList.Length > 1)
+        {
+            IsoEntryPadding isoEntryPadding = new IsoEntryPadding();
+            isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
+            isoEntryPadding.TempPath = Path.GetTempPath();
+            isoEntryPadding.IsoPath = txtRebuiltIso.Text;
+            isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
+            if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
+            }
+            if (!isoEntryPadding.IsoPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                isoEntryPadding.IsoPath += Path.DirectorySeparatorChar;
+            }
+            IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
+            FileInfo fileInfo = new FileInfo(txtISO.Text);
+            IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding);
+            if (edit)
+            {
+                (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
+            }
+            else
+            {
+                (base.Owner as Main).AddISOEntry(isoEntry);
+            }
+
+            file++;
+            if (file < fileList.Length)
+            {
+                txtISO.Text = fileList[file];
+                clearXexFields();
+                isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+            }
+        }
     }
 
     private void isoDetails_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -707,78 +740,6 @@ public class AddISO : Form
         }
     }
 
-    private void isoMultiDetails_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-    {
-        if (e.Result == null)
-        {
-            txtName.Text = "Failed to read details from ISO image.";
-            return;
-        }
-        txtISO.Text = filelist[file];
-        clearXexFields();
-        IsoDetailsResults isoDetailsResults = (IsoDetailsResults)e.Result;
-        switch (isoDetailsResults.ConsolePlatform)
-        {
-            case IsoDetailsPlatform.Xbox:
-                platform = IsoEntryPlatform.Xbox;
-                break;
-            case IsoDetailsPlatform.Xbox360:
-                platform = IsoEntryPlatform.Xbox360;
-                break;
-        }
-        bool flag = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
-        int result = 0;
-        int.TryParse(isoDetailsResults.DiscCount, out result);
-        txtName.Text = ((flag && result > 1) ? (isoDetailsResults.Name + " - Disc " + isoDetailsResults.DiscNumber) : isoDetailsResults.Name);
-        txtTitleID.Text = isoDetailsResults.TitleID;
-        txtMediaID.Text = isoDetailsResults.MediaID;
-        txtPlatform.Text = isoDetailsResults.Platform;
-        txtExType.Text = isoDetailsResults.ExType;
-        txtDiscNum.Text = isoDetailsResults.DiscNumber;
-        txtDiscCount.Text = isoDetailsResults.DiscCount;
-        if (isoDetailsResults.Thumbnail != null && isoDetailsResults.RawThumbnail != null)
-        {
-            pbThumb.Image = (Image)isoDetailsResults.Thumbnail.Clone();
-            pbThumb.Tag = (byte[])isoDetailsResults.RawThumbnail.Clone();
-        }
-
-        IsoEntryPadding isoEntryPadding = new IsoEntryPadding();
-        isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
-        isoEntryPadding.TempPath = Path.GetTempPath();
-        isoEntryPadding.IsoPath = txtRebuiltIso.Text;
-        isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
-        if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-        {
-            isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
-        }
-        if (!isoEntryPadding.IsoPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-        {
-            isoEntryPadding.IsoPath += Path.DirectorySeparatorChar;
-        }
-        IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
-        FileInfo fileInfo = new FileInfo(txtISO.Text);
-        IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding);
-        if (edit)
-        {
-            (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
-        }
-        else
-        {
-            (base.Owner as Main).AddISOEntry(isoEntry);
-        }
-
-        file++;
-        if (file < filelist.Length)
-        {
-            isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-        }
-    }
-
-    private void isoMultiDetails_ProgressChanged(object sender, ProgressChangedEventArgs e)
-    {
-
-    }
-
     private void button1_Click(object sender, EventArgs e)
     {
         Close();
@@ -786,10 +747,48 @@ public class AddISO : Form
 
     private bool checkFields()
     {
-        if (txtDest.Text.Length == 0 || txtISO.Text.Length == 0)
+        if (txtISO.Text.Length == 0 || txtDest.Text.Length == 0 || (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
         {
-            MessageBox.Show("Please select an ISO image to convert and a destination folder\nto store the GOD container in.");
-            return false;
+            string messageStart = "Please select";
+            string messageIso = "an ISO image to convert";
+            string messageGOD = "a destination folder to store the GOD container in";
+            string messageRebuild = "a destination folder to store the " + (cbSaveRebuilt.Checked ? "" : "temporary ") + "rebuilt ISO image in";
+
+            if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            {
+                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageGOD + "\n- " + messageRebuild);
+                return false;
+            }
+            if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0)
+            {
+                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageGOD);
+                return false;
+            }
+            if (txtISO.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            {
+                MessageBox.Show(messageStart + "\n- " + messageIso + "\n- " + messageRebuild);
+                return false;
+            }
+            if (txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            {
+                MessageBox.Show(messageStart + "\n- " + messageGOD + "\n- " + messageRebuild);
+                return false;
+            }
+            if (txtISO.Text.Length == 0)
+            {
+                MessageBox.Show(messageStart + " " + messageIso);
+                return false;
+            }
+            if (txtDest.Text.Length == 0)
+            {
+                MessageBox.Show(messageStart + " " + messageGOD);
+                return false;
+            }
+            if ((cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            {
+                MessageBox.Show(messageStart + " " + messageRebuild);
+                return false;
+            }
         }
         if (txtTitleID.Text.Length != 8 || txtMediaID.Text.Length != 8 || txtExType.Text.Length == 0 || txtPlatform.Text.Length == 0)
         {
@@ -801,7 +800,7 @@ public class AddISO : Form
             MessageBox.Show("The name of the game is currently not automatically detected.\n\nPlease enter this manually in the Name field above.");
             return false;
         }
-        if (cmbPaddingMode.SelectedIndex == 2)
+        if (cmbPaddingMode.SelectedIndex > 0)
         {
             if (!cbSaveRebuilt.Checked && (bool)Properties.Settings.Default["RebuiltCheck"])
             {
@@ -810,11 +809,6 @@ public class AddISO : Form
                 {
                     return false;
                 }
-            }
-            if (txtRebuiltIso.Text.Length == 0)
-            {
-                MessageBox.Show("You must enter a location for the temporary ISO image to be stored at.");
-                return false;
             }
         }
         return true;
@@ -863,19 +857,21 @@ public class AddISO : Form
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
             file = 0;
-            filelist = openFileDialog.FileNames;
+            fileList = openFileDialog.FileNames;
             txtISO.Text = openFileDialog.FileName;
             clearXexFields();
+            if(fileList.Length > 1 && !checkFields()) {
+                return;
+            }
+
             switch (entry.Platform)
             {
                 case IsoEntryPlatform.Xbox360:
-                    if (filelist.Length > 1) isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    else isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
                     txtName.Text = "Reading default.xex...";
                     break;
                 case IsoEntryPlatform.Xbox:
-                    if (filelist.Length > 1) isoMultiDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    else isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
                     txtName.Text = "Reading default.xbe...";
                     break;
             }
