@@ -39,7 +39,4 @@
       <LastGenOutput>Chilano.Iso2God.Properties.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
 </Project>

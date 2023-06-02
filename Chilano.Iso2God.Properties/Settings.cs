@@ -208,6 +208,21 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("400")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public int Height
+    {
+        get
+        {
+            return (int)this["Height"];
+        }
+        set
+        {
+            this["Height"] = value;
+        }
+    }
+
     [DefaultSettingValue("190,65,35,50,55,100,270")]
     [DebuggerNonUserCode]
     [UserScopedSetting]

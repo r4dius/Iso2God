@@ -272,11 +272,11 @@ public class Settings : Form
             // 
             // pbRipping
             // 
-            this.pbRipping.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.Hint;
+            this.pbRipping.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
             this.pbRipping.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbRipping.Location = new System.Drawing.Point(106, 0);
+            this.pbRipping.Location = new System.Drawing.Point(107, 0);
             this.pbRipping.Name = "pbRipping";
-            this.pbRipping.Size = new System.Drawing.Size(15, 15);
+            this.pbRipping.Size = new System.Drawing.Size(14, 14);
             this.pbRipping.TabIndex = 26;
             this.pbRipping.TabStop = false;
             // 
@@ -442,11 +442,11 @@ public class Settings : Form
             // 
             // pbOptions
             // 
-            this.pbOptions.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.Hint;
+            this.pbOptions.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
             this.pbOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptions.Location = new System.Drawing.Point(56, 0);
+            this.pbOptions.Location = new System.Drawing.Point(58, 0);
             this.pbOptions.Name = "pbOptions";
-            this.pbOptions.Size = new System.Drawing.Size(15, 15);
+            this.pbOptions.Size = new System.Drawing.Size(14, 14);
             this.pbOptions.TabIndex = 26;
             this.pbOptions.TabStop = false;
             // 
@@ -544,11 +544,11 @@ public class Settings : Form
             // 
             // pbFTP
             // 
-            this.pbFTP.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.Hint;
+            this.pbFTP.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
             this.pbFTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbFTP.Location = new System.Drawing.Point(80, 0);
             this.pbFTP.Name = "pbFTP";
-            this.pbFTP.Size = new System.Drawing.Size(15, 15);
+            this.pbFTP.Size = new System.Drawing.Size(14, 14);
             this.pbFTP.TabIndex = 26;
             this.pbFTP.TabStop = false;
             // 

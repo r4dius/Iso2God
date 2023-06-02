@@ -71,26 +71,6 @@ internal class Chilano_Iso2God_Properties_Resources {
     }
     
     /// <summary>
-    ///   Looks up a localized resource of type System.Drawing.Bitmap.
-    /// </summary>
-    internal static System.Drawing.Bitmap Application {
-        get {
-            object obj = ResourceManager.GetObject("Application", resourceCulture);
-            return ((System.Drawing.Bitmap)(obj));
-        }
-    }
-    
-    /// <summary>
-    ///   Looks up a localized resource of type System.Drawing.Bitmap.
-    /// </summary>
-    internal static System.Drawing.Bitmap Create {
-        get {
-            object obj = ResourceManager.GetObject("Create", resourceCulture);
-            return ((System.Drawing.Bitmap)(obj));
-        }
-    }
-    
-    /// <summary>
     ///   Looks up a localized resource of type System.Byte[].
     /// </summary>
     internal static byte[] emptyLIVE {
@@ -103,9 +83,9 @@ internal class Chilano_Iso2God_Properties_Resources {
     /// <summary>
     ///   Looks up a localized resource of type System.Drawing.Bitmap.
     /// </summary>
-    internal static System.Drawing.Bitmap Go {
+    internal static System.Drawing.Bitmap icon_add {
         get {
-            object obj = ResourceManager.GetObject("Go", resourceCulture);
+            object obj = ResourceManager.GetObject("icon_add", resourceCulture);
             return ((System.Drawing.Bitmap)(obj));
         }
     }
@@ -113,9 +93,9 @@ internal class Chilano_Iso2God_Properties_Resources {
     /// <summary>
     ///   Looks up a localized resource of type System.Drawing.Bitmap.
     /// </summary>
-    internal static System.Drawing.Bitmap Hint {
+    internal static System.Drawing.Bitmap icon_delete {
         get {
-            object obj = ResourceManager.GetObject("Hint", resourceCulture);
+            object obj = ResourceManager.GetObject("icon_delete", resourceCulture);
             return ((System.Drawing.Bitmap)(obj));
         }
     }
@@ -123,9 +103,39 @@ internal class Chilano_Iso2God_Properties_Resources {
     /// <summary>
     ///   Looks up a localized resource of type System.Drawing.Bitmap.
     /// </summary>
-    internal static System.Drawing.Bitmap Info {
+    internal static System.Drawing.Bitmap icon_hint {
         get {
-            object obj = ResourceManager.GetObject("Info", resourceCulture);
+            object obj = ResourceManager.GetObject("icon_hint", resourceCulture);
+            return ((System.Drawing.Bitmap)(obj));
+        }
+    }
+    
+    /// <summary>
+    ///   Looks up a localized resource of type System.Drawing.Bitmap.
+    /// </summary>
+    internal static System.Drawing.Bitmap icon_info {
+        get {
+            object obj = ResourceManager.GetObject("icon_info", resourceCulture);
+            return ((System.Drawing.Bitmap)(obj));
+        }
+    }
+    
+    /// <summary>
+    ///   Looks up a localized resource of type System.Drawing.Bitmap.
+    /// </summary>
+    internal static System.Drawing.Bitmap icon_settings {
+        get {
+            object obj = ResourceManager.GetObject("icon_settings", resourceCulture);
+            return ((System.Drawing.Bitmap)(obj));
+        }
+    }
+    
+    /// <summary>
+    ///   Looks up a localized resource of type System.Drawing.Bitmap.
+    /// </summary>
+    internal static System.Drawing.Bitmap icon_start {
+        get {
+            object obj = ResourceManager.GetObject("icon_start", resourceCulture);
             return ((System.Drawing.Bitmap)(obj));
         }
     }
@@ -146,16 +156,6 @@ internal class Chilano_Iso2God_Properties_Resources {
     internal static System.Drawing.Bitmap LogoToolbar {
         get {
             object obj = ResourceManager.GetObject("LogoToolbar", resourceCulture);
-            return ((System.Drawing.Bitmap)(obj));
-        }
-    }
-    
-    /// <summary>
-    ///   Looks up a localized resource of type System.Drawing.Bitmap.
-    /// </summary>
-    internal static System.Drawing.Bitmap No_entry {
-        get {
-            object obj = ResourceManager.GetObject("No_entry", resourceCulture);
             return ((System.Drawing.Bitmap)(obj));
         }
     }
