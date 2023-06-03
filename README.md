@@ -9,3 +9,6 @@ This modded version adds :
 Todo :
  - fix path missing "/" is entered manually in settings (?)
  - fix multi file progress bar stuff
+
+<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/13e65da7-16c7-458f-890e-ee23b0f45eb3"></p>
+<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/9cdc0197-2dc6-4b63-bb8e-536d956f7971"></p>
