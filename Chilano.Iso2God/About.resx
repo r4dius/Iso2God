@@ -120,11 +120,11 @@
   <data name="label1.Text" xml:space="preserve">
     <value>Iso2God allows you to convert an Xbox 360 ISO image to a Games on Demand container, without having to burn the image to optical media to rip it using NXE.
 
-This application does not contain or utilise any source code produced, or derived from, any works contained in or associated with the Microsoft Xbox 360 SDK.
-
 XexTool is used to perform decryption and decompression of XEXs. Huge thanks to xorloser for his work! 
 
-FTP support provided by the open source edtFTPnet library from Enterprise DT.</value>
+FTP support provided by the open source edtFTPnet library from Enterprise DT.
+
+Thanks go out to rolly poly, MikeJJ, Icekiller, Razkar, dstruktiv and threesixtyuser for your help.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

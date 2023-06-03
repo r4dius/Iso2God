@@ -389,7 +389,7 @@ public class Main : Form
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.toolStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Chilano_Iso2God_Properties_Resources.AppIcon;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Main";

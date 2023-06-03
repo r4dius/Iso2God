@@ -1,3 +1,4 @@
+using Chilano.Common;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -104,7 +105,7 @@ public class AddISO : Form
     private IsoEntry entry;
     private Iso2God iso2God1;
     private Ftp.FtpUploader ftpUploader1;
-    private ProgressBar progressBarMulti;
+    private ProgressBarEx progressBarMulti;
     private int entryIndex;
 
     protected override void Dispose(bool disposing)
@@ -158,7 +159,7 @@ public class AddISO : Form
             this.txtRebuiltIso = new System.Windows.Forms.TextBox();
             this.pbPadding = new System.Windows.Forms.PictureBox();
             this.ttPadding = new System.Windows.Forms.ToolTip(this.components);
-            this.progressBarMulti = new System.Windows.Forms.ProgressBar();
+            this.progressBarMulti = new Chilano.Common.ProgressBarEx();
             this.iso2God1 = new Chilano.Iso2God.Iso2God();
             this.ftpUploader1 = new Chilano.Iso2God.Ftp.FtpUploader();
             this.groupBox2.SuspendLayout();
@@ -269,10 +270,11 @@ public class AddISO : Form
             // 
             // ttISO
             // 
-            this.ttISO.AutoPopDelay = 10000;
+            this.ttISO.AutoPopDelay = 30000;
             this.ttISO.InitialDelay = 100;
             this.ttISO.IsBalloon = true;
             this.ttISO.ReshowDelay = 100;
+            this.ttISO.ShowAlways = true;
             // 
             // groupBox3
             // 
@@ -307,11 +309,12 @@ public class AddISO : Form
             // pbThumb
             // 
             this.pbThumb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbThumb.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.preview;
             this.pbThumb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pbThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbThumb.Location = new System.Drawing.Point(367, 30);
+            this.pbThumb.Location = new System.Drawing.Point(366, 30);
             this.pbThumb.Name = "pbThumb";
-            this.pbThumb.Size = new System.Drawing.Size(64, 64);
+            this.pbThumb.Padding = new System.Windows.Forms.Padding(1);
+            this.pbThumb.Size = new System.Drawing.Size(66, 66);
             this.pbThumb.TabIndex = 40;
             this.pbThumb.TabStop = false;
             this.pbThumb.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -488,18 +491,20 @@ public class AddISO : Form
             // 
             // ttSettings
             // 
-            this.ttSettings.AutoPopDelay = 10000;
+            this.ttSettings.AutoPopDelay = 30000;
             this.ttSettings.InitialDelay = 100;
             this.ttSettings.IsBalloon = true;
             this.ttSettings.ReshowDelay = 100;
+            this.ttSettings.ShowAlways = true;
             // 
             // ttThumb
             // 
             this.ttThumb.AutomaticDelay = 10;
-            this.ttThumb.AutoPopDelay = 5000;
-            this.ttThumb.InitialDelay = 10;
+            this.ttThumb.AutoPopDelay = 30000;
+            this.ttThumb.InitialDelay = 100;
             this.ttThumb.IsBalloon = true;
-            this.ttThumb.ReshowDelay = 2;
+            this.ttThumb.ReshowDelay = 100;
+            this.ttThumb.ShowAlways = true;
             // 
             // groupBox1
             // 
@@ -520,20 +525,19 @@ public class AddISO : Form
             this.groupBox1.Size = new System.Drawing.Size(444, 88);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Padding Removal";
+            this.groupBox1.Text = "Padding";
             // 
             // cbSaveRebuilt
             // 
             this.cbSaveRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSaveRebuilt.AutoSize = true;
             this.cbSaveRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbSaveRebuilt.Location = new System.Drawing.Point(283, 24);
+            this.cbSaveRebuilt.Location = new System.Drawing.Point(288, 24);
             this.cbSaveRebuilt.Name = "cbSaveRebuilt";
             this.cbSaveRebuilt.Size = new System.Drawing.Size(149, 17);
             this.cbSaveRebuilt.TabIndex = 12;
             this.cbSaveRebuilt.Text = "Save Rebuilt ISO Image?";
             this.cbSaveRebuilt.UseVisualStyleBackColor = true;
-            this.cbSaveRebuilt.CheckedChanged += new System.EventHandler(this.cbSaveRebuilt_CheckedChanged);
             // 
             // btnRebuiltBrowse
             // 
@@ -556,9 +560,9 @@ public class AddISO : Form
             this.cmbPaddingMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPaddingMode.FormattingEnabled = true;
             this.cmbPaddingMode.Items.AddRange(new object[] {
-            "Keep (ISO Untouched)",
-            "Partial (ISO Cropped)",
-            "Full (ISO Rebuilt)"});
+            "Untouched",
+            "Partial",
+            "Remove All"});
             this.cmbPaddingMode.Location = new System.Drawing.Point(87, 20);
             this.cmbPaddingMode.Name = "cmbPaddingMode";
             this.cmbPaddingMode.Size = new System.Drawing.Size(141, 23);
@@ -600,7 +604,7 @@ public class AddISO : Form
             // 
             this.pbPadding.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
             this.pbPadding.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbPadding.Location = new System.Drawing.Point(109, 0);
+            this.pbPadding.Location = new System.Drawing.Point(61, 0);
             this.pbPadding.Name = "pbPadding";
             this.pbPadding.Size = new System.Drawing.Size(14, 14);
             this.pbPadding.TabIndex = 25;
@@ -608,18 +612,20 @@ public class AddISO : Form
             // 
             // ttPadding
             // 
-            this.ttPadding.AutoPopDelay = 10000;
+            this.ttPadding.AutoPopDelay = 30000;
             this.ttPadding.InitialDelay = 100;
             this.ttPadding.IsBalloon = true;
             this.ttPadding.ReshowDelay = 100;
+            this.ttPadding.ShowAlways = true;
             // 
             // progressBarMulti
             // 
             this.progressBarMulti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarMulti.DisplayStyle = Chilano.Common.ProgressBarDisplayText.Text;
             this.progressBarMulti.Location = new System.Drawing.Point(10, 317);
             this.progressBarMulti.Name = "progressBarMulti";
-            this.progressBarMulti.Size = new System.Drawing.Size(191, 23);
+            this.progressBarMulti.Size = new System.Drawing.Size(282, 23);
             this.progressBarMulti.TabIndex = 42;
             // 
             // iso2God1
@@ -675,10 +681,30 @@ public class AddISO : Form
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
         cbSaveRebuilt.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
-        ttISO.SetToolTip(pbVideo, "Select the ISO image you want to convert to a Games on Demand package.\n\nChoose a location to output the GOD package to. It will be written into a\nsub-directory named using the TitleID of the ISO's default.xex. A default\nlocation can be set in the Settings screen.");
-        ttSettings.SetToolTip(pbTime, "The details are automatically extracted from default.xex in the root\ndirectory of the ISO image. They can be manually altered if required.\n\nThe Title Name MUST be entered, or else it will show up as an \nunknown game on the 360.");
+        ttISO.SetToolTip(pbVideo, 
+            "Select the ISO images to convert to Games on Demand packages.\n" +
+            "Selecting multiple files will automatically add them, you can then\n" +
+            "individually edit each file details in the main list before conversion.\n\n" +
+            "Choose a location to output the GOD packages to.\n" +
+            "It will be written into sub-directories named using the TitleID.\n" +
+            "A default location can be set in the Settings screen.");
+        ttSettings.SetToolTip(pbTime, 
+            "The details are automatically extracted from default.xex in the root\n" +
+            "directory of the ISO image. They can be manually altered if required.\n\n" +
+            "The Title Name MUST be entered, or else it will show up as an \n" +
+            "unknown game on the 360.");
         ttThumb.SetToolTip(pbThumb, "Click to set a custom thumbnail for this title.");
-        ttPadding.SetToolTip(pbPadding, "Unused padding sectors can be removed from the ISO image when it is converted.\n\nThree modes are available:\n\nNone - ISO image is left untouched.\n\nPartial - The ISO image is cropped after the end of the last used sector. Very quick to do,\n              but it will only save 800-1500MB of space.\n\nFull - ISO image is processed and completely rebuilt to remove all padding. Rebuilt image is\n         can be stored temporarily or kept for future use. Takes 5-10 minutes extra.");
+        ttPadding.SetToolTip(pbPadding, 
+            "Unused padding sectors can be removed from the ISO image.\n\n" +
+            "Three modes are available:\n\n" +
+            "  - Untouched\n" +
+            "     ISO image is left untouched.\n\n" +
+            "  - Partial\n" +
+            "     The ISO image is cropped after the end of the last used sector.\n" +
+            "     Very quick to do, but it will only save 800-1500MB of space.\n\n" +
+            "  - Remove All\n" +
+            "     ISO image is processed and completely rebuilt to remove all padding.\n" +
+            "     Rebuilt image can be saved temporarily or kept for future use.");
         txtISO.Focus();
     }
 
@@ -747,6 +773,8 @@ public class AddISO : Form
             {
                 pbThumb.Image = (Image)isoDetailsResults.Thumbnail.Clone();
                 pbThumb.Tag = (byte[])isoDetailsResults.RawThumbnail.Clone();
+                //MessageBox.Show(txtRebuiltIso.Text + txtTitleID.Text + ".bmp");
+                //pbThumb.Image.Save(txtRebuiltIso.Text + txtTitleID.Text + ".bmp");
             }
 
             if (fileList.Length > 1)
@@ -777,6 +805,7 @@ public class AddISO : Form
                 }
 
                 progressBarMulti.PerformStep();
+                progressBarMulti.Text = "Adding " + progressBarMulti.Value + " / " + fileList.Length + " files";
 
                 file++;
                 if (file < fileList.Length)
@@ -789,6 +818,7 @@ public class AddISO : Form
                 {
                     btnCancel.Text = "OK";
                     EnablePageControls(true);
+                    progressBarMulti.Text = "Added " + progressBarMulti.Value + " files";
                 }
             }
         }
@@ -822,14 +852,14 @@ public class AddISO : Form
 
     private bool checkPaths()
     {
-        if (txtISO.Text.Length == 0 || txtDest.Text.Length == 0 || (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+        if (txtISO.Text.Length == 0 || txtDest.Text.Length == 0 || (cmbPaddingMode.SelectedIndex > 1 && txtRebuiltIso.Text.Length == 0))
         {
             string messageStart = "Please select";
             string messageIso = "an ISO image to convert";
             string messageGOD = "a destination folder to store the GOD container in";
             string messageRebuild = "a destination folder to store the " + (cbSaveRebuilt.Checked ? "" : "temporary ") + "rebuilt ISO image in";
 
-            if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            if (txtISO.Text.Length == 0 && txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 1 && txtRebuiltIso.Text.Length == 0))
             {
                 MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageGOD + "\n- " + messageRebuild);
                 return false;
@@ -839,12 +869,12 @@ public class AddISO : Form
                 MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageGOD);
                 return false;
             }
-            if (txtISO.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            if (txtISO.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 1 && txtRebuiltIso.Text.Length == 0))
             {
                 MessageBox.Show(messageStart + ":\n- " + messageIso + "\n- " + messageRebuild);
                 return false;
             }
-            if (txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            if (txtDest.Text.Length == 0 && (cmbPaddingMode.SelectedIndex > 1 && txtRebuiltIso.Text.Length == 0))
             {
                 MessageBox.Show(messageStart + ":\n- " + messageGOD + "\n- " + messageRebuild);
                 return false;
@@ -859,7 +889,7 @@ public class AddISO : Form
                 MessageBox.Show(messageStart + " " + messageGOD);
                 return false;
             }
-            if ((cmbPaddingMode.SelectedIndex > 0 && txtRebuiltIso.Text.Length == 0))
+            if ((cmbPaddingMode.SelectedIndex > 1 && txtRebuiltIso.Text.Length == 0))
             {
                 MessageBox.Show(messageStart + " " + messageRebuild);
                 return false;
@@ -885,7 +915,7 @@ public class AddISO : Form
             MessageBox.Show("The name of the game is currently not automatically detected.\n\nPlease enter this manually in the Name field above.");
             return false;
         }
-        if (cmbPaddingMode.SelectedIndex > 0)
+        if (cmbPaddingMode.SelectedIndex > 1)
         {
             if (!cbSaveRebuilt.Checked && (bool)Properties.Settings.Default["RebuiltCheck"])
             {
@@ -1042,7 +1072,7 @@ public class AddISO : Form
 
     private void cbSaveRebuilt_CheckedChanged(object sender, EventArgs e)
     {
-        if (!(bool)Properties.Settings.Default["AlwaysSave"] || (cmbPaddingMode.SelectedIndex == 0))
+        if (!(bool)Properties.Settings.Default["AlwaysSave"] || (cmbPaddingMode.SelectedIndex < 2))
         {
             cbSaveRebuilt.Checked = false;
             cbSaveRebuilt.Enabled = false;
@@ -1054,13 +1084,13 @@ public class AddISO : Form
 
     private void cmbPaddingMode_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (cmbPaddingMode.SelectedIndex == 0)
+        if (cmbPaddingMode.SelectedIndex < 2)
         {
-            if (!(bool)Properties.Settings.Default["AlwaysSave"])
+            /* if (!(bool)Properties.Settings.Default["AlwaysSave"])
             {
                 cbSaveRebuilt.Checked = false;
-                cbSaveRebuilt.Enabled = false;
-            }
+            }*/
+            cbSaveRebuilt.Enabled = false;
             txtRebuiltIso.Enabled = false;
             btnRebuiltBrowse.Enabled = false;
         }
@@ -1097,10 +1127,19 @@ public class AddISO : Form
         txtDiscCount.Enabled = status;
         txtPlatform.Enabled = status;
         txtExType.Enabled = status;
-        //if(!cbSaveRebuilt.Checked) cmbPaddingMode.Enabled = false;
-        //else txtExType.Enabled = status;
+        pbThumb.Enabled = status;
         cbSaveRebuilt.Enabled = status;
-        txtRebuiltIso.Enabled = status;
+        cmbPaddingMode.Enabled = status;
+        if (cmbPaddingMode.SelectedIndex < 2)
+        {
+            cbSaveRebuilt.Enabled = false;
+            txtRebuiltIso.Enabled = false;
+        }
+        else
+        {
+            cbSaveRebuilt.Enabled = status;
+            txtRebuiltIso.Enabled = status;
+        }
         btnRebuiltBrowse.Enabled = status;
     }
 }

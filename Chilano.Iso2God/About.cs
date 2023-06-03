@@ -43,19 +43,20 @@ public class About : Form
             // 
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.BackColor = System.Drawing.Color.White;
-            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(334, 8);
+            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(306, 8);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(122, 16);
+            this.lblVersion.Size = new System.Drawing.Size(165, 16);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "label1";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             // 
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(379, 253);
+            this.btnClose.Location = new System.Drawing.Point(380, 255);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 25);
             this.btnClose.TabIndex = 0;
@@ -66,9 +67,9 @@ public class About : Form
             // label1
             // 
             this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(12, 106);
+            this.label1.Location = new System.Drawing.Point(10, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(440, 138);
+            this.label1.Size = new System.Drawing.Size(446, 138);
             this.label1.TabIndex = 4;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -77,22 +78,21 @@ public class About : Form
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Location = new System.Drawing.Point(-14, -1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(492, 92);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 244);
+            this.label2.Location = new System.Drawing.Point(10, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(363, 35);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Thanks go out to rolly poly, MikeJJ, Icekiller, Razkar, dstruktiv and threesixtyu" +
-    "ser for your help.";
+            this.label2.Text = "This update is a \"quality of life\" improvement mod from decompilation of the original v1.3.6 and is not supported by Team 360h.";
             // 
             // About
             // 
@@ -129,11 +129,26 @@ public class About : Form
 
     private void About_Load(object sender, EventArgs e)
     {
-        lblVersion.Text = "Version: " + ((Main)base.Owner).getVersion(build: true, revision: false);
+        lblVersion.Text = "v" + ((Main)base.Owner).getVersion(build: true, revision: false) + " - r4dius github";
     }
 
     private void button1_Click(object sender, EventArgs e)
     {
         Close();
+    }
+
+    private void lblVersion_Click(object sender, EventArgs e)
+    {
+        letGoToGithub();
+    }
+
+    private void pictureBox1_Click(object sender, EventArgs e)
+    {
+        letGoToGithub();
+    }
+
+    private void letGoToGithub()
+    {
+        System.Diagnostics.Process.Start("https://github.com/r4dius/Iso2God");
     }
 }

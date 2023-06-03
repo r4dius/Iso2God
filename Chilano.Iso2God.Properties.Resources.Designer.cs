@@ -163,6 +163,16 @@ internal class Chilano_Iso2God_Properties_Resources {
     /// <summary>
     ///   Looks up a localized resource of type System.Drawing.Bitmap.
     /// </summary>
+    internal static System.Drawing.Bitmap preview {
+        get {
+            object obj = ResourceManager.GetObject("preview", resourceCulture);
+            return ((System.Drawing.Bitmap)(obj));
+        }
+    }
+    
+    /// <summary>
+    ///   Looks up a localized resource of type System.Drawing.Bitmap.
+    /// </summary>
     internal static System.Drawing.Bitmap ToolbarBg {
         get {
             object obj = ResourceManager.GetObject("ToolbarBg", resourceCulture);

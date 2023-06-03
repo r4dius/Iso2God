@@ -23,6 +23,9 @@
     <Compile Update="Chilano.Common\MultiPanePage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Chilano.Common\ProgressBarEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Chilano.Iso2God.Ftp\FtpUploader.cs">
       <SubType>Component</SubType>
     </Compile>
