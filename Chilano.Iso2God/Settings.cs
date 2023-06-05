@@ -10,11 +10,11 @@ public class Settings : Form
 {
     private IContainer components;
 
-    private GroupBox groupBox2;
+    private GroupBox groupBox1;
 
     private TextBox txtOut;
 
-    private Label label3;
+    private Label label1;
 
     private Button btnOutBrowse;
 
@@ -30,9 +30,9 @@ public class Settings : Form
 
     private TextBox txtRebuild;
 
-    private Label label1;
+    private Label label2;
 
-    private GroupBox groupBox1;
+    private GroupBox groupBox2;
 
     private PictureBox pbOptions;
 
@@ -46,7 +46,7 @@ public class Settings : Form
 
     private TextBox txtFtpUser;
 
-    private Label label2;
+    private Label label5;
 
     private PictureBox pbFTP;
 
@@ -56,7 +56,7 @@ public class Settings : Form
 
     private TextBox txtFtpPass;
 
-    private Label label5;
+    private Label label6;
 
     private CheckBox cbFTP;
 
@@ -64,7 +64,7 @@ public class Settings : Form
 
     private ToolTip ttOptions;
 
-    private Label label6;
+    private Label label3;
 
     private ComboBox cmbPadding;
 
@@ -73,6 +73,469 @@ public class Settings : Form
     private Label label7;
 
     private CheckBox cbAutoBrowse;
+
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && components != null)
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+            this.components = new System.ComponentModel.Container();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRebuild = new System.Windows.Forms.Button();
+            this.txtRebuild = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pbRipping = new System.Windows.Forms.PictureBox();
+            this.btnOutBrowse = new System.Windows.Forms.Button();
+            this.txtOut = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ttFTP = new System.Windows.Forms.ToolTip(this.components);
+            this.ttOptions = new System.Windows.Forms.ToolTip(this.components);
+            this.ttSettings = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbAutoBrowse = new System.Windows.Forms.CheckBox();
+            this.cmbPadding = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbAutoRename = new System.Windows.Forms.CheckBox();
+            this.cbAlwaysSave = new System.Windows.Forms.CheckBox();
+            this.cbRebuildCheck = new System.Windows.Forms.CheckBox();
+            this.pbOptions = new System.Windows.Forms.PictureBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtFtpPort = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbFTP = new System.Windows.Forms.CheckBox();
+            this.txtFtpPass = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFtpUser = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pbFTP = new System.Windows.Forms.PictureBox();
+            this.txtFtpIp = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptions)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFTP)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.btnRebuild);
+            this.groupBox1.Controls.Add(this.txtRebuild);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.pbRipping);
+            this.groupBox1.Controls.Add(this.btnOutBrowse);
+            this.groupBox1.Controls.Add(this.txtOut);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.groupBox1.Location = new System.Drawing.Point(10, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(444, 88);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Location Settings";
+            // 
+            // btnRebuild
+            // 
+            this.btnRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRebuild.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRebuild.Location = new System.Drawing.Point(364, 50);
+            this.btnRebuild.Name = "btnRebuild";
+            this.btnRebuild.Size = new System.Drawing.Size(70, 25);
+            this.btnRebuild.TabIndex = 3;
+            this.btnRebuild.Text = "&Browse";
+            this.btnRebuild.UseVisualStyleBackColor = true;
+            this.btnRebuild.Click += new System.EventHandler(this.btnRebuild_Click);
+            // 
+            // txtRebuild
+            // 
+            this.txtRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRebuild.Enabled = false;
+            this.txtRebuild.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRebuild.Location = new System.Drawing.Point(86, 51);
+            this.txtRebuild.Name = "txtRebuild";
+            this.txtRebuild.Size = new System.Drawing.Size(271, 23);
+            this.txtRebuild.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Rebuild Path:";
+            // 
+            // pbRipping
+            // 
+            this.pbRipping.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
+            this.pbRipping.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbRipping.Location = new System.Drawing.Point(107, 0);
+            this.pbRipping.Name = "pbRipping";
+            this.pbRipping.Size = new System.Drawing.Size(14, 14);
+            this.pbRipping.TabIndex = 26;
+            this.pbRipping.TabStop = false;
+            // 
+            // btnOutBrowse
+            // 
+            this.btnOutBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOutBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOutBrowse.Location = new System.Drawing.Point(364, 19);
+            this.btnOutBrowse.Name = "btnOutBrowse";
+            this.btnOutBrowse.Size = new System.Drawing.Size(70, 25);
+            this.btnOutBrowse.TabIndex = 1;
+            this.btnOutBrowse.Text = "&Browse";
+            this.btnOutBrowse.UseVisualStyleBackColor = true;
+            this.btnOutBrowse.Click += new System.EventHandler(this.btnDestBrowse_Click);
+            // 
+            // txtOut
+            // 
+            this.txtOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOut.Enabled = false;
+            this.txtOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOut.Location = new System.Drawing.Point(86, 20);
+            this.txtOut.Name = "txtOut";
+            this.txtOut.Size = new System.Drawing.Size(271, 23);
+            this.txtOut.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Output Path:";
+            // 
+            // ttFTP
+            // 
+            this.ttFTP.AutoPopDelay = 30000;
+            this.ttFTP.InitialDelay = 100;
+            this.ttFTP.IsBalloon = true;
+            this.ttFTP.ReshowDelay = 100;
+            this.ttFTP.ShowAlways = true;
+            // 
+            // ttOptions
+            // 
+            this.ttOptions.AutoPopDelay = 30000;
+            this.ttOptions.InitialDelay = 100;
+            this.ttOptions.IsBalloon = true;
+            this.ttOptions.ReshowDelay = 100;
+            this.ttOptions.ShowAlways = true;
+            // 
+            // ttSettings
+            // 
+            this.ttSettings.AutoPopDelay = 30000;
+            this.ttSettings.InitialDelay = 100;
+            this.ttSettings.IsBalloon = true;
+            this.ttSettings.ReshowDelay = 100;
+            this.ttSettings.ShowAlways = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(299, 255);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 25);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(380, 255);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 25);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.cbAutoBrowse);
+            this.groupBox2.Controls.Add(this.cmbPadding);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.cbAutoRename);
+            this.groupBox2.Controls.Add(this.cbAlwaysSave);
+            this.groupBox2.Controls.Add(this.cbRebuildCheck);
+            this.groupBox2.Controls.Add(this.pbOptions);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.groupBox2.Location = new System.Drawing.Point(10, 97);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(216, 150);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Options";
+            // 
+            // cbAutoBrowse
+            // 
+            this.cbAutoBrowse.AutoSize = true;
+            this.cbAutoBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAutoBrowse.Location = new System.Drawing.Point(9, 87);
+            this.cbAutoBrowse.Name = "cbAutoBrowse";
+            this.cbAutoBrowse.Size = new System.Drawing.Size(186, 17);
+            this.cbAutoBrowse.TabIndex = 7;
+            this.cbAutoBrowse.Text = "Auto-browse when adding ISO";
+            this.cbAutoBrowse.UseVisualStyleBackColor = true;
+            // 
+            // cmbPadding
+            // 
+            this.cmbPadding.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbPadding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPadding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPadding.FormattingEnabled = true;
+            this.cmbPadding.ItemHeight = 15;
+            this.cmbPadding.Items.AddRange(new object[] {
+            "Untouched",
+            "Partial",
+            "Remove All"});
+            this.cmbPadding.Location = new System.Drawing.Point(65, 113);
+            this.cmbPadding.Name = "cmbPadding";
+            this.cmbPadding.Size = new System.Drawing.Size(140, 23);
+            this.cmbPadding.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 118);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 30;
+            this.label3.Text = "Padding:";
+            // 
+            // cbAutoRename
+            // 
+            this.cbAutoRename.AutoSize = true;
+            this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAutoRename.Location = new System.Drawing.Point(9, 65);
+            this.cbAutoRename.Name = "cbAutoRename";
+            this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
+            this.cbAutoRename.TabIndex = 6;
+            this.cbAutoRename.Text = "Auto-rename multi-disc games";
+            this.cbAutoRename.UseVisualStyleBackColor = true;
+            // 
+            // cbAlwaysSave
+            // 
+            this.cbAlwaysSave.AutoSize = true;
+            this.cbAlwaysSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAlwaysSave.Location = new System.Drawing.Point(9, 21);
+            this.cbAlwaysSave.Name = "cbAlwaysSave";
+            this.cbAlwaysSave.Size = new System.Drawing.Size(144, 17);
+            this.cbAlwaysSave.TabIndex = 4;
+            this.cbAlwaysSave.Text = "Always save rebuilt ISO";
+            this.cbAlwaysSave.UseVisualStyleBackColor = true;
+            // 
+            // cbRebuildCheck
+            // 
+            this.cbRebuildCheck.AutoSize = true;
+            this.cbRebuildCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRebuildCheck.Location = new System.Drawing.Point(9, 43);
+            this.cbRebuildCheck.Name = "cbRebuildCheck";
+            this.cbRebuildCheck.Size = new System.Drawing.Size(199, 17);
+            this.cbRebuildCheck.TabIndex = 5;
+            this.cbRebuildCheck.Text = "Ask if rebuilt ISO should be saved";
+            this.cbRebuildCheck.UseVisualStyleBackColor = true;
+            // 
+            // pbOptions
+            // 
+            this.pbOptions.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
+            this.pbOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbOptions.Location = new System.Drawing.Point(58, 0);
+            this.pbOptions.Name = "pbOptions";
+            this.pbOptions.Size = new System.Drawing.Size(14, 14);
+            this.pbOptions.TabIndex = 26;
+            this.pbOptions.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.txtFtpPort);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.cbFTP);
+            this.groupBox3.Controls.Add(this.txtFtpPass);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.txtFtpUser);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.pbFTP);
+            this.groupBox3.Controls.Add(this.txtFtpIp);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.groupBox3.Location = new System.Drawing.Point(238, 97);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(216, 150);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "FTP Transfer";
+            // 
+            // txtFtpPort
+            // 
+            this.txtFtpPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFtpPort.Enabled = false;
+            this.txtFtpPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
+            this.txtFtpPort.Name = "txtFtpPort";
+            this.txtFtpPort.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpPort.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 118);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Port:";
+            // 
+            // cbFTP
+            // 
+            this.cbFTP.AutoSize = true;
+            this.cbFTP.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFTP.Location = new System.Drawing.Point(149, -1);
+            this.cbFTP.Margin = new System.Windows.Forms.Padding(0);
+            this.cbFTP.Name = "cbFTP";
+            this.cbFTP.Size = new System.Drawing.Size(61, 17);
+            this.cbFTP.TabIndex = 9;
+            this.cbFTP.Text = "Enable";
+            this.cbFTP.UseVisualStyleBackColor = true;
+            this.cbFTP.CheckedChanged += new System.EventHandler(this.cbFTP_CheckedChanged);
+            // 
+            // txtFtpPass
+            // 
+            this.txtFtpPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFtpPass.Enabled = false;
+            this.txtFtpPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
+            this.txtFtpPass.Name = "txtFtpPass";
+            this.txtFtpPass.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpPass.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 87);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Password:";
+            // 
+            // txtFtpUser
+            // 
+            this.txtFtpUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFtpUser.Enabled = false;
+            this.txtFtpUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
+            this.txtFtpUser.Name = "txtFtpUser";
+            this.txtFtpUser.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpUser.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Username:";
+            // 
+            // pbFTP
+            // 
+            this.pbFTP.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
+            this.pbFTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbFTP.Location = new System.Drawing.Point(80, 0);
+            this.pbFTP.Name = "pbFTP";
+            this.pbFTP.Size = new System.Drawing.Size(14, 14);
+            this.pbFTP.TabIndex = 26;
+            this.pbFTP.TabStop = false;
+            // 
+            // txtFtpIp
+            // 
+            this.txtFtpIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFtpIp.Enabled = false;
+            this.txtFtpIp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
+            this.txtFtpIp.Name = "txtFtpIp";
+            this.txtFtpIp.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpIp.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "IP Address:";
+            // 
+            // Settings
+            // 
+            this.AcceptButton = this.btnSave;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(464, 289);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "Settings";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Iso2God Settings";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOptions)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFTP)).EndInit();
+            this.ResumeLayout(false);
+
+    }
 
     public Settings()
     {
@@ -121,10 +584,6 @@ public class Settings : Form
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
         {
             txtOut.Text = folderBrowserDialog.SelectedPath;
-            if (!txtOut.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                txtOut.Text += Path.DirectorySeparatorChar;
-            }
         }
     }
 
@@ -135,6 +594,14 @@ public class Settings : Form
 
     private void btnSave_Click(object sender, EventArgs e)
     {
+        if (!txtOut.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        {
+            txtOut.Text += Path.DirectorySeparatorChar;
+        }
+        if (!txtRebuild.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        {
+            txtRebuild.Text += Path.DirectorySeparatorChar;
+        }
         Properties.Settings.Default["OutputPath"] = txtOut.Text;
         Properties.Settings.Default["RebuildPath"] = txtRebuild.Text;
         Properties.Settings.Default["RebuiltCheck"] = cbRebuildCheck.Checked;
@@ -161,10 +628,6 @@ public class Settings : Form
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
         {
             txtRebuild.Text = folderBrowserDialog.SelectedPath;
-            if (!txtRebuild.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                txtRebuild.Text += Path.DirectorySeparatorChar;
-            }
         }
     }
 
@@ -174,462 +637,5 @@ public class Settings : Form
         txtFtpUser.Enabled = cbFTP.Checked;
         txtFtpPass.Enabled = cbFTP.Checked;
         txtFtpPort.Enabled = cbFTP.Checked;
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing && components != null)
-        {
-            components.Dispose();
-        }
-        base.Dispose(disposing);
-    }
-
-    private void InitializeComponent()
-    {
-            this.components = new System.ComponentModel.Container();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnRebuild = new System.Windows.Forms.Button();
-            this.txtRebuild = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pbRipping = new System.Windows.Forms.PictureBox();
-            this.btnOutBrowse = new System.Windows.Forms.Button();
-            this.txtOut = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.ttFTP = new System.Windows.Forms.ToolTip(this.components);
-            this.ttOptions = new System.Windows.Forms.ToolTip(this.components);
-            this.ttSettings = new System.Windows.Forms.ToolTip(this.components);
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbAutoBrowse = new System.Windows.Forms.CheckBox();
-            this.cmbPadding = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbAutoRename = new System.Windows.Forms.CheckBox();
-            this.cbAlwaysSave = new System.Windows.Forms.CheckBox();
-            this.cbRebuildCheck = new System.Windows.Forms.CheckBox();
-            this.pbOptions = new System.Windows.Forms.PictureBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtFtpPort = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cbFTP = new System.Windows.Forms.CheckBox();
-            this.txtFtpPass = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtFtpUser = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pbFTP = new System.Windows.Forms.PictureBox();
-            this.txtFtpIp = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptions)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFTP)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox2.Controls.Add(this.btnRebuild);
-            this.groupBox2.Controls.Add(this.txtRebuild);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.pbRipping);
-            this.groupBox2.Controls.Add(this.btnOutBrowse);
-            this.groupBox2.Controls.Add(this.txtOut);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(10, 5);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(444, 88);
-            this.groupBox2.TabIndex = 22;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Location Settings";
-            // 
-            // btnRebuild
-            // 
-            this.btnRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRebuild.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRebuild.Location = new System.Drawing.Point(364, 50);
-            this.btnRebuild.Name = "btnRebuild";
-            this.btnRebuild.Size = new System.Drawing.Size(70, 25);
-            this.btnRebuild.TabIndex = 28;
-            this.btnRebuild.Text = "&Browse";
-            this.btnRebuild.UseVisualStyleBackColor = true;
-            this.btnRebuild.Click += new System.EventHandler(this.btnRebuild_Click);
-            // 
-            // txtRebuild
-            // 
-            this.txtRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRebuild.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRebuild.Location = new System.Drawing.Point(86, 51);
-            this.txtRebuild.Name = "txtRebuild";
-            this.txtRebuild.Size = new System.Drawing.Size(271, 23);
-            this.txtRebuild.TabIndex = 27;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Rebuild Path:";
-            // 
-            // pbRipping
-            // 
-            this.pbRipping.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
-            this.pbRipping.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbRipping.Location = new System.Drawing.Point(107, 0);
-            this.pbRipping.Name = "pbRipping";
-            this.pbRipping.Size = new System.Drawing.Size(14, 14);
-            this.pbRipping.TabIndex = 26;
-            this.pbRipping.TabStop = false;
-            // 
-            // btnOutBrowse
-            // 
-            this.btnOutBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOutBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOutBrowse.Location = new System.Drawing.Point(364, 19);
-            this.btnOutBrowse.Name = "btnOutBrowse";
-            this.btnOutBrowse.Size = new System.Drawing.Size(70, 25);
-            this.btnOutBrowse.TabIndex = 2;
-            this.btnOutBrowse.Text = "&Browse";
-            this.btnOutBrowse.UseVisualStyleBackColor = true;
-            this.btnOutBrowse.Click += new System.EventHandler(this.btnDestBrowse_Click);
-            // 
-            // txtOut
-            // 
-            this.txtOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOut.Location = new System.Drawing.Point(86, 20);
-            this.txtOut.Name = "txtOut";
-            this.txtOut.Size = new System.Drawing.Size(271, 23);
-            this.txtOut.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Output Path:";
-            // 
-            // ttFTP
-            // 
-            this.ttFTP.AutoPopDelay = 30000;
-            this.ttFTP.InitialDelay = 100;
-            this.ttFTP.IsBalloon = true;
-            this.ttFTP.ReshowDelay = 100;
-            this.ttFTP.ShowAlways = true;
-            // 
-            // ttOptions
-            // 
-            this.ttOptions.AutoPopDelay = 30000;
-            this.ttOptions.InitialDelay = 100;
-            this.ttOptions.IsBalloon = true;
-            this.ttOptions.ReshowDelay = 100;
-            this.ttOptions.ShowAlways = true;
-            // 
-            // ttSettings
-            // 
-            this.ttSettings.AutoPopDelay = 30000;
-            this.ttSettings.InitialDelay = 100;
-            this.ttSettings.IsBalloon = true;
-            this.ttSettings.ReshowDelay = 100;
-            this.ttSettings.ShowAlways = true;
-        // 
-        // btnSave
-        // 
-        this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(299, 255);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 25);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(380, 255);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.cbAutoBrowse);
-            this.groupBox1.Controls.Add(this.cmbPadding);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.cbAutoRename);
-            this.groupBox1.Controls.Add(this.cbAlwaysSave);
-            this.groupBox1.Controls.Add(this.cbRebuildCheck);
-            this.groupBox1.Controls.Add(this.pbOptions);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(10, 97);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 150);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Options";
-            // 
-            // cbAutoBrowse
-            // 
-            this.cbAutoBrowse.AutoSize = true;
-            this.cbAutoBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAutoBrowse.Location = new System.Drawing.Point(9, 87);
-            this.cbAutoBrowse.Name = "cbAutoBrowse";
-            this.cbAutoBrowse.Size = new System.Drawing.Size(186, 17);
-            this.cbAutoBrowse.TabIndex = 33;
-            this.cbAutoBrowse.Text = "Auto-browse when adding ISO";
-            this.cbAutoBrowse.UseVisualStyleBackColor = true;
-            // 
-            // cmbPadding
-            // 
-            this.cmbPadding.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbPadding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPadding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbPadding.FormattingEnabled = true;
-            this.cmbPadding.ItemHeight = 15;
-            this.cmbPadding.Items.AddRange(new object[] {
-            "Untouched",
-            "Partial",
-            "Remove All"});
-            this.cmbPadding.Location = new System.Drawing.Point(65, 113);
-            this.cmbPadding.Name = "cmbPadding";
-            this.cmbPadding.Size = new System.Drawing.Size(140, 23);
-            this.cmbPadding.TabIndex = 32;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 118);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 13);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Padding:";
-            // 
-            // cbAutoRename
-            // 
-            this.cbAutoRename.AutoSize = true;
-            this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAutoRename.Location = new System.Drawing.Point(9, 65);
-            this.cbAutoRename.Name = "cbAutoRename";
-            this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
-            this.cbAutoRename.TabIndex = 29;
-            this.cbAutoRename.Text = "Auto-rename multi-disc games";
-            this.cbAutoRename.UseVisualStyleBackColor = true;
-            // 
-            // cbAlwaysSave
-            // 
-            this.cbAlwaysSave.AutoSize = true;
-            this.cbAlwaysSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAlwaysSave.Location = new System.Drawing.Point(9, 21);
-            this.cbAlwaysSave.Name = "cbAlwaysSave";
-            this.cbAlwaysSave.Size = new System.Drawing.Size(144, 17);
-            this.cbAlwaysSave.TabIndex = 28;
-            this.cbAlwaysSave.Text = "Always save rebuilt ISO";
-            this.cbAlwaysSave.UseVisualStyleBackColor = true;
-            // 
-            // cbRebuildCheck
-            // 
-            this.cbRebuildCheck.AutoSize = true;
-            this.cbRebuildCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbRebuildCheck.Location = new System.Drawing.Point(9, 43);
-            this.cbRebuildCheck.Name = "cbRebuildCheck";
-            this.cbRebuildCheck.Size = new System.Drawing.Size(199, 17);
-            this.cbRebuildCheck.TabIndex = 27;
-            this.cbRebuildCheck.Text = "Ask if rebuilt ISO should be saved";
-            this.cbRebuildCheck.UseVisualStyleBackColor = true;
-            // 
-            // pbOptions
-            // 
-            this.pbOptions.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
-            this.pbOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbOptions.Location = new System.Drawing.Point(58, 0);
-            this.pbOptions.Name = "pbOptions";
-            this.pbOptions.Size = new System.Drawing.Size(14, 14);
-            this.pbOptions.TabIndex = 26;
-            this.pbOptions.TabStop = false;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox3.Controls.Add(this.txtFtpPort);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.cbFTP);
-            this.groupBox3.Controls.Add(this.txtFtpPass);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtFtpUser);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.pbFTP);
-            this.groupBox3.Controls.Add(this.txtFtpIp);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(238, 97);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(216, 150);
-            this.groupBox3.TabIndex = 31;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "FTP Transfer";
-            // 
-            // txtFtpPort
-            // 
-            this.txtFtpPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFtpPort.Enabled = false;
-            this.txtFtpPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
-            this.txtFtpPort.Name = "txtFtpPort";
-            this.txtFtpPort.Size = new System.Drawing.Size(130, 23);
-            this.txtFtpPort.TabIndex = 33;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 118);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "Port:";
-            // 
-            // cbFTP
-            // 
-            this.cbFTP.AutoSize = true;
-            this.cbFTP.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbFTP.Location = new System.Drawing.Point(149, -1);
-            this.cbFTP.Margin = new System.Windows.Forms.Padding(0);
-            this.cbFTP.Name = "cbFTP";
-            this.cbFTP.Size = new System.Drawing.Size(61, 17);
-            this.cbFTP.TabIndex = 30;
-            this.cbFTP.Text = "Enable";
-            this.cbFTP.UseVisualStyleBackColor = true;
-            this.cbFTP.CheckedChanged += new System.EventHandler(this.cbFTP_CheckedChanged);
-            // 
-            // txtFtpPass
-            // 
-            this.txtFtpPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFtpPass.Enabled = false;
-            this.txtFtpPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
-            this.txtFtpPass.Name = "txtFtpPass";
-            this.txtFtpPass.Size = new System.Drawing.Size(130, 23);
-            this.txtFtpPass.TabIndex = 30;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 87);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 13);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "Password:";
-            // 
-            // txtFtpUser
-            // 
-            this.txtFtpUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFtpUser.Enabled = false;
-            this.txtFtpUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
-            this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(130, 23);
-            this.txtFtpUser.TabIndex = 27;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 29;
-            this.label2.Text = "Username:";
-            // 
-            // pbFTP
-            // 
-            this.pbFTP.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
-            this.pbFTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbFTP.Location = new System.Drawing.Point(80, 0);
-            this.pbFTP.Name = "pbFTP";
-            this.pbFTP.Size = new System.Drawing.Size(14, 14);
-            this.pbFTP.TabIndex = 26;
-            this.pbFTP.TabStop = false;
-            // 
-            // txtFtpIp
-            // 
-            this.txtFtpIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFtpIp.Enabled = false;
-            this.txtFtpIp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
-            this.txtFtpIp.Name = "txtFtpIp";
-            this.txtFtpIp.Size = new System.Drawing.Size(130, 23);
-            this.txtFtpIp.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "IP Address:";
-            // 
-            // Settings
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 289);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.groupBox2);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Settings";
-            this.Padding = new System.Windows.Forms.Padding(5);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Iso2God Settings";
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbOptions)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFTP)).EndInit();
-            this.ResumeLayout(false);
-
     }
 }

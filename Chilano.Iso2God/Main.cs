@@ -93,7 +93,6 @@ public class Main : Form
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.cmQueue = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -315,21 +314,21 @@ public class Main : Form
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // selectedToolStripMenuItem
             // 
             this.selectedToolStripMenuItem.Name = "selectedToolStripMenuItem";
-            this.selectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.selectedToolStripMenuItem.Text = "Selected";
             this.selectedToolStripMenuItem.Click += new System.EventHandler(this.selectedToolStripMenuItem_Click);
             // 
             // completedToolStripMenuItem
             // 
             this.completedToolStripMenuItem.Name = "completedToolStripMenuItem";
-            this.completedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.completedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.completedToolStripMenuItem.Text = "Completed";
             this.completedToolStripMenuItem.Click += new System.EventHandler(this.completedToolStripMenuItem_Click);
             // 
@@ -678,7 +677,8 @@ public class Main : Form
         listViewItem.SubItems.Add(num + " GB");
         listViewItem.SubItems.Add(Entry.Padding.Type.ToString());
         listViewItem.SubItems.Add("");
-        listViewItem.SubItems.Add(Entry.Path);
+        if(Entry.Message.Length == 0)  listViewItem.SubItems.Add(Entry.Path);
+        else listViewItem.SubItems.Add(Entry.Message);
         listViewItem.Tag = Entry;
         listView1.Items.Add(listViewItem);
         listView1.AddEmbeddedControl(new ProgressBar(), 5, listViewItem.Index);

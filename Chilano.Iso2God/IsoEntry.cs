@@ -10,6 +10,8 @@ public struct IsoEntry
 
     public string TitleName;
 
+    public string Message;
+
     public long Size;
 
     public uint Parts;
@@ -22,7 +24,7 @@ public struct IsoEntry
 
     public IsoEntryPadding Padding;
 
-    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryPadding Padding)
+    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryPadding Padding, string Message)
     {
         this.Platform = Platform;
         this.Path = Path;
@@ -34,5 +36,6 @@ public struct IsoEntry
         Status = IsoEntryStatus.Idle;
         this.Thumb = Thumb;
         this.Padding = Padding;
+        this.Message = Message;
     }
 }

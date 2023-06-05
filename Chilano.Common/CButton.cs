@@ -14,7 +14,7 @@ public class CButton : Button
 
     private bool isOver = false;
 
-    private bool isDown = false;
+    private bool isDown;
 
     public CButton()
     {

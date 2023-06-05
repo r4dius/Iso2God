@@ -7,8 +7,6 @@ namespace Chilano.Iso2God;
 
 public class About : Form
 {
-    private IContainer components;
-
     private PictureBox pictureBox1;
 
     private Label lblVersion;
@@ -21,10 +19,6 @@ public class About : Form
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing && components != null)
-        {
-            components.Dispose();
-        }
         base.Dispose(disposing);
     }
 

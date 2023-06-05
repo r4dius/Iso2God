@@ -22,9 +22,6 @@ namespace Chilano.Common
         //Property to set to decide whether to print a % or Text
         public ProgressBarDisplayText DisplayStyle { get; set; }
 
-        //Property to hold the custom text
-        public String Text { get; set; }
-
         public ProgressBarEx()
         {
             // Modify the ControlStyles flags
