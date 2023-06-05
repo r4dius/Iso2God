@@ -218,10 +218,10 @@ public class AddISO : Form
             // 
             this.txtISO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtISO.Enabled = false;
             this.txtISO.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtISO.Location = new System.Drawing.Point(87, 20);
             this.txtISO.Name = "txtISO";
+            this.txtISO.ReadOnly = true;
             this.txtISO.Size = new System.Drawing.Size(270, 23);
             this.txtISO.TabIndex = 0;
             // 
@@ -261,10 +261,10 @@ public class AddISO : Form
             // 
             this.txtDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDest.Enabled = false;
             this.txtDest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDest.Location = new System.Drawing.Point(87, 51);
             this.txtDest.Name = "txtDest";
+            this.txtDest.ReadOnly = true;
             this.txtDest.Size = new System.Drawing.Size(270, 23);
             this.txtDest.TabIndex = 2;
             // 
@@ -603,6 +603,7 @@ public class AddISO : Form
             this.txtRebuiltIso.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRebuiltIso.Location = new System.Drawing.Point(87, 51);
             this.txtRebuiltIso.Name = "txtRebuiltIso";
+            this.txtRebuiltIso.ReadOnly = true;
             this.txtRebuiltIso.Size = new System.Drawing.Size(270, 23);
             this.txtRebuiltIso.TabIndex = 13;
             // 
@@ -1030,6 +1031,7 @@ public class AddISO : Form
     {
         FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+        folderBrowserDialog.SelectedPath = txtDest.Text;
         folderBrowserDialog.ShowNewFolderButton = true;
         folderBrowserDialog.Description = "Choose where to save the GOD Package to:";
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
@@ -1126,6 +1128,7 @@ public class AddISO : Form
     {
         FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+        folderBrowserDialog.SelectedPath = txtRebuiltIso.Text;
         folderBrowserDialog.ShowNewFolderButton = true;
         folderBrowserDialog.Description = "Choose where to save the rebuilt ISO to:";
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)

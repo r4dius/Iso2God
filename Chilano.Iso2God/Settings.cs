@@ -164,10 +164,10 @@ public class Settings : Form
             // 
             this.txtRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRebuild.Enabled = false;
             this.txtRebuild.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRebuild.Location = new System.Drawing.Point(86, 51);
             this.txtRebuild.Name = "txtRebuild";
+            this.txtRebuild.ReadOnly = true;
             this.txtRebuild.Size = new System.Drawing.Size(271, 23);
             this.txtRebuild.TabIndex = 2;
             // 
@@ -207,10 +207,10 @@ public class Settings : Form
             // 
             this.txtOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOut.Enabled = false;
             this.txtOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOut.Location = new System.Drawing.Point(86, 20);
             this.txtOut.Name = "txtOut";
+            this.txtOut.ReadOnly = true;
             this.txtOut.Size = new System.Drawing.Size(271, 23);
             this.txtOut.TabIndex = 0;
             // 
@@ -579,6 +579,7 @@ public class Settings : Form
     {
         FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+        folderBrowserDialog.SelectedPath = txtOut.Text;
         folderBrowserDialog.ShowNewFolderButton = true;
         folderBrowserDialog.Description = "Choose where to store your GOD containers:";
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
@@ -594,11 +595,11 @@ public class Settings : Form
 
     private void btnSave_Click(object sender, EventArgs e)
     {
-        if (!txtOut.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        if (txtOut.Text.Length != 0 && !txtOut.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
             txtOut.Text += Path.DirectorySeparatorChar;
         }
-        if (!txtRebuild.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        if (txtRebuild.Text.Length != 0 && !txtRebuild.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
             txtRebuild.Text += Path.DirectorySeparatorChar;
         }
@@ -623,6 +624,7 @@ public class Settings : Form
     {
         FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+        folderBrowserDialog.SelectedPath = txtRebuild.Text;
         folderBrowserDialog.ShowNewFolderButton = true;
         folderBrowserDialog.Description = "Choose where to store rebuilt ISO images:";
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
