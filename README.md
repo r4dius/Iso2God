@@ -10,5 +10,5 @@ Todo :
  - fix path missing "/" is entered manually in settings (?)
  - fix multi file progress bar stuff
 
-<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/13e65da7-16c7-458f-890e-ee23b0f45eb3"></p>
-<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/9cdc0197-2dc6-4b63-bb8e-536d956f7971"></p>
+<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/d30a0d77-4bc5-4275-8e9c-9a97d5bc4f80"></p>
+<p align="center"><img src="https://github.com/r4dius/Iso2God/assets/177153/cba69c74-c5a3-4a7a-a313-7a7c623876ec"></p>
