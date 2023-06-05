@@ -223,6 +223,21 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("False")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool Maximized
+    {
+        get
+        {
+            return (bool)this["Maximized"];
+        }
+        set
+        {
+            this["Maximized"] = value;
+        }
+    }
+
     [DefaultSettingValue("190,65,35,50,55,100,270")]
     [DebuggerNonUserCode]
     [UserScopedSetting]

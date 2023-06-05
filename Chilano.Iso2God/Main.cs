@@ -389,11 +389,11 @@ public class Main : Form
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = global::Chilano_Iso2God_Properties_Resources.AppIcon;
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Iso2God";
+            this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.cmQueue.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -431,6 +431,10 @@ public class Main : Form
         Width = (int)Chilano.Iso2God.Properties.Settings.Default["Width"];
         Height = (int)Chilano.Iso2God.Properties.Settings.Default["Height"];
         CenterToScreen();
+        if ((bool)Chilano.Iso2God.Properties.Settings.Default["Maximized"])
+        {
+            WindowState = FormWindowState.Maximized;
+        }
         string[] ColumnsWidth = Chilano.Iso2God.Properties.Settings.Default["ColumnsWidth"].ToString().Split(',');
         for (int i = 0; i < ColumnsWidth.Length; i++)
         {
@@ -475,9 +479,14 @@ public class Main : Form
                 File.Delete(path);
             }
         }
-
-        Chilano.Iso2God.Properties.Settings.Default["Width"] = Width;
-        Chilano.Iso2God.Properties.Settings.Default["Height"] = Height;
+        if (WindowState == FormWindowState.Maximized)
+        {
+            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = true;
+        }
+        else
+        {
+            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = false;
+        }
         Chilano.Iso2God.Properties.Settings.Default.Save();
 
         List<string> ColumnsWidth = new List<string>();
@@ -500,6 +509,11 @@ public class Main : Form
         addISO.ShowDialog(this);
     }
 
+    private void toolStripButton2_Click(object sender, EventArgs e)
+    {
+        jobCheck.Enabled = true;
+    }
+
     private void toolStripButton3_Click(object sender, EventArgs e)
     {
         using Settings settings = new Settings();
@@ -510,11 +524,6 @@ public class Main : Form
     {
         using About about = new About();
         about.ShowDialog(this);
-    }
-
-    private void toolStripButton2_Click(object sender, EventArgs e)
-    {
-        jobCheck.Enabled = true;
     }
 
     private void ftpCheck_Tick(object sender, EventArgs e)
@@ -861,5 +870,11 @@ public class Main : Form
                 ftpCheck.Enabled = true;
             }
         }
+    }
+
+    private void Main_ResizeEnd(object sender, EventArgs e)
+    {
+        Chilano.Iso2God.Properties.Settings.Default["Width"] = Width;
+        Chilano.Iso2God.Properties.Settings.Default["Height"] = Height;
     }
 }
