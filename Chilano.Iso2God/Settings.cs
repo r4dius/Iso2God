@@ -71,7 +71,7 @@ public class Settings : Form
     private TextBox txtFtpPort;
 
     private Label label7;
-
+    private CheckBox cbSaveGod;
     private CheckBox cbAutoBrowse;
 
 
@@ -119,6 +119,7 @@ public class Settings : Form
             this.pbFTP = new System.Windows.Forms.PictureBox();
             this.txtFtpIp = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.cbSaveGod = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -276,6 +277,7 @@ public class Settings : Form
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.cbSaveGod);
             this.groupBox2.Controls.Add(this.cbAutoBrowse);
             this.groupBox2.Controls.Add(this.cmbPadding);
             this.groupBox2.Controls.Add(this.label3);
@@ -287,7 +289,7 @@ public class Settings : Form
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox2.Location = new System.Drawing.Point(10, 97);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(216, 150);
+            this.groupBox2.Size = new System.Drawing.Size(216, 166);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
@@ -296,7 +298,7 @@ public class Settings : Form
             // 
             this.cbAutoBrowse.AutoSize = true;
             this.cbAutoBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAutoBrowse.Location = new System.Drawing.Point(9, 87);
+            this.cbAutoBrowse.Location = new System.Drawing.Point(9, 109);
             this.cbAutoBrowse.Name = "cbAutoBrowse";
             this.cbAutoBrowse.Size = new System.Drawing.Size(186, 17);
             this.cbAutoBrowse.TabIndex = 7;
@@ -315,7 +317,7 @@ public class Settings : Form
             "Untouched",
             "Partial",
             "Remove All"});
-            this.cmbPadding.Location = new System.Drawing.Point(65, 113);
+            this.cmbPadding.Location = new System.Drawing.Point(65, 133);
             this.cmbPadding.Name = "cmbPadding";
             this.cmbPadding.Size = new System.Drawing.Size(140, 23);
             this.cmbPadding.TabIndex = 8;
@@ -324,7 +326,7 @@ public class Settings : Form
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 118);
+            this.label3.Location = new System.Drawing.Point(6, 138);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 30;
@@ -334,7 +336,7 @@ public class Settings : Form
             // 
             this.cbAutoRename.AutoSize = true;
             this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAutoRename.Location = new System.Drawing.Point(9, 65);
+            this.cbAutoRename.Location = new System.Drawing.Point(9, 87);
             this.cbAutoRename.Name = "cbAutoRename";
             this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
             this.cbAutoRename.TabIndex = 6;
@@ -504,6 +506,17 @@ public class Settings : Form
             this.label4.TabIndex = 0;
             this.label4.Text = "IP Address:";
             // 
+            // cbSaveGod
+            // 
+            this.cbSaveGod.AutoSize = true;
+            this.cbSaveGod.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSaveGod.Location = new System.Drawing.Point(9, 64);
+            this.cbSaveGod.Name = "cbSaveGod";
+            this.cbSaveGod.Size = new System.Drawing.Size(205, 17);
+            this.cbSaveGod.TabIndex = 31;
+            this.cbSaveGod.Text = "Always save GOD files after upload";
+            this.cbSaveGod.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.btnSave;
@@ -560,6 +573,7 @@ public class Settings : Form
             txtRebuild.Text = Properties.Settings.Default["RebuildPath"].ToString();
             cbRebuildCheck.Checked = (bool)Properties.Settings.Default["RebuiltCheck"];
             cbAlwaysSave.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
+            cbSaveGod.Checked = (bool)Properties.Settings.Default["SaveGod"];
             cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
             cbAutoBrowse.Checked = (bool)Properties.Settings.Default["AutoBrowse"];
             cbFTP.Checked = (bool)Properties.Settings.Default["FtpUpload"];
@@ -607,6 +621,7 @@ public class Settings : Form
         Properties.Settings.Default["RebuildPath"] = txtRebuild.Text;
         Properties.Settings.Default["RebuiltCheck"] = cbRebuildCheck.Checked;
         Properties.Settings.Default["AlwaysSave"] = cbAlwaysSave.Checked;
+        Properties.Settings.Default["SaveGod"] = cbSaveGod.Checked;
         Properties.Settings.Default["AutoRenameMultiDisc"] = cbAutoRename.Checked;
         Properties.Settings.Default["AutoBrowse"] = cbAutoBrowse.Checked;
         Properties.Settings.Default["FtpUpload"] = cbFTP.Checked;

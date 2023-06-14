@@ -73,6 +73,21 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("True")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool SaveGod
+    {
+        get
+        {
+            return (bool)this["SaveGod"];
+        }
+        set
+        {
+            this["SaveGod"] = value;
+        }
+    }
+
     [DefaultSettingValue("")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
@@ -133,21 +148,6 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    [DefaultSettingValue("True")]
-    public bool AutoRenameMultiDisc
-    {
-        get
-        {
-            return (bool)this["AutoRenameMultiDisc"];
-        }
-        set
-        {
-            this["AutoRenameMultiDisc"] = value;
-        }
-    }
-
     [DefaultSettingValue("False")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
@@ -160,6 +160,21 @@ internal sealed class Settings : ApplicationSettingsBase
         set
         {
             this["FtpUpload"] = value;
+        }
+    }
+
+    [UserScopedSetting]
+    [DebuggerNonUserCode]
+    [DefaultSettingValue("True")]
+    public bool AutoRenameMultiDisc
+    {
+        get
+        {
+            return (bool)this["AutoRenameMultiDisc"];
+        }
+        set
+        {
+            this["AutoRenameMultiDisc"] = value;
         }
     }
 

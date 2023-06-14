@@ -106,6 +106,7 @@ public class AddISO : Form
     private Iso2God iso2God1;
     private Ftp.FtpUploader ftpUploader1;
     private ProgressBarEx progressBarMulti;
+    private CheckBox cbSaveGod;
     private int entryIndex;
 
     protected override void Dispose(bool disposing)
@@ -162,6 +163,7 @@ public class AddISO : Form
             this.progressBarMulti = new Chilano.Common.ProgressBarEx();
             this.iso2God1 = new Chilano.Iso2God.Iso2God();
             this.ftpUploader1 = new Chilano.Iso2God.Ftp.FtpUploader();
+            this.cbSaveGod = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -517,6 +519,7 @@ public class AddISO : Form
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.cbSaveGod);
             this.groupBox3.Controls.Add(this.cbSaveRebuilt);
             this.groupBox3.Controls.Add(this.btnRebuiltBrowse);
             this.groupBox3.Controls.Add(this.cmbPaddingMode);
@@ -538,11 +541,11 @@ public class AddISO : Form
             this.cbSaveRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSaveRebuilt.AutoSize = true;
             this.cbSaveRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbSaveRebuilt.Location = new System.Drawing.Point(288, 24);
+            this.cbSaveRebuilt.Location = new System.Drawing.Point(292, 11);
             this.cbSaveRebuilt.Name = "cbSaveRebuilt";
-            this.cbSaveRebuilt.Size = new System.Drawing.Size(149, 17);
+            this.cbSaveRebuilt.Size = new System.Drawing.Size(146, 17);
             this.cbSaveRebuilt.TabIndex = 12;
-            this.cbSaveRebuilt.Text = "Save Rebuilt ISO Image?";
+            this.cbSaveRebuilt.Text = "Save rebuilt ISO image?";
             this.cbSaveRebuilt.UseVisualStyleBackColor = true;
             // 
             // btnRebuiltBrowse
@@ -644,6 +647,18 @@ public class AddISO : Form
             // 
             this.ftpUploader1.WorkerReportsProgress = true;
             // 
+            // cbSaveGod
+            // 
+            this.cbSaveGod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSaveGod.AutoSize = true;
+            this.cbSaveGod.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSaveGod.Location = new System.Drawing.Point(265, 32);
+            this.cbSaveGod.Name = "cbSaveGod";
+            this.cbSaveGod.Size = new System.Drawing.Size(173, 17);
+            this.cbSaveGod.TabIndex = 12;
+            this.cbSaveGod.Text = "Save GOD files after upload?";
+            this.cbSaveGod.UseVisualStyleBackColor = true;
+            // 
             // AddISO
             // 
             this.AcceptButton = this.btnAddIso;
@@ -690,6 +705,7 @@ public class AddISO : Form
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
         cbSaveRebuilt.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
+        cbSaveGod.Checked = (bool)Properties.Settings.Default["SaveGod"];
         ttISO.SetToolTip(pbVideo, 
             "Select the ISO images to convert to Games on Demand packages.\n" +
             "Selecting multiple files will automatically add them, you can then\n" +
@@ -741,6 +757,7 @@ public class AddISO : Form
         txtISO.Text = entry.Path;
         txtRebuiltIso.Text = ((entry.Padding.Type == IsoEntryPaddingRemoval.Full) ? entry.Padding.IsoPath : Properties.Settings.Default["RebuildPath"].ToString());
         cbSaveRebuilt.Checked = entry.Padding.KeepIso;
+        cbSaveGod.Checked = entry.Padding.KeepGod;
         cmbPaddingMode.SelectedIndex = (int)entry.Padding.Type;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
         pbThumb.Tag = entry.Thumb;
@@ -798,6 +815,7 @@ public class AddISO : Form
                 isoEntryPadding.TempPath = Path.GetTempPath();
                 isoEntryPadding.IsoPath = txtRebuiltIso.Text;
                 isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
+                isoEntryPadding.KeepGod = cbSaveGod.Checked;
                 if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
                 {
                     isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
@@ -958,6 +976,7 @@ public class AddISO : Form
             isoEntryPadding.TempPath = Path.GetTempPath();
             isoEntryPadding.IsoPath = txtRebuiltIso.Text;
             isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
+            isoEntryPadding.KeepGod = cbSaveGod.Checked;
             if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
                 isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
@@ -1153,7 +1172,8 @@ public class AddISO : Form
         txtPlatform.Enabled = status;
         txtExType.Enabled = status;
         pbThumb.Enabled = status;
-        cbSaveRebuilt.Enabled = status;
+        //cbSaveRebuilt.Enabled = status;
+        cbSaveGod.Enabled = status;
         cmbPaddingMode.Enabled = status;
         if (cmbPaddingMode.SelectedIndex < 2)
         {

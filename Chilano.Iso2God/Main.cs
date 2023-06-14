@@ -1,5 +1,6 @@
 using Chilano.Common;
 using Chilano.Iso2God.Ftp;
+using Chilano.Iso2God.ConStructures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ProgressBar = System.Windows.Forms.ProgressBar;
+using Chilano.Xbox360.IO;
 
 namespace Chilano.Iso2God;
 
@@ -590,6 +592,28 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
+                if(!isoEntry.Padding.KeepGod)
+                {
+                    object[] array = new object[3]
+                    {
+                            isoEntry.Destination,
+                            isoEntry.ID.TitleID,
+                            Path.DirectorySeparatorChar
+                    };
+                    string godpath = string.Concat(array);
+                    try
+                    {
+                        if (Directory.Exists(godpath))
+                        {
+                            //Directory.Delete(text, recursive: true);
+                            item.SubItems[6].Text += " Would delete " + godpath;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        item.SubItems[6].Text += " Unable to delete GOD files " + godpath;
+                    }
+                }
             }
             else
             {
