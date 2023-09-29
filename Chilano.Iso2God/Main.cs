@@ -78,7 +78,9 @@ public class Main : Form
     private FtpUploader ftp = new FtpUploader();
 
     public string pathXT = "";
+
     private ToolStripLabel toolStripLabel2;
+
     public string pathTemp = "";
 
     protected override void Dispose(bool disposing)
@@ -392,7 +394,7 @@ public class Main : Form
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Iso2God";
+            this.Text = "Iso2God - Reloaded";
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.cmQueue.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -638,8 +640,9 @@ public class Main : Form
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if ((bool)Chilano.Iso2God.Properties.Settings.Default["FtpUpload"])
+                if (isoEntry.Transfer)
                 {
+                    MessageBox.Show("ftp");
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
                     progressBar.Value = 0;
@@ -848,10 +851,7 @@ public class Main : Form
 
     private void removeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        foreach (ListViewItem selectedItem in listView1.SelectedItems)
-        {
-            listView1.Items.Remove(selectedItem);
-        }
+        selectedToolStripMenuItem_Click(sender, e);
     }
 
     private void restartFTPUploadToolStripMenuItem_Click(object sender, EventArgs e)

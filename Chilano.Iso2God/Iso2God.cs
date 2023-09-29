@@ -362,7 +362,18 @@ public class Iso2God : BackgroundWorker
         iso.Size = fileStream2.Length;
         fileStream2.Close();
         fileStream.Close();
-        Iso2God_Partial(sender, e, Crop: false, iso);
+        if (!iso.Padding.SkipGod)
+        {
+            Iso2God_Partial(sender, e, Crop: false, iso);
+        }
+        else
+        {
+            Finish = DateTime.Now;
+            TimeSpan timeSpan = Finish - Start;
+            ReportProgress(100, "Done!");
+            e.Result = "Finished in " + timeSpan.Minutes + "m" + timeSpan.Seconds + "s. ISO image rebuilt";
+            GC.Collect();
+        }
     }
 
     private void Iso2God_Partial(object sender, DoWorkEventArgs e, bool Crop, IsoEntry iso)

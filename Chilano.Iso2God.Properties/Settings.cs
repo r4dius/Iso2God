@@ -43,33 +43,48 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [UserScopedSetting]
     [DefaultSettingValue("True")]
     [DebuggerNonUserCode]
-    public bool RebuiltCheck
+    [UserScopedSetting]
+    public bool AlwaysSaveISO
     {
         get
         {
-            return (bool)this["RebuiltCheck"];
+            return (bool)this["AlwaysSaveISO"];
         }
         set
         {
-            this["RebuiltCheck"] = value;
+            this["AlwaysSaveISO"] = value;
         }
     }
 
-    [DefaultSettingValue("True")]
+    [DefaultSettingValue("False")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    public bool AlwaysSave
+    public bool AlwaysDeleteGOD
     {
         get
         {
-            return (bool)this["AlwaysSave"];
+            return (bool)this["AlwaysDeleteGOD"];
         }
         set
         {
-            this["AlwaysSave"] = value;
+            this["AlwaysDeleteGOD"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool AlwaysSkipGOD
+    {
+        get
+        {
+            return (bool)this["AlwaysSkipGOD"];
+        }
+        set
+        {
+            this["AlwaysSkipGOD"] = value;
         }
     }
 
