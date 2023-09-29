@@ -592,6 +592,22 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
+                if (!isoEntry.Padding.KeepGod)
+                {
+                    string godpath = "";
+                    godpath = string.Concat(isoEntry.Destination, isoEntry.ID.TitleID, Path.DirectorySeparatorChar);
+                    try
+                    {
+                        if (Directory.Exists(godpath))
+                        {
+                            Directory.Delete(@godpath, true);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        item.SubItems[6].Text = item.SubItems[6].Text + " Failed to delete GOD directory: " + godpath;
+                    }
+                }
             }
             else
             {
@@ -642,7 +658,6 @@ public class Main : Form
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
                 if (isoEntry.Transfer)
                 {
-                    MessageBox.Show("ftp");
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
                     progressBar.Value = 0;
