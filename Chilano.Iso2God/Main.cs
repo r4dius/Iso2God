@@ -1,6 +1,6 @@
 using Chilano.Common;
 using Chilano.Iso2God.Ftp;
-using Chilano.Iso2God.ConStructures;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ProgressBar = System.Windows.Forms.ProgressBar;
-using Chilano.Xbox360.IO;
 
 namespace Chilano.Iso2God;
 
@@ -80,7 +79,10 @@ public class Main : Form
     private FtpUploader ftp = new FtpUploader();
 
     public string pathXT = "";
+
     private ToolStripLabel toolStripLabel2;
+    private ToolStripButton toolStripButton5;
+    private ToolStripButton toolStripButton6;
     public string pathTemp = "";
 
     protected override void Dispose(bool disposing)
@@ -115,6 +117,8 @@ public class Main : Form
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new Chilano.Common.ToolStripEx();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -260,6 +264,8 @@ public class Main : Form
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel2,
             this.toolStripButton1,
+            this.toolStripButton5,
+            this.toolStripButton6,
             this.toolStripDropDownButton1,
             this.toolStripButton2,
             this.toolStripSeparator1,
@@ -282,18 +288,48 @@ public class Main : Form
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(194, 71);
             // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButton5.Image = global::Chilano_Iso2God_Properties_Resources.icon_add;
+            this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Padding = new System.Windows.Forms.Padding(19, 0, 0, 0);
+            this.toolStripButton5.Size = new System.Drawing.Size(56, 68);
+            this.toolStripButton5.Text = "Build\r\n ISO";
+            this.toolStripButton5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.Image = global::Chilano_Iso2God_Properties_Resources.icon_add;
+            this.toolStripButton6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripButton6.Size = new System.Drawing.Size(60, 68);
+            this.toolStripButton6.Text = "Extract \nISO";
+            this.toolStripButton6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton6.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripButton1
             // 
             this.toolStripButton1.Image = global::Chilano_Iso2God_Properties_Resources.icon_add;
-            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripButton1.Size = new System.Drawing.Size(83, 68);
-            this.toolStripButton1.Text = "Add ISO";
-            this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton1.Size = new System.Drawing.Size(66, 68);
+            this.toolStripButton1.Text = "Build GOD";
+            this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripDropDownButton1
@@ -303,15 +339,16 @@ public class Main : Form
             this.selectedToolStripMenuItem,
             this.completedToolStripMenuItem});
             this.toolStripDropDownButton1.Image = global::Chilano_Iso2God_Properties_Resources.icon_delete;
-            this.toolStripDropDownButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(92, 68);
+            this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(14, 0, 0, 0);
+            this.toolStripDropDownButton1.ShowDropDownArrow = false;
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 68);
             this.toolStripDropDownButton1.Text = "Remove";
-            this.toolStripDropDownButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripDropDownButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripDropDownButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // allToolStripMenuItem
             // 
@@ -337,49 +374,49 @@ public class Main : Form
             // toolStripButton2
             // 
             this.toolStripButton2.Image = global::Chilano_Iso2God_Properties_Resources.icon_start;
-            this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton2.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripButton2.Size = new System.Drawing.Size(82, 68);
+            this.toolStripButton2.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.toolStripButton2.Size = new System.Drawing.Size(68, 68);
             this.toolStripButton2.Text = "Convert";
-            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(10, 15, 5, 15);
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(5, 15, 0, 15);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
             // 
             // toolStripButton3
             // 
             this.toolStripButton3.Image = global::Chilano_Iso2God_Properties_Resources.icon_settings;
-            this.toolStripButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton3.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripButton3.Size = new System.Drawing.Size(82, 68);
+            this.toolStripButton3.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.toolStripButton3.Size = new System.Drawing.Size(68, 68);
             this.toolStripButton3.Text = "Settings";
-            this.toolStripButton3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripButton4
             // 
             this.toolStripButton4.Image = global::Chilano_Iso2God_Properties_Resources.icon_info;
-            this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripButton4.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripButton4.Size = new System.Drawing.Size(73, 68);
+            this.toolStripButton4.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
+            this.toolStripButton4.Size = new System.Drawing.Size(68, 68);
             this.toolStripButton4.Text = "About";
-            this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // Main
@@ -394,7 +431,7 @@ public class Main : Form
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Iso2God";
+            this.Text = "Iso2God - Reloaded";
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.cmQueue.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -507,8 +544,14 @@ public class Main : Form
 
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
-        using AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360);
-        addISO.ShowDialog(this);
+        using BuildGOD buildGOD = new BuildGOD(IsoEntryPlatform.Xbox360);
+        buildGOD.ShowDialog(this);
+    }
+
+    private void toolStripButton5_Click(object sender, EventArgs e)
+    {
+        using BuildISO buildISO = new BuildISO(IsoEntryPlatform.Xbox360);
+        buildISO.ShowDialog(this);
     }
 
     private void toolStripButton2_Click(object sender, EventArgs e)
@@ -592,26 +635,20 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
-                if(!isoEntry.Padding.KeepGod)
+                if (!isoEntry.Padding.KeepGod)
                 {
-                    object[] array = new object[3]
-                    {
-                            isoEntry.Destination,
-                            isoEntry.ID.TitleID,
-                            Path.DirectorySeparatorChar
-                    };
-                    string godpath = string.Concat(array);
+                    string godpath = "";
+                    godpath = string.Concat(isoEntry.Destination, isoEntry.ID.TitleID, Path.DirectorySeparatorChar);
                     try
                     {
                         if (Directory.Exists(godpath))
                         {
-                            //Directory.Delete(text, recursive: true);
-                            item.SubItems[6].Text += " Would delete " + godpath;
+                            Directory.Delete(@godpath, true);
                         }
                     }
                     catch (Exception)
                     {
-                        item.SubItems[6].Text += " Unable to delete GOD files " + godpath;
+                        item.SubItems[6].Text = item.SubItems[6].Text + " Failed to delete GOD directory: " + godpath;
                     }
                 }
             }
@@ -662,7 +699,7 @@ public class Main : Form
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if ((bool)Chilano.Iso2God.Properties.Settings.Default["FtpUpload"])
+                if (isoEntry.Transfer)
                 {
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
@@ -809,10 +846,10 @@ public class Main : Form
         IsoEntry entry = (IsoEntry)listViewItem.Tag;
         if (entry.Status == IsoEntryStatus.Idle)
         {
-            using (AddISO addISO = new AddISO(entry.Platform))
+            using (BuildGOD buildGOD = new BuildGOD(entry.Platform))
             {
-                addISO.Edit(listViewItem.Index, entry);
-                addISO.ShowDialog(this);
+                buildGOD.Edit(listViewItem.Index, entry);
+                buildGOD.ShowDialog(this);
                 return;
             }
         }
@@ -872,10 +909,7 @@ public class Main : Form
 
     private void removeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        foreach (ListViewItem selectedItem in listView1.SelectedItems)
-        {
-            listView1.Items.Remove(selectedItem);
-        }
+        selectedToolStripMenuItem_Click(sender, e);
     }
 
     private void restartFTPUploadToolStripMenuItem_Click(object sender, EventArgs e)

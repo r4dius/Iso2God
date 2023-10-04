@@ -43,48 +43,48 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [UserScopedSetting]
     [DefaultSettingValue("True")]
     [DebuggerNonUserCode]
-    public bool RebuiltCheck
+    [UserScopedSetting]
+    public bool AlwaysSaveISO
     {
         get
         {
-            return (bool)this["RebuiltCheck"];
+            return (bool)this["AlwaysSaveISO"];
         }
         set
         {
-            this["RebuiltCheck"] = value;
+            this["AlwaysSaveISO"] = value;
         }
     }
 
-    [DefaultSettingValue("True")]
+    [DefaultSettingValue("False")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    public bool AlwaysSave
+    public bool AlwaysDeleteGOD
     {
         get
         {
-            return (bool)this["AlwaysSave"];
+            return (bool)this["AlwaysDeleteGOD"];
         }
         set
         {
-            this["AlwaysSave"] = value;
+            this["AlwaysDeleteGOD"] = value;
         }
     }
 
-    [DefaultSettingValue("True")]
+    [DefaultSettingValue("False")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    public bool SaveGod
+    public bool AlwaysSkipGOD
     {
         get
         {
-            return (bool)this["SaveGod"];
+            return (bool)this["AlwaysSkipGOD"];
         }
         set
         {
-            this["SaveGod"] = value;
+            this["AlwaysSkipGOD"] = value;
         }
     }
 
@@ -148,21 +148,6 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("False")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public bool FtpUpload
-    {
-        get
-        {
-            return (bool)this["FtpUpload"];
-        }
-        set
-        {
-            this["FtpUpload"] = value;
-        }
-    }
-
     [UserScopedSetting]
     [DebuggerNonUserCode]
     [DefaultSettingValue("True")]
@@ -175,6 +160,21 @@ internal sealed class Settings : ApplicationSettingsBase
         set
         {
             this["AutoRenameMultiDisc"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [UserScopedSetting]
+    [DebuggerNonUserCode]
+    public bool FtpUpload
+    {
+        get
+        {
+            return (bool)this["FtpUpload"];
+        }
+        set
+        {
+            this["FtpUpload"] = value;
         }
     }
 

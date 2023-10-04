@@ -32,7 +32,7 @@
     <Compile Update="Chilano.Iso2God\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Chilano.Iso2God\AddISO.cs">
+    <Compile Update="Chilano.Iso2God\BuildGOD.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Chilano.Common\ToolStripEx.cs">
@@ -61,7 +61,7 @@
     <EmbeddedResource Update="Chilano.Iso2God\About.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Update="Chilano.Iso2God\AddISO.resx">
+    <EmbeddedResource Update="Chilano.Iso2God\BuildGOD.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="Chilano.Iso2God\Main.resx">
