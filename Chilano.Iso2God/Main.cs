@@ -83,6 +83,8 @@ public class Main : Form
 
     public string pathTemp = "";
 
+    public double ProgressValue { get; set; }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing && components != null)
@@ -566,6 +568,7 @@ public class Main : Form
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
                 progressBar.Value = ((e.ProgressPercentage > 100) ? 100 : e.ProgressPercentage);
+                //Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.Instance.SetProgressValue(progressBar.Value, 100);
                 item.ForeColor = Color.Blue;
                 item.SubItems[6].Text = e.UserState.ToString();
                 item.Tag = isoEntry;
