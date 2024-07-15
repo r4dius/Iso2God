@@ -4,8 +4,12 @@ using Chilano.Xbox360.IO;
 using Chilano.Xbox360.Iso;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Chilano.Iso2God;
 
@@ -290,10 +294,8 @@ public class Iso2God : BackgroundWorker
         switch (iso.Padding.Type)
         {
             case IsoEntryPaddingRemoval.None:
-                Iso2God_Partial(sender, e, Crop: false, iso);
-                break;
             case IsoEntryPaddingRemoval.Partial:
-                Iso2God_Partial(sender, e, Crop: true, iso);
+                Iso2God_Partial(sender, e, iso);
                 break;
             case IsoEntryPaddingRemoval.Full:
                 Iso2God_Full(sender, e);
@@ -362,21 +364,10 @@ public class Iso2God : BackgroundWorker
         iso.Size = fileStream2.Length;
         fileStream2.Close();
         fileStream.Close();
-        if (!iso.Padding.SkipGod)
-        {
-            Iso2God_Partial(sender, e, Crop: false, iso);
-        }
-        else
-        {
-            Finish = DateTime.Now;
-            TimeSpan timeSpan = Finish - Start;
-            ReportProgress(100, "Done!");
-            e.Result = "Finished in " + timeSpan.Minutes + "m" + timeSpan.Seconds + "s. ISO image rebuilt";
-            GC.Collect();
-        }
+        Iso2God_Partial(sender, e, iso);
     }
 
-    private void Iso2God_Partial(object sender, DoWorkEventArgs e, bool Crop, IsoEntry iso)
+    private void Iso2God_Partial(object sender, DoWorkEventArgs e, IsoEntry iso)
     {
         ReportProgress((int)progress, "Examining ISO image...");
         FileStream fileStream;
@@ -400,14 +391,15 @@ public class Iso2God : BackgroundWorker
             return;
         }
         ulong num = 0uL;
-        num = ((!Crop) ? ((ulong)iso.Size - gDF.RootOffset) : ((ulong)(iso.Size - (long)gDF.RootOffset - (iso.Size - (long)(gDF.LastOffset + gDF.RootOffset)))));
+        num = ((iso.Padding.Type != IsoEntryPaddingRemoval.Partial) ? ((ulong)iso.Size - gDF.RootOffset) : ((ulong)(iso.Size - (long)gDF.RootOffset - (iso.Size - (long)(gDF.LastOffset + gDF.RootOffset)))));
         uint num2 = (uint)Math.Ceiling((double)num / (double)blockSize);
         uint num3 = (uint)Math.Ceiling((double)num2 / (double)blockPerPart);
         ContentType contentType = ((iso.Platform == IsoEntryPlatform.Xbox360) ? ContentType.GamesOnDemand : ContentType.XboxOriginal);
+        string gameDirectory = (iso.TitleDirectory && Utils.sanitizePath(iso.TitleName).Length != 0 ? Utils.sanitizePath(iso.TitleName) : iso.ID.TitleID);
         object[] array = new object[6]
         {
             iso.Destination,
-            iso.ID.TitleID,
+            gameDirectory,
             Path.DirectorySeparatorChar,
             "0000",
             null,

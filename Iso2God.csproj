@@ -4,7 +4,7 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net30</TargetFramework>
+    <TargetFramework>net35</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>11.0</LangVersion>
@@ -20,11 +20,6 @@
   <ItemGroup>
     <None Remove="Chilano.Common.MultiPane.MultiPaneControl.bmp" />
     <None Remove="Chilano.Common.MultiPane.MultiPanePage.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2" />
-    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
-    <PackageReference Include="WindowsAPICodePack-ShellExtensions" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

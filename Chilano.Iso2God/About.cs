@@ -84,10 +84,9 @@ public class About : Form
             // 
             this.label2.Location = new System.Drawing.Point(10, 245);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(369, 35);
+            this.label2.Size = new System.Drawing.Size(363, 35);
             this.label2.TabIndex = 9;
-            this.label2.Text = "This \"Reloaded\" update is a \"quality of life\" improvement mod from decompilation " +
-    "of the original v1.3.6, it is not supported by Team 360h.";
+            this.label2.Text = "This update is a \"quality of life\" improvement mod from decompilation of the original v1.3.6 and is not supported by Team 360h.";
             // 
             // About
             // 
@@ -108,7 +107,7 @@ public class About : Form
             this.MinimizeBox = false;
             this.Name = "About";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About Iso2God - Reloaded";
+            this.Text = "About Iso2God";
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

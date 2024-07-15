@@ -43,48 +43,33 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [UserScopedSetting]
+    [DefaultSettingValue("True")]
+    [DebuggerNonUserCode]
+    public bool RebuiltCheck
+    {
+        get
+        {
+            return (bool)this["RebuiltCheck"];
+        }
+        set
+        {
+            this["RebuiltCheck"] = value;
+        }
+    }
+
     [DefaultSettingValue("True")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    public bool AlwaysSaveISO
+    public bool AlwaysSave
     {
         get
         {
-            return (bool)this["AlwaysSaveISO"];
+            return (bool)this["AlwaysSave"];
         }
         set
         {
-            this["AlwaysSaveISO"] = value;
-        }
-    }
-
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool AlwaysDeleteGOD
-    {
-        get
-        {
-            return (bool)this["AlwaysDeleteGOD"];
-        }
-        set
-        {
-            this["AlwaysDeleteGOD"] = value;
-        }
-    }
-
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool AlwaysSkipGOD
-    {
-        get
-        {
-            return (bool)this["AlwaysSkipGOD"];
-        }
-        set
-        {
-            this["AlwaysSkipGOD"] = value;
+            this["AlwaysSave"] = value;
         }
     }
 
@@ -148,9 +133,9 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("True")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
-    [DefaultSettingValue("True")]
     public bool AutoRenameMultiDisc
     {
         get
@@ -178,9 +163,9 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("2")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    [DefaultSettingValue("2")]
     public int DefaultPadding
     {
         get
@@ -205,6 +190,21 @@ internal sealed class Settings : ApplicationSettingsBase
         set
         {
             this["AutoBrowse"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [UserScopedSetting]
+    [DebuggerNonUserCode]
+    public bool TitleDirectory
+    {
+        get
+        {
+            return (bool)this["TitleDirectory"];
+        }
+        set
+        {
+            this["TitleDirectory"] = value;
         }
     }
 

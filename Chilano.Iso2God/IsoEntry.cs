@@ -18,15 +18,15 @@ public struct IsoEntry
 
     public byte[] Thumb;
 
+    public bool TitleDirectory;
+
     public IsoEntryID ID;
 
     public IsoEntryStatus Status;
 
     public IsoEntryPadding Padding;
 
-    public bool Transfer;
-
-    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryPadding Padding, string Message, bool Transfer)
+    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryPadding Padding, bool titleDirectory, string Message)
     {
         this.Platform = Platform;
         this.Path = Path;
@@ -39,6 +39,6 @@ public struct IsoEntry
         this.Thumb = Thumb;
         this.Padding = Padding;
         this.Message = Message;
-        this.Transfer = Transfer;
+        this.TitleDirectory = titleDirectory;
     }
 }

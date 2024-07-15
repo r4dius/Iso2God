@@ -35,8 +35,9 @@ public class FtpUploader : BackgroundWorker
             Errors.Add(new ArgumentNullException("FtpUploader must be passed an instance of FtpUploaderArgs."));
             return;
         }
+
         string text = ((args.Platform == IsoEntryPlatform.Xbox360) ? "00007000" : "00005000");
-        string text2 = args.SourcePath + args.TitleID + Path.DirectorySeparatorChar + text + Path.DirectorySeparatorChar;
+        string text2 = args.SourcePath + args.TitleDirectory + Path.DirectorySeparatorChar + text + Path.DirectorySeparatorChar;
         ftp.ServerAddress = args.Ip;
         ftp.UserName = args.User;
         ftp.Password = args.Pass;
@@ -51,11 +52,11 @@ public class FtpUploader : BackgroundWorker
             return;
         }
         ftp.ChangeWorkingDirectory("Hdd1/Content/0000000000000000");
-        if (!dirExists(args.TitleID))
+        if (!dirExists(args.TitleDirectory))
         {
-            ftp.CreateDirectory(args.TitleID);
+            ftp.CreateDirectory(args.TitleDirectory);
         }
-        ftp.ChangeWorkingDirectory(args.TitleID);
+        ftp.ChangeWorkingDirectory(args.TitleDirectory);
         if (!dirExists(text))
         {
             ftp.CreateDirectory(text);

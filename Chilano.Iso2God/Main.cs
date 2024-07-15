@@ -8,6 +8,7 @@ using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
@@ -78,12 +79,8 @@ public class Main : Form
     private FtpUploader ftp = new FtpUploader();
 
     public string pathXT = "";
-
     private ToolStripLabel toolStripLabel2;
-
     public string pathTemp = "";
-
-    public double ProgressValue { get; set; }
 
     protected override void Dispose(bool disposing)
     {
@@ -214,6 +211,7 @@ public class Main : Form
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
             // 
             // columnHeader3
             // 
@@ -550,8 +548,9 @@ public class Main : Form
                 string user = Chilano.Iso2God.Properties.Settings.Default["FtpUser"].ToString();
                 string pass = Chilano.Iso2God.Properties.Settings.Default["FtpPass"].ToString();
                 string port = Chilano.Iso2God.Properties.Settings.Default["FtpPort"].ToString();
+                string gameDirectory = (isoEntry.TitleDirectory && Utils.sanitizePath(isoEntry.TitleName).Length != 0 ? Utils.sanitizePath(isoEntry.TitleName) : isoEntry.ID.TitleID);
                 _ = isoEntry.ID.ContainerID;
-                ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, isoEntry.ID.TitleID, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
+                ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, gameDirectory, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
                 ftpCheck.Enabled = false;
                 return;
             }
@@ -568,7 +567,6 @@ public class Main : Form
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
                 progressBar.Value = ((e.ProgressPercentage > 100) ? 100 : e.ProgressPercentage);
-                //Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager.Instance.SetProgressValue(progressBar.Value, 100);
                 item.ForeColor = Color.Blue;
                 item.SubItems[6].Text = e.UserState.ToString();
                 item.Tag = isoEntry;
@@ -595,22 +593,6 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
-                if (!isoEntry.Padding.KeepGod)
-                {
-                    string godpath = "";
-                    godpath = string.Concat(isoEntry.Destination, isoEntry.ID.TitleID, Path.DirectorySeparatorChar);
-                    try
-                    {
-                        if (Directory.Exists(godpath))
-                        {
-                            Directory.Delete(@godpath, true);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        item.SubItems[6].Text = item.SubItems[6].Text + " Failed to delete GOD directory: " + godpath;
-                    }
-                }
             }
             else
             {
@@ -659,7 +641,7 @@ public class Main : Form
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if (isoEntry.Transfer)
+                if ((bool)Chilano.Iso2God.Properties.Settings.Default["FtpUpload"])
                 {
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
@@ -702,7 +684,7 @@ public class Main : Form
         ListViewItem listViewItem = new ListViewItem();
         listViewItem.Text = Entry.TitleName;
         listViewItem.SubItems.Add(Entry.ID.TitleID);
-        listViewItem.SubItems.Add(Entry.ID.DiscNumber.ToString());
+        listViewItem.SubItems.Add(Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString());
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
         listViewItem.SubItems.Add(num + " GB");
         listViewItem.SubItems.Add(Entry.Padding.Type.ToString());
@@ -726,7 +708,7 @@ public class Main : Form
         listViewItem.Tag = Entry;
         listViewItem.Text = Entry.TitleName;
         listViewItem.SubItems[1].Text = Entry.ID.TitleID;
-        listViewItem.SubItems[2].Text = Entry.ID.DiscNumber.ToString();
+        listViewItem.SubItems[2].Text = Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString();
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
         listViewItem.SubItems[3].Text = num + " GB";
         listViewItem.SubItems[4].Text = Entry.Padding.Type.ToString();
@@ -870,6 +852,14 @@ public class Main : Form
     private void removeToolStripMenuItem_Click(object sender, EventArgs e)
     {
         selectedToolStripMenuItem_Click(sender, e);
+    }
+
+    private void listView1_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (Keys.Delete == e.KeyCode)
+        {
+            selectedToolStripMenuItem_Click(sender, e);
+        }
     }
 
     private void restartFTPUploadToolStripMenuItem_Click(object sender, EventArgs e)

@@ -12,19 +12,19 @@ public class FtpUploaderArgs
 
     public string Port;
 
-    public string TitleID;
-
     public string ContainerID;
 
     public string SourcePath;
+    
+    public string TitleDirectory;
 
-    public FtpUploaderArgs(string Ip, string User, string Pass, string Port, string TitleID, string ContainerID, string SourcePath, IsoEntryPlatform Platform)
+    public FtpUploaderArgs(string Ip, string User, string Pass, string Port, string TitleDirectory, string ContainerID, string SourcePath, IsoEntryPlatform Platform)
     {
         this.Ip = Ip;
         this.User = User;
         this.Pass = Pass;
         this.Port = Port;
-        this.TitleID = TitleID;
+        this.TitleDirectory = TitleDirectory;
         this.ContainerID = ContainerID;
         this.SourcePath = SourcePath;
         this.Platform = Platform;
