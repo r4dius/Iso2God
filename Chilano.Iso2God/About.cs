@@ -38,11 +38,10 @@ public class About : Form
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.BackColor = System.Drawing.Color.White;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(306, 8);
+            this.lblVersion.Location = new System.Drawing.Point(275, 17);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(165, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "label1";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             // 
@@ -86,7 +85,8 @@ public class About : Form
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(363, 35);
             this.label2.TabIndex = 9;
-            this.label2.Text = "This update is a \"quality of life\" improvement mod from decompilation of the original v1.3.6 and is not supported by Team 360h.";
+            this.label2.Text = "This update is a \"quality of life\" improvement mod from decompilation of the orig" +
+    "inal v1.3.6 and is not supported by Team 360h.";
             // 
             // About
             // 
@@ -133,15 +133,15 @@ public class About : Form
 
     private void lblVersion_Click(object sender, EventArgs e)
     {
-        letGoToGithub();
+        letsGoToGithub();
     }
 
     private void pictureBox1_Click(object sender, EventArgs e)
     {
-        letGoToGithub();
+        letsGoToGithub();
     }
 
-    private void letGoToGithub()
+    private void letsGoToGithub()
     {
         System.Diagnostics.Process.Start("https://github.com/r4dius/Iso2God");
     }

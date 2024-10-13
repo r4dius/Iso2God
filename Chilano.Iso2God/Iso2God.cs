@@ -431,7 +431,7 @@ public class Iso2God : BackgroundWorker
         fileStream.Close();
         fileStream.Dispose();
         gDF.Dispose();
-        if (iso.Padding.Type == IsoEntryPaddingRemoval.Full && !iso.Padding.KeepIso)
+        if (iso.Padding.Type == IsoEntryPaddingRemoval.Full && iso.DeleteRebuilt)
         {
             try
             {

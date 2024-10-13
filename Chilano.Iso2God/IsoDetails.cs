@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Chilano.Iso2God;
@@ -85,9 +86,29 @@ internal class IsoDetails : BackgroundWorker
         return true;
     }
 
+    public static string getMD5(byte[] input)
+    {
+        // Create an instance of the MD5CryptoServiceProvider class
+        using (MD5 md5 = MD5.Create())
+        {
+            // Convert the input string to a byte array and compute the hash
+            byte[] hashBytes = md5.ComputeHash(input);
+
+            // Convert the byte array to a hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+    }
+
     private void readXbe(DoWorkEventArgs e)
     {
         IsoDetailsResults isoDetailsResults = null;
+        string md5 = "";
         byte[] array = null;
         ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Progress, "Locating default.xbe..."));
         try
@@ -107,7 +128,7 @@ internal class IsoDetails : BackgroundWorker
                 ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Default.xbe was not valid."));
                 return;
             }
-            isoDetailsResults = new IsoDetailsResults(xbeInfo.Certifcate.TitleName, xbeInfo.Certifcate.TitleID, (xbeInfo.Certifcate.DiskNumber != 0) ? xbeInfo.Certifcate.DiskNumber.ToString() : "1");
+            isoDetailsResults = new IsoDetailsResults(xbeInfo.Certifcate.TitleName, xbeInfo.Certifcate.TitleID, (xbeInfo.Certifcate.DiskNumber != 0) ? xbeInfo.Certifcate.DiskNumber.ToString() : "1", getMD5(array));
             isoDetailsResults.DiscCount = "1";
             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Progress, "Extracting thumbnail..."));
             foreach (XbeSection section in xbeInfo.Sections)

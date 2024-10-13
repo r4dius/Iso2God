@@ -36,9 +36,9 @@ public class Settings : Form
 
     private PictureBox pbOptions;
 
-    private CheckBox cbRebuildCheck;
+    private CheckBox cbDeleteSource;
 
-    private CheckBox cbAlwaysSave;
+    private CheckBox cbDeleteRebuilt;
 
     private CheckBox cbAutoRename;
 
@@ -101,12 +101,13 @@ public class Settings : Form
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbTitleDirectory = new System.Windows.Forms.CheckBox();
             this.cbAutoBrowse = new System.Windows.Forms.CheckBox();
             this.cmbPadding = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbAutoRename = new System.Windows.Forms.CheckBox();
-            this.cbAlwaysSave = new System.Windows.Forms.CheckBox();
-            this.cbRebuildCheck = new System.Windows.Forms.CheckBox();
+            this.cbDeleteRebuilt = new System.Windows.Forms.CheckBox();
+            this.cbDeleteSource = new System.Windows.Forms.CheckBox();
             this.pbOptions = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtFtpPort = new System.Windows.Forms.TextBox();
@@ -119,7 +120,6 @@ public class Settings : Form
             this.pbFTP = new System.Windows.Forms.PictureBox();
             this.txtFtpIp = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbTitleDirectory = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRipping)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -144,7 +144,7 @@ public class Settings : Form
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(10, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(444, 88);
+            this.groupBox1.Size = new System.Drawing.Size(464, 88);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location Settings";
@@ -153,7 +153,7 @@ public class Settings : Form
             // 
             this.btnRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRebuild.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRebuild.Location = new System.Drawing.Point(364, 50);
+            this.btnRebuild.Location = new System.Drawing.Point(384, 50);
             this.btnRebuild.Name = "btnRebuild";
             this.btnRebuild.Size = new System.Drawing.Size(70, 25);
             this.btnRebuild.TabIndex = 3;
@@ -169,7 +169,7 @@ public class Settings : Form
             this.txtRebuild.Location = new System.Drawing.Point(86, 51);
             this.txtRebuild.Name = "txtRebuild";
             this.txtRebuild.ReadOnly = true;
-            this.txtRebuild.Size = new System.Drawing.Size(271, 23);
+            this.txtRebuild.Size = new System.Drawing.Size(291, 23);
             this.txtRebuild.TabIndex = 2;
             // 
             // label2
@@ -196,7 +196,7 @@ public class Settings : Form
             // 
             this.btnOutBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOutBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOutBrowse.Location = new System.Drawing.Point(364, 19);
+            this.btnOutBrowse.Location = new System.Drawing.Point(384, 19);
             this.btnOutBrowse.Name = "btnOutBrowse";
             this.btnOutBrowse.Size = new System.Drawing.Size(70, 25);
             this.btnOutBrowse.TabIndex = 1;
@@ -212,7 +212,7 @@ public class Settings : Form
             this.txtOut.Location = new System.Drawing.Point(86, 20);
             this.txtOut.Name = "txtOut";
             this.txtOut.ReadOnly = true;
-            this.txtOut.Size = new System.Drawing.Size(271, 23);
+            this.txtOut.Size = new System.Drawing.Size(291, 23);
             this.txtOut.TabIndex = 0;
             // 
             // label1
@@ -252,7 +252,7 @@ public class Settings : Form
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(299, 255);
+            this.btnSave.Location = new System.Drawing.Point(319, 255);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 25);
             this.btnSave.TabIndex = 3;
@@ -264,7 +264,7 @@ public class Settings : Form
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(380, 255);
+            this.btnCancel.Location = new System.Drawing.Point(400, 255);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 25);
             this.btnCancel.TabIndex = 4;
@@ -282,17 +282,28 @@ public class Settings : Form
             this.groupBox2.Controls.Add(this.cmbPadding);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cbAutoRename);
-            this.groupBox2.Controls.Add(this.cbAlwaysSave);
-            this.groupBox2.Controls.Add(this.cbRebuildCheck);
+            this.groupBox2.Controls.Add(this.cbDeleteRebuilt);
+            this.groupBox2.Controls.Add(this.cbDeleteSource);
             this.groupBox2.Controls.Add(this.pbOptions);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox2.Location = new System.Drawing.Point(10, 97);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(216, 173);
+            this.groupBox2.Size = new System.Drawing.Size(227, 170);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // cbTitleDirectory
+            // 
+            this.cbTitleDirectory.AutoSize = true;
+            this.cbTitleDirectory.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTitleDirectory.Location = new System.Drawing.Point(9, 109);
+            this.cbTitleDirectory.Name = "cbTitleDirectory";
+            this.cbTitleDirectory.Size = new System.Drawing.Size(161, 17);
+            this.cbTitleDirectory.TabIndex = 31;
+            this.cbTitleDirectory.Text = "Use title name as directory";
+            this.cbTitleDirectory.UseVisualStyleBackColor = true;
             // 
             // cbAutoBrowse
             // 
@@ -319,7 +330,7 @@ public class Settings : Form
             "Remove All"});
             this.cmbPadding.Location = new System.Drawing.Point(65, 133);
             this.cmbPadding.Name = "cmbPadding";
-            this.cmbPadding.Size = new System.Drawing.Size(140, 23);
+            this.cmbPadding.Size = new System.Drawing.Size(151, 23);
             this.cmbPadding.TabIndex = 8;
             // 
             // label3
@@ -343,27 +354,27 @@ public class Settings : Form
             this.cbAutoRename.Text = "Auto-rename multi-disc games";
             this.cbAutoRename.UseVisualStyleBackColor = true;
             // 
-            // cbAlwaysSave
+            // cbDeleteRebuilt
             // 
-            this.cbAlwaysSave.AutoSize = true;
-            this.cbAlwaysSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAlwaysSave.Location = new System.Drawing.Point(9, 21);
-            this.cbAlwaysSave.Name = "cbAlwaysSave";
-            this.cbAlwaysSave.Size = new System.Drawing.Size(107, 17);
-            this.cbAlwaysSave.TabIndex = 4;
-            this.cbAlwaysSave.Text = "Save rebuilt ISO";
-            this.cbAlwaysSave.UseVisualStyleBackColor = true;
+            this.cbDeleteRebuilt.AutoSize = true;
+            this.cbDeleteRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDeleteRebuilt.Location = new System.Drawing.Point(9, 43);
+            this.cbDeleteRebuilt.Name = "cbDeleteRebuilt";
+            this.cbDeleteRebuilt.Size = new System.Drawing.Size(205, 17);
+            this.cbDeleteRebuilt.TabIndex = 4;
+            this.cbDeleteRebuilt.Text = "Delete rebuilt ISO after completion";
+            this.cbDeleteRebuilt.UseVisualStyleBackColor = true;
             // 
-            // cbRebuildCheck
+            // cbDeleteSource
             // 
-            this.cbRebuildCheck.AutoSize = true;
-            this.cbRebuildCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbRebuildCheck.Location = new System.Drawing.Point(9, 43);
-            this.cbRebuildCheck.Name = "cbRebuildCheck";
-            this.cbRebuildCheck.Size = new System.Drawing.Size(199, 17);
-            this.cbRebuildCheck.TabIndex = 5;
-            this.cbRebuildCheck.Text = "Ask if rebuilt ISO should be saved";
-            this.cbRebuildCheck.UseVisualStyleBackColor = true;
+            this.cbDeleteSource.AutoSize = true;
+            this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDeleteSource.Location = new System.Drawing.Point(9, 21);
+            this.cbDeleteSource.Name = "cbDeleteSource";
+            this.cbDeleteSource.Size = new System.Drawing.Size(211, 17);
+            this.cbDeleteSource.TabIndex = 5;
+            this.cbDeleteSource.Text = "Delete original ISO after completion";
+            this.cbDeleteSource.UseVisualStyleBackColor = true;
             // 
             // pbOptions
             // 
@@ -392,9 +403,9 @@ public class Settings : Form
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(238, 97);
+            this.groupBox3.Location = new System.Drawing.Point(247, 97);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(216, 150);
+            this.groupBox3.Size = new System.Drawing.Size(227, 150);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FTP Transfer";
@@ -407,7 +418,7 @@ public class Settings : Form
             this.txtFtpPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
             this.txtFtpPort.Name = "txtFtpPort";
-            this.txtFtpPort.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpPort.Size = new System.Drawing.Size(141, 23);
             this.txtFtpPort.TabIndex = 13;
             // 
             // label7
@@ -422,9 +433,10 @@ public class Settings : Form
             // 
             // cbFTP
             // 
+            this.cbFTP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFTP.AutoSize = true;
             this.cbFTP.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbFTP.Location = new System.Drawing.Point(149, -1);
+            this.cbFTP.Location = new System.Drawing.Point(160, -1);
             this.cbFTP.Margin = new System.Windows.Forms.Padding(0);
             this.cbFTP.Name = "cbFTP";
             this.cbFTP.Size = new System.Drawing.Size(61, 17);
@@ -441,7 +453,7 @@ public class Settings : Form
             this.txtFtpPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
             this.txtFtpPass.Name = "txtFtpPass";
-            this.txtFtpPass.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpPass.Size = new System.Drawing.Size(141, 23);
             this.txtFtpPass.TabIndex = 12;
             // 
             // label6
@@ -462,7 +474,7 @@ public class Settings : Form
             this.txtFtpUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
             this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpUser.Size = new System.Drawing.Size(141, 23);
             this.txtFtpUser.TabIndex = 11;
             // 
             // label5
@@ -493,7 +505,7 @@ public class Settings : Form
             this.txtFtpIp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
             this.txtFtpIp.Name = "txtFtpIp";
-            this.txtFtpIp.Size = new System.Drawing.Size(130, 23);
+            this.txtFtpIp.Size = new System.Drawing.Size(141, 23);
             this.txtFtpIp.TabIndex = 10;
             // 
             // label4
@@ -506,24 +518,13 @@ public class Settings : Form
             this.label4.TabIndex = 0;
             this.label4.Text = "IP Address:";
             // 
-            // cbTitleDirectory
-            // 
-            this.cbTitleDirectory.AutoSize = true;
-            this.cbTitleDirectory.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTitleDirectory.Location = new System.Drawing.Point(9, 109);
-            this.cbTitleDirectory.Name = "cbTitleDirectory";
-            this.cbTitleDirectory.Size = new System.Drawing.Size(161, 17);
-            this.cbTitleDirectory.TabIndex = 31;
-            this.cbTitleDirectory.Text = "Use title name as directory";
-            this.cbTitleDirectory.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(464, 289);
+            this.ClientSize = new System.Drawing.Size(484, 289);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnSave);
@@ -571,8 +572,8 @@ public class Settings : Form
         {
             txtOut.Text = Properties.Settings.Default["OutputPath"].ToString();
             txtRebuild.Text = Properties.Settings.Default["RebuildPath"].ToString();
-            cbRebuildCheck.Checked = (bool)Properties.Settings.Default["RebuiltCheck"];
-            cbAlwaysSave.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
+            cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
+            cbDeleteRebuilt.Checked = (bool)Properties.Settings.Default["DeleteRebuilt"];
             cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
             cbAutoBrowse.Checked = (bool)Properties.Settings.Default["AutoBrowse"];
             cbFTP.Checked = (bool)Properties.Settings.Default["FtpUpload"];
@@ -619,8 +620,8 @@ public class Settings : Form
         }
         Properties.Settings.Default["OutputPath"] = txtOut.Text;
         Properties.Settings.Default["RebuildPath"] = txtRebuild.Text;
-        Properties.Settings.Default["RebuiltCheck"] = cbRebuildCheck.Checked;
-        Properties.Settings.Default["AlwaysSave"] = cbAlwaysSave.Checked;
+        Properties.Settings.Default["DeleteSource"] = cbDeleteSource.Checked;
+        Properties.Settings.Default["DeleteRebuilt"] = cbDeleteRebuilt.Checked;
         Properties.Settings.Default["AutoRenameMultiDisc"] = cbAutoRename.Checked;
         Properties.Settings.Default["AutoBrowse"] = cbAutoBrowse.Checked;
         Properties.Settings.Default["FtpUpload"] = cbFTP.Checked;

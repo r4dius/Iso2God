@@ -656,6 +656,12 @@ public class Main : Form
                     item.SubItems[6].Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
                     FlashWindow(base.Handle, bInvert: false);
                 }
+
+                if (isoEntry.DeleteSource && e.Error == null)
+                {
+                    DeleteOriginalIso(isoEntry.Path, item); // Call the method to delete the original ISO
+                }
+
                 jobCheck.Enabled = true;
                 item.Tag = isoEntry;
                 item.ForeColor = Color.Green;
@@ -713,6 +719,26 @@ public class Main : Form
         listViewItem.SubItems[3].Text = num + " GB";
         listViewItem.SubItems[4].Text = Entry.Padding.Type.ToString();
         listViewItem.SubItems[6].Text = Entry.Path;
+    }
+
+    private void DeleteOriginalIso(string isoFilePath, ListViewItem item)
+    {
+        try
+        {
+            if (File.Exists(isoFilePath))
+            {
+                File.Delete(isoFilePath);  // Delete the file
+                item.SubItems[6].Text += ". Original ISO file deleted.";
+            }
+            else
+            {
+                item.SubItems[6].Text += ". Original ISO file not found.";
+            }
+        }
+        catch (Exception ex)
+        {
+            item.SubItems[6].Text += ". Error deleting original ISO: " + ex.Message;
+        }
     }
 
     public string getVersion(bool build, bool revision)

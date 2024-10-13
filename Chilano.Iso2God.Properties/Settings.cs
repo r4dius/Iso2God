@@ -43,36 +43,6 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [UserScopedSetting]
-    [DefaultSettingValue("True")]
-    [DebuggerNonUserCode]
-    public bool RebuiltCheck
-    {
-        get
-        {
-            return (bool)this["RebuiltCheck"];
-        }
-        set
-        {
-            this["RebuiltCheck"] = value;
-        }
-    }
-
-    [DefaultSettingValue("True")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool AlwaysSave
-    {
-        get
-        {
-            return (bool)this["AlwaysSave"];
-        }
-        set
-        {
-            this["AlwaysSave"] = value;
-        }
-    }
-
     [DefaultSettingValue("")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
@@ -265,6 +235,36 @@ internal sealed class Settings : ApplicationSettingsBase
         set
         {
             this["ColumnsWidth"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool DeleteSource
+    {
+        get
+        {
+            return (bool)this["DeleteSource"];
+        }
+        set
+        {
+            this["DeleteSource"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool DeleteRebuilt
+    {
+        get
+        {
+            return (bool)this["DeleteRebuilt"];
+        }
+        set
+        {
+            this["DeleteRebuilt"] = value;
         }
     }
 }

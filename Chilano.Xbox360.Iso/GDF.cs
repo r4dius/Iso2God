@@ -67,7 +67,7 @@ public class GDF : IDisposable
     {
         volDesc = default(GDFVolumeDescriptor);
         Exceptions.Clear();
-        type = IsoType.Gdf;
+        type = IsoType.XGD2;
         rootDir.Clear();
         fr.Close();
         file.Close();
@@ -91,16 +91,25 @@ public class GDF : IDisposable
         }
         else
         {
-            file.Seek(32 * volDesc.SectorSize + 265879552, SeekOrigin.Begin);
+            file.Seek(32 * volDesc.SectorSize + (long)IsoType.XGD1, SeekOrigin.Begin);
             if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
             {
-                type = IsoType.Gdf;
+                type = IsoType.XGD1;
                 volDesc.RootOffset = (uint)type;
             }
             else
             {
-                type = IsoType.XGD3;
-                volDesc.RootOffset = (uint)type;
+                file.Seek(32 * volDesc.SectorSize + (long)IsoType.XGD2, SeekOrigin.Begin);
+                if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
+                {
+                    type = IsoType.XGD2;
+                    volDesc.RootOffset = (uint)type;
+                }
+                else
+                {
+                    type = IsoType.XGD3;
+                    volDesc.RootOffset = (uint)type;
+                }
             }
         }
         file.Seek(32 * volDesc.SectorSize + volDesc.RootOffset, SeekOrigin.Begin);
