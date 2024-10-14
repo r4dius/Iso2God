@@ -815,7 +815,7 @@ public class AddISO : Form
         {
             if (e.Result == null)
             {
-                txtName.Text = "Failed to read details from ISO image.";
+                //txtName.Text = "Failed to read details from ISO image.";
 
                 processErrors++;
 
@@ -856,7 +856,16 @@ public class AddISO : Form
             bool titleDirectory = cbTitleDirectory.Checked;
             int result = 0;
             int.TryParse(isoDetailsResults.DiscCount, out result);
-            txtName.Text = isoDetailsResults.Name;
+
+            string csvInfo = getCsvTitle(isoDetailsResults.TitleID, isoDetailsResults.MediaID);
+            if(csvInfo != "")
+            {
+                txtName.Text = csvInfo;
+            }
+            else
+            {
+                txtName.Text = isoDetailsResults.Name;
+            }
 
             if (txtName.Text.Trim().Length == 0)
             {
@@ -1101,17 +1110,8 @@ public class AddISO : Form
             {
                 btnAddIso.Enabled = true;
             }
-            switch (entry.Platform)
-            {
-                case IsoEntryPlatform.Xbox360:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    txtName.Text = "Reading default.xex...";
-                    break;
-                case IsoEntryPlatform.Xbox:
-                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    txtName.Text = "Reading default.xbe...";
-                    break;
-            }
+            isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+            txtName.Text = "Reading default.xex/xbe...";
         }
     }
 
@@ -1266,26 +1266,37 @@ public class AddISO : Form
     {
         return Regex.IsMatch(input, @"\A\b[0-9a-fA-F]+\b\Z");
     }
-    /*
-    public class Foo
-    {
-        [Index(0)]
-        public int Id { get; set; }
 
-        [Index(1)]
-        public string Name { get; set; }
-    }
-
-    public static void readCSV(string file)
+    public string getCsvTitle(string TitleID, string MediaID)
     {
-        using (var reader = new StreamReader(file))
-        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        var file = (platform == IsoEntryPlatform.Xbox ? "gamelist_xbox.csv" : "gamelist_xbox360.csv");
+        var title = "";
+
+        try
         {
-            var records = csv.GetRecords<MyRecordClass>();
-            foreach (var record in records)
+            if (File.Exists(file))
             {
-                Console.WriteLine($"{record.Column1}, {record.Column2}");
+                var csv = File.ReadAllText(file);
+                foreach (var line in Csv.CsvReader.ReadFromText(csv))
+                {
+                    string title_id = line["title_id"];
+                    string media_id = (platform == IsoEntryPlatform.Xbox ? line["xbe_md5"].Substring(0, 8).ToUpper() : line["media_id"]);
+
+                    if (TitleID == title_id)
+                    {
+                        title = line["title_name"];
+                        if (MediaID == media_id)
+                        {
+                            return line["title_name"];
+                        }
+                    }
+                }
             }
         }
-    }*/
+        catch
+        {
+            // will return empty title
+        }
+        return title;
+    }
 }
