@@ -157,6 +157,7 @@ public class AddISO : Form
             this.ttSettings = new System.Windows.Forms.ToolTip(this.components);
             this.ttThumb = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbDeleteSource = new System.Windows.Forms.CheckBox();
             this.cbDeleteRebuilt = new System.Windows.Forms.CheckBox();
             this.btnRebuiltBrowse = new System.Windows.Forms.Button();
             this.cmbPaddingMode = new System.Windows.Forms.ComboBox();
@@ -168,7 +169,6 @@ public class AddISO : Form
             this.progressBarMulti = new Chilano.Common.ProgressBarEx();
             this.iso2God1 = new Chilano.Iso2God.Iso2God();
             this.ftpUploader1 = new Chilano.Iso2God.Ftp.FtpUploader();
-            this.cbDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -574,12 +574,24 @@ public class AddISO : Form
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Padding";
             // 
+            // cbDeleteSource
+            // 
+            this.cbDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbDeleteSource.AutoSize = true;
+            this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDeleteSource.Location = new System.Drawing.Point(232, 24);
+            this.cbDeleteSource.Name = "cbDeleteSource";
+            this.cbDeleteSource.Size = new System.Drawing.Size(205, 17);
+            this.cbDeleteSource.TabIndex = 26;
+            this.cbDeleteSource.Text = "Delete source ISO after completion";
+            this.cbDeleteSource.UseVisualStyleBackColor = true;
+            // 
             // cbDeleteRebuilt
             // 
             this.cbDeleteRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDeleteRebuilt.AutoSize = true;
             this.cbDeleteRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteRebuilt.Location = new System.Drawing.Point(232, 24);
+            this.cbDeleteRebuilt.Location = new System.Drawing.Point(232, 47);
             this.cbDeleteRebuilt.Name = "cbDeleteRebuilt";
             this.cbDeleteRebuilt.Size = new System.Drawing.Size(205, 17);
             this.cbDeleteRebuilt.TabIndex = 12;
@@ -685,18 +697,6 @@ public class AddISO : Form
             // 
             this.ftpUploader1.WorkerReportsProgress = true;
             // 
-            // cbDeleteSource
-            // 
-            this.cbDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbDeleteSource.AutoSize = true;
-            this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteSource.Location = new System.Drawing.Point(232, 47);
-            this.cbDeleteSource.Name = "cbDeleteSource";
-            this.cbDeleteSource.Size = new System.Drawing.Size(205, 17);
-            this.cbDeleteSource.TabIndex = 26;
-            this.cbDeleteSource.Text = "Delete source ISO after completion";
-            this.cbDeleteSource.UseVisualStyleBackColor = true;
-            // 
             // AddISO
             // 
             this.AcceptButton = this.btnAddIso;
@@ -746,8 +746,9 @@ public class AddISO : Form
         isoDetails.RunWorkerCompleted += isoDetails_RunWorkerCompleted;
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
-        cbDeleteRebuilt.Checked = (bool)Properties.Settings.Default["DeleteRebuilt"];
         cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
+        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
+        cbDeleteRebuilt.Checked = (bool)Properties.Settings.Default["DeleteRebuilt"];
         cbTitleDirectory.Checked = (bool)Properties.Settings.Default["TitleDirectory"];
         cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
         ttISO.SetToolTip(pbVideo, 
@@ -801,6 +802,7 @@ public class AddISO : Form
         txtISO.Text = entry.Path;
         txtRebuiltIso.Text = ((entry.Padding.Type == IsoEntryPaddingRemoval.Full) ? entry.Padding.IsoPath : Properties.Settings.Default["RebuildPath"].ToString());
         cbDeleteSource.Checked = entry.DeleteSource;
+        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbDeleteRebuilt.Checked = entry.DeleteRebuilt;
         cmbPaddingMode.SelectedIndex = (int)entry.Padding.Type;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
@@ -1298,5 +1300,19 @@ public class AddISO : Form
             // will return empty title
         }
         return title;
+    }
+
+    private void cbDeleteSource_CheckedChanged(object sender, EventArgs e)
+    {
+        CheckBox checkbox = (CheckBox)sender;
+        if (checkbox.Checked)
+        {
+            DialogResult result = MessageBox.Show("This will permanently delete the original ISO files.\nAre you sure you want to continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.Cancel)
+            {
+                checkbox.Checked = false;
+                return;
+            }
+        }
     }
 }

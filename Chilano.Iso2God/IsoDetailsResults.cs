@@ -30,8 +30,6 @@ internal class IsoDetailsResults
 
     public byte[] RawThumbnail;
 
-    public string MD5;
-
     public IsoDetailsResults()
     {
     }

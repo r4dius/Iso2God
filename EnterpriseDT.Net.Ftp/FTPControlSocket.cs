@@ -321,11 +321,11 @@ public class FTPControlSocket
 
     internal void SetDataPort(IPEndPoint ep)
     {
-        byte[] bytes = BitConverter.GetBytes(ep.Address.Address);
+        byte[] bytes = ep.Address.GetAddressBytes();
         if (activeIPAddress != null)
         {
             log.Info("Forcing use of fixed IP for PORT command");
-            bytes = BitConverter.GetBytes(activeIPAddress.Address);
+            bytes = activeIPAddress.GetAddressBytes();
         }
         byte[] array = ToByteArray((ushort)ep.Port);
         string command = new StringBuilder("PORT ").Append((short)bytes[0]).Append(",").Append((short)bytes[1])
