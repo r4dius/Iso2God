@@ -1327,7 +1327,7 @@ public class AddISO : Form
         CheckBox checkbox = (CheckBox)sender;
         if (checkbox.Checked)
         {
-            DialogResult result = MessageBox.Show("This will permanently delete the original ISO files.\nAre you sure you want to continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("This will permanently delete the original ISO files.\nAre you sure you want to continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Cancel)
             {
                 checkbox.Checked = false;

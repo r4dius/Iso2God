@@ -8,9 +8,7 @@ using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
 namespace Chilano.Iso2God;
@@ -79,9 +77,17 @@ public class Main : Form
 
     private FtpUploader ftp = new FtpUploader();
 
-    public string pathXT = "";
     private ToolStripLabel toolStripLabel2;
+
     public string pathTemp = "";
+
+    public string pathXT = "";
+
+    public string file_xextool = "xextool.exe";
+
+    public string file_listxbox = "gamelist_xbox.csv";
+
+    public string file_listxbox360 = "gamelist_xbox360.csv";
 
     protected override void Dispose(bool disposing)
     {
@@ -433,7 +439,7 @@ public class Main : Form
         Text = Text + " " + getVersion(build: true, revision: false);
         pathTemp = Path.GetTempPath() + "i2g" + Path.DirectorySeparatorChar;
         Directory.CreateDirectory(pathTemp);
-        pathXT = Application.StartupPath + Path.DirectorySeparatorChar + "xextool.exe";
+        pathXT = Application.StartupPath + Path.DirectorySeparatorChar + file_xextool;
         Width = (int)Chilano.Iso2God.Properties.Settings.Default["Width"];
         Height = (int)Chilano.Iso2God.Properties.Settings.Default["Height"];
         CenterToScreen();
@@ -447,14 +453,8 @@ public class Main : Form
             if (listView1.Columns.Count > i) listView1.Columns[i].Width = Convert.ToInt32(ColumnsWidth[i]);
             else break;
         }
-        if (!File.Exists(pathXT))
-        {
-            tsStatus.Text = "Could not locate XexTool! Please ensure it is in the same directory as Iso2God or thumbnail extraction will not work.";
-        }
-        else
-        {
-            UpdateSpace();
-        }
+        UpdateSpace();
+        checkStartupFiles();
     }
 
     private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -939,6 +939,28 @@ public class Main : Form
         else
         {
             e.Effect = DragDropEffects.None; // No drag-and-drop allowed
+        }
+    }
+
+    private void checkStartupFiles()
+    {
+        string message = "";
+        if (!File.Exists(file_listxbox))
+        {
+            message += "• " + file_listxbox + " is missing, Xbox game titles will not be corrected.\n";
+        }
+        if (!File.Exists(file_listxbox360))
+        {
+            message += "• " + file_listxbox360 + " is missing, Xbox360 game titles will not be corrected.\n";
+        }
+        if (!File.Exists(pathXT))
+        {
+            message += "• " + file_xextool + " is missing, Xbox360 thumbnail extraction will not work.\n";
+        }
+
+        if (message != "")
+        {
+            MessageBox.Show("Please ensure the files are in the same directory as Iso2God:\n\n" + message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

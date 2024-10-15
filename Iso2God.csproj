@@ -23,9 +23,6 @@
     <None Remove="Chilano.Common.MultiPane.MultiPanePage.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Csv" Version="2.0.93" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="System.Management" />
     <Reference Include="System.Design" />

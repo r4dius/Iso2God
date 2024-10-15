@@ -3,5 +3,6 @@
 Backup/*
 bin/*
 obj/*
-*.xlsx
+*.db
 *.tsv
+*.xlsx
