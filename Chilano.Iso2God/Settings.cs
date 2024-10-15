@@ -156,7 +156,7 @@ public class Settings : Form
             this.btnRebuild.Location = new System.Drawing.Point(384, 50);
             this.btnRebuild.Name = "btnRebuild";
             this.btnRebuild.Size = new System.Drawing.Size(70, 25);
-            this.btnRebuild.TabIndex = 3;
+            this.btnRebuild.TabIndex = 4;
             this.btnRebuild.Text = "&Browse";
             this.btnRebuild.UseVisualStyleBackColor = true;
             this.btnRebuild.Click += new System.EventHandler(this.btnRebuild_Click);
@@ -170,7 +170,7 @@ public class Settings : Form
             this.txtRebuild.Name = "txtRebuild";
             this.txtRebuild.ReadOnly = true;
             this.txtRebuild.Size = new System.Drawing.Size(291, 23);
-            this.txtRebuild.TabIndex = 2;
+            this.txtRebuild.TabIndex = 3;
             // 
             // label2
             // 
@@ -199,7 +199,7 @@ public class Settings : Form
             this.btnOutBrowse.Location = new System.Drawing.Point(384, 19);
             this.btnOutBrowse.Name = "btnOutBrowse";
             this.btnOutBrowse.Size = new System.Drawing.Size(70, 25);
-            this.btnOutBrowse.TabIndex = 1;
+            this.btnOutBrowse.TabIndex = 2;
             this.btnOutBrowse.Text = "&Browse";
             this.btnOutBrowse.UseVisualStyleBackColor = true;
             this.btnOutBrowse.Click += new System.EventHandler(this.btnDestBrowse_Click);
@@ -213,7 +213,7 @@ public class Settings : Form
             this.txtOut.Name = "txtOut";
             this.txtOut.ReadOnly = true;
             this.txtOut.Size = new System.Drawing.Size(291, 23);
-            this.txtOut.TabIndex = 0;
+            this.txtOut.TabIndex = 1;
             // 
             // label1
             // 
@@ -255,7 +255,7 @@ public class Settings : Form
             this.btnSave.Location = new System.Drawing.Point(319, 255);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 25);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 16;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -267,7 +267,7 @@ public class Settings : Form
             this.btnCancel.Location = new System.Drawing.Point(400, 255);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -301,7 +301,7 @@ public class Settings : Form
             this.cbTitleDirectory.Location = new System.Drawing.Point(9, 109);
             this.cbTitleDirectory.Name = "cbTitleDirectory";
             this.cbTitleDirectory.Size = new System.Drawing.Size(161, 17);
-            this.cbTitleDirectory.TabIndex = 31;
+            this.cbTitleDirectory.TabIndex = 9;
             this.cbTitleDirectory.Text = "Use title name as directory";
             this.cbTitleDirectory.UseVisualStyleBackColor = true;
             // 
@@ -312,7 +312,7 @@ public class Settings : Form
             this.cbAutoBrowse.Location = new System.Drawing.Point(9, 87);
             this.cbAutoBrowse.Name = "cbAutoBrowse";
             this.cbAutoBrowse.Size = new System.Drawing.Size(186, 17);
-            this.cbAutoBrowse.TabIndex = 7;
+            this.cbAutoBrowse.TabIndex = 8;
             this.cbAutoBrowse.Text = "Auto-browse when adding ISO";
             this.cbAutoBrowse.UseVisualStyleBackColor = true;
             // 
@@ -331,7 +331,7 @@ public class Settings : Form
             this.cmbPadding.Location = new System.Drawing.Point(65, 133);
             this.cmbPadding.Name = "cmbPadding";
             this.cmbPadding.Size = new System.Drawing.Size(151, 23);
-            this.cmbPadding.TabIndex = 8;
+            this.cmbPadding.TabIndex = 10;
             // 
             // label3
             // 
@@ -350,7 +350,7 @@ public class Settings : Form
             this.cbAutoRename.Location = new System.Drawing.Point(9, 65);
             this.cbAutoRename.Name = "cbAutoRename";
             this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
-            this.cbAutoRename.TabIndex = 6;
+            this.cbAutoRename.TabIndex = 7;
             this.cbAutoRename.Text = "Auto-rename multi-disc games";
             this.cbAutoRename.UseVisualStyleBackColor = true;
             // 
@@ -361,7 +361,7 @@ public class Settings : Form
             this.cbDeleteRebuilt.Location = new System.Drawing.Point(9, 43);
             this.cbDeleteRebuilt.Name = "cbDeleteRebuilt";
             this.cbDeleteRebuilt.Size = new System.Drawing.Size(205, 17);
-            this.cbDeleteRebuilt.TabIndex = 4;
+            this.cbDeleteRebuilt.TabIndex = 6;
             this.cbDeleteRebuilt.Text = "Delete rebuilt ISO after completion";
             this.cbDeleteRebuilt.UseVisualStyleBackColor = true;
             // 
@@ -419,7 +419,7 @@ public class Settings : Form
             this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
             this.txtFtpPort.Name = "txtFtpPort";
             this.txtFtpPort.Size = new System.Drawing.Size(141, 23);
-            this.txtFtpPort.TabIndex = 13;
+            this.txtFtpPort.TabIndex = 15;
             // 
             // label7
             // 
@@ -440,7 +440,7 @@ public class Settings : Form
             this.cbFTP.Margin = new System.Windows.Forms.Padding(0);
             this.cbFTP.Name = "cbFTP";
             this.cbFTP.Size = new System.Drawing.Size(61, 17);
-            this.cbFTP.TabIndex = 9;
+            this.cbFTP.TabIndex = 11;
             this.cbFTP.Text = "Enable";
             this.cbFTP.UseVisualStyleBackColor = true;
             this.cbFTP.CheckedChanged += new System.EventHandler(this.cbFTP_CheckedChanged);
@@ -454,7 +454,7 @@ public class Settings : Form
             this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
             this.txtFtpPass.Name = "txtFtpPass";
             this.txtFtpPass.Size = new System.Drawing.Size(141, 23);
-            this.txtFtpPass.TabIndex = 12;
+            this.txtFtpPass.TabIndex = 14;
             // 
             // label6
             // 
@@ -475,7 +475,7 @@ public class Settings : Form
             this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
             this.txtFtpUser.Name = "txtFtpUser";
             this.txtFtpUser.Size = new System.Drawing.Size(141, 23);
-            this.txtFtpUser.TabIndex = 11;
+            this.txtFtpUser.TabIndex = 13;
             // 
             // label5
             // 
@@ -506,7 +506,7 @@ public class Settings : Form
             this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
             this.txtFtpIp.Name = "txtFtpIp";
             this.txtFtpIp.Size = new System.Drawing.Size(141, 23);
-            this.txtFtpIp.TabIndex = 10;
+            this.txtFtpIp.TabIndex = 12;
             // 
             // label4
             // 

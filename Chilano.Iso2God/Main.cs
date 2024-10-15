@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
 namespace Chilano.Iso2God;
@@ -136,31 +137,31 @@ public class Main : Form
             this.toolStripSeparator2,
             this.restartFTPUploadToolStripMenuItem});
             this.cmQueue.Name = "cmQueue";
-            this.cmQueue.Size = new System.Drawing.Size(174, 76);
+            this.cmQueue.Size = new System.Drawing.Size(175, 76);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
             // 
             // restartFTPUploadToolStripMenuItem
             // 
             this.restartFTPUploadToolStripMenuItem.Name = "restartFTPUploadToolStripMenuItem";
-            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.restartFTPUploadToolStripMenuItem.Text = "Restart FTP Upload";
             this.restartFTPUploadToolStripMenuItem.Click += new System.EventHandler(this.restartFTPUploadToolStripMenuItem_Click);
             // 
@@ -188,6 +189,7 @@ public class Main : Form
             // 
             // listView1
             // 
+            this.listView1.AllowDrop = true;
             this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -211,6 +213,8 @@ public class Main : Form
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView1_DragDrop);
+            this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView1_DragEnter);
             this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
             // 
             // columnHeader3
@@ -910,5 +914,31 @@ public class Main : Form
     {
         Chilano.Iso2God.Properties.Settings.Default["Width"] = Width;
         Chilano.Iso2God.Properties.Settings.Default["Height"] = Height;
+    }
+
+    private void listView1_DragDrop(object sender, DragEventArgs e)
+    {
+        // Get the files being dropped
+        string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+        using (AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360))
+        {
+            addISO.Drop(files, pathTemp, pathXT);
+            addISO.ShowDialog(this);
+            return;
+        }
+    }
+
+    private void listView1_DragEnter(object sender, DragEventArgs e)
+    {
+        // Check if the data being dragged is a file
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            e.Effect = DragDropEffects.Copy; // Show a copy cursor
+        }
+        else
+        {
+            e.Effect = DragDropEffects.None; // No drag-and-drop allowed
+        }
     }
 }
