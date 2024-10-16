@@ -8,6 +8,7 @@ using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
@@ -916,10 +917,13 @@ public class Main : Form
         Properties.Settings.Default["Height"] = Height;
     }
 
-    private void listView1_DragDrop(object sender, DragEventArgs e)
+    private async void listView1_DragDrop(object sender, DragEventArgs e)
     {
-        // Get the files being dropped
-        string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+        string[] files = await Task.Run(() =>
+        {
+            // Get the files being dropped
+            return (string[])e.Data.GetData(DataFormats.FileDrop);
+        });
 
         using (AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360))
         {
@@ -935,7 +939,7 @@ public class Main : Form
         // Check if the data being dragged is a file
         if (e.Data.GetDataPresent(DataFormats.FileDrop))
         {
-            e.Effect = DragDropEffects.Copy; // Show a copy cursor
+            e.Effect = DragDropEffects.All; // Show a copy cursor
         }
         else
         {
