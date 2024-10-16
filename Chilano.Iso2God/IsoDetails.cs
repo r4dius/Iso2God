@@ -128,15 +128,15 @@ internal class IsoDetails : BackgroundWorker
             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Progress, "Extracting thumbnail..."));
             foreach (XbeSection section in xbeInfo.Sections)
             {
-                if (!(section.Name == "$$XTIMAGE"))
+                if (!(section.Name == "$$XSIMAGE"))
                 {
                     continue;
                 }
                 try
                 {
                     XPR xPR = new XPR(section.Data);
-                    DDS dDS = xPR.ConvertToDDS(128, 128);
-                    Bitmap bitmap = new Bitmap(128, 128);
+                    DDS dDS = xPR.ConvertToDDS(64, 64);
+                    Bitmap bitmap = new Bitmap(64, 64);
                     switch (xPR.Format)
                     {
                         case XPRFormat.ARGB:
@@ -146,16 +146,12 @@ internal class IsoDetails : BackgroundWorker
                             bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
                             break;
                     }
-                    Image image = new Bitmap(64, 64);
-                    Graphics graphics = Graphics.FromImage(image);
-                    graphics.DrawImage(bitmap, 0, 0, 64, 64);
                     MemoryStream memoryStream = new MemoryStream();
-                    image.Save(memoryStream, ImageFormat.Png);
-                    isoDetailsResults.Thumbnail = (Image)image.Clone();
+                    bitmap.Save(memoryStream, ImageFormat.Png);
+                    isoDetailsResults.Thumbnail = (Image)bitmap.Clone();
                     isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
-                    memoryStream.Dispose();
                     bitmap.Dispose();
-                    graphics.Dispose();
+                    memoryStream.Dispose();
                     if (xPR.Format == XPRFormat.ARGB)
                     {
                         ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
@@ -170,15 +166,15 @@ internal class IsoDetails : BackgroundWorker
             {
                 foreach (XbeSection section in xbeInfo.Sections)
                 {
-                    if (!(section.Name == "$$XSIMAGE"))
+                    if (!(section.Name == "$$XTIMAGE"))
                     {
                         continue;
                     }
                     try
                     {
                         XPR xPR = new XPR(section.Data);
-                        DDS dDS = xPR.ConvertToDDS(64, 64);
-                        Bitmap bitmap = new Bitmap(64, 64);
+                        DDS dDS = xPR.ConvertToDDS(128, 128);
+                        Bitmap bitmap = new Bitmap(128, 128);
                         switch (xPR.Format)
                         {
                             case XPRFormat.ARGB:
@@ -188,12 +184,16 @@ internal class IsoDetails : BackgroundWorker
                                 bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
                                 break;
                         }
+                        Image image = new Bitmap(64, 64);
+                        Graphics graphics = Graphics.FromImage(image);
+                        graphics.DrawImage(bitmap, 0, 0, 64, 64);
                         MemoryStream memoryStream = new MemoryStream();
-                        bitmap.Save(memoryStream, ImageFormat.Png);
-                        isoDetailsResults.Thumbnail = (Image)bitmap.Clone();
+                        image.Save(memoryStream, ImageFormat.Png);
+                        isoDetailsResults.Thumbnail = (Image)image.Clone();
                         isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
-                        bitmap.Dispose();
                         memoryStream.Dispose();
+                        bitmap.Dispose();
+                        graphics.Dispose();
                         if (xPR.Format == XPRFormat.ARGB)
                         {
                             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
