@@ -789,10 +789,10 @@ public class AddISO : Form
         }
     }
 
-    public void Drop(string[] files, string pathTemp, string pathXT)
+    public void Drop(string[] files)
     {
         drop = true;
-        AddFiles(files, pathTemp, pathXT);
+        AddFiles(files);
     }
 
     public void Edit(int Index, IsoEntry Entry)
@@ -1098,11 +1098,11 @@ public class AddISO : Form
         openFileDialog.Filter = "ISO Images (*.iso, *.000)|*.iso;*.000";
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-            AddFiles(openFileDialog.FileNames, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT);
+            AddFiles(openFileDialog.FileNames);
         }
     }
 
-    private void AddFiles(string[] files, string pathTemp, string pathXT)
+    private void AddFiles(string[] files)
     {
         file = 0;
         processErrors = 0;
@@ -1133,7 +1133,7 @@ public class AddISO : Form
         Debug.WriteLine("pathTemp: " + pathTemp);
         Debug.WriteLine("pathXT: " + pathXT);
         */
-        isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, pathTemp, pathXT));
+        isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
         txtName.Text = "Reading default.xex/xbe...";
     }
 
@@ -1327,7 +1327,7 @@ public class AddISO : Form
         CheckBox checkbox = (CheckBox)sender;
         if (checkbox.Checked)
         {
-            DialogResult result = MessageBox.Show("This will permanently delete the original ISO files.\nAre you sure you want to continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show("This will permanently delete your original ISO files after completion, are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Cancel)
             {
                 checkbox.Checked = false;

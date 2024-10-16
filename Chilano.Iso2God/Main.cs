@@ -440,14 +440,14 @@ public class Main : Form
         pathTemp = Path.GetTempPath() + "i2g" + Path.DirectorySeparatorChar;
         Directory.CreateDirectory(pathTemp);
         pathXT = Application.StartupPath + Path.DirectorySeparatorChar + file_xextool;
-        Width = (int)Chilano.Iso2God.Properties.Settings.Default["Width"];
-        Height = (int)Chilano.Iso2God.Properties.Settings.Default["Height"];
+        Width = (int)Properties.Settings.Default["Width"];
+        Height = (int)Properties.Settings.Default["Height"];
         CenterToScreen();
-        if ((bool)Chilano.Iso2God.Properties.Settings.Default["Maximized"])
+        if ((bool)Properties.Settings.Default["Maximized"])
         {
             WindowState = FormWindowState.Maximized;
         }
-        string[] ColumnsWidth = Chilano.Iso2God.Properties.Settings.Default["ColumnsWidth"].ToString().Split(',');
+        string[] ColumnsWidth = Properties.Settings.Default["ColumnsWidth"].ToString().Split(',');
         for (int i = 0; i < ColumnsWidth.Length; i++)
         {
             if (listView1.Columns.Count > i) listView1.Columns[i].Width = Convert.ToInt32(ColumnsWidth[i]);
@@ -487,21 +487,21 @@ public class Main : Form
         }
         if (WindowState == FormWindowState.Maximized)
         {
-            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = true;
+            Properties.Settings.Default["Maximized"] = true;
         }
         else
         {
-            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = false;
+            Properties.Settings.Default["Maximized"] = false;
         }
-        Chilano.Iso2God.Properties.Settings.Default.Save();
+        Properties.Settings.Default.Save();
 
         List<string> ColumnsWidth = new List<string>();
         foreach (ColumnHeader column in listView1.Columns)
         {
             ColumnsWidth.Add(column.Width.ToString());
         }
-        Chilano.Iso2God.Properties.Settings.Default["ColumnsWidth"] = String.Join(",", ColumnsWidth.ToArray());
-        Chilano.Iso2God.Properties.Settings.Default.Save();
+        Properties.Settings.Default["ColumnsWidth"] = String.Join(",", ColumnsWidth.ToArray());
+        Properties.Settings.Default.Save();
     }
 
     private void freeDiskCheck_Tick(object sender, EventArgs e)
@@ -548,10 +548,10 @@ public class Main : Form
                 ftp = new FtpUploader();
                 ftp.RunWorkerCompleted += ftp_RunWorkerCompleted;
                 ftp.ProgressChanged += ftp_ProgressChanged;
-                string ip = Chilano.Iso2God.Properties.Settings.Default["FtpIP"].ToString();
-                string user = Chilano.Iso2God.Properties.Settings.Default["FtpUser"].ToString();
-                string pass = Chilano.Iso2God.Properties.Settings.Default["FtpPass"].ToString();
-                string port = Chilano.Iso2God.Properties.Settings.Default["FtpPort"].ToString();
+                string ip = Properties.Settings.Default["FtpIP"].ToString();
+                string user = Properties.Settings.Default["FtpUser"].ToString();
+                string pass = Properties.Settings.Default["FtpPass"].ToString();
+                string port = Properties.Settings.Default["FtpPort"].ToString();
                 string gameDirectory = (isoEntry.TitleDirectory && Utils.sanitizePath(isoEntry.TitleName).Length != 0 ? Utils.sanitizePath(isoEntry.TitleName) : isoEntry.ID.TitleID);
                 _ = isoEntry.ID.ContainerID;
                 ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, gameDirectory, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
@@ -645,7 +645,7 @@ public class Main : Form
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if ((bool)Chilano.Iso2God.Properties.Settings.Default["FtpUpload"])
+                if ((bool)Properties.Settings.Default["FtpUpload"])
                 {
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
@@ -783,7 +783,7 @@ public class Main : Form
 
     public void UpdateSpace(out long FreeSpace)
     {
-        string text = Chilano.Iso2God.Properties.Settings.Default["OutputPath"].ToString();
+        string text = Properties.Settings.Default["OutputPath"].ToString();
         if (!IsRunningOnMono())
         {
             FreeSpace = GetFreeSpace((text.Length > 0) ? text[0].ToString() : "C");
@@ -912,8 +912,8 @@ public class Main : Form
 
     private void Main_ResizeEnd(object sender, EventArgs e)
     {
-        Chilano.Iso2God.Properties.Settings.Default["Width"] = Width;
-        Chilano.Iso2God.Properties.Settings.Default["Height"] = Height;
+        Properties.Settings.Default["Width"] = Width;
+        Properties.Settings.Default["Height"] = Height;
     }
 
     private void listView1_DragDrop(object sender, DragEventArgs e)
@@ -923,7 +923,8 @@ public class Main : Form
 
         using (AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360))
         {
-            addISO.Drop(files, pathTemp, pathXT);
+            addISO.Owner = this;
+            addISO.Drop(files);
             addISO.ShowDialog(this);
             return;
         }
