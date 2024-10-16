@@ -1,11 +1,13 @@
 using Chilano.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1294,30 +1296,63 @@ public class AddISO : Form
         var file = (platform == IsoEntryPlatform.Xbox ? "gamelist_xbox.csv" : "gamelist_xbox360.csv");
         var title = "";
 
-        try
+        if (File.Exists(file))
         {
-            if (File.Exists(file))
+            try
             {
-                var csv = File.ReadAllText(file);
-                foreach (var line in Csv.CsvReader.ReadFromText(csv))
+                var data = new List<string[]>();
+                char delimiter = ',';
+                Dictionary<string, int> columnIndices = null;
+
+                using (var reader = new StreamReader(file))
                 {
-                    string title_id = line["title_id"];
-                    string media_id = (platform == IsoEntryPlatform.Xbox ? line["xbe_md5"].Substring(0, 8).ToUpper() : line["media_id"]);
+                    // Read the first line of the file
+                    var firstLine = reader.ReadLine();
+
+                    // Determine the delimiter to use based on the first line
+                    if (firstLine.Contains("\t"))
+                    {
+                        delimiter = '\t';
+                    }
+
+                    // Create the regular expression pattern
+                    string pattern = $"{delimiter}(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+
+                    // Read the header row
+                    var headers = Regex.Split(firstLine, pattern);
+
+                    // Create a dictionary to map column names to indices
+                    columnIndices = headers.Select((header, index) => new { header, index }).ToDictionary(x => x.header, x => x.index);
+
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = Regex.Split(line, pattern);
+
+                        data.Add(values);
+                    }
+                }
+
+                // Now you can search for values in the data array
+                foreach (var row in data)
+                {
+                    string title_id = row[columnIndices["title_id"]];
+                    string media_id = (platform == IsoEntryPlatform.Xbox ? row[columnIndices["xbe_md5"]].Substring(0, 8).ToUpper() : row[columnIndices["media_id"]]);
 
                     if (TitleID == title_id)
                     {
-                        title = line["title_name"];
+                        title = row[columnIndices["title_name"]];
                         if (MediaID == media_id)
                         {
-                            return line["title_name"];
+                            return row[columnIndices["title_name"]];
                         }
                     }
                 }
             }
-        }
-        catch
-        {
-            // will return empty title
+            catch
+            {
+                // will return empty title
+            }
         }
         return title;
     }
