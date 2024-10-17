@@ -3,12 +3,13 @@ using Chilano.Iso2God.Ftp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
@@ -78,17 +79,9 @@ public class Main : Form
 
     private FtpUploader ftp = new FtpUploader();
 
-    private ToolStripLabel toolStripLabel2;
-
-    public string pathTemp = "";
-
     public string pathXT = "";
-
-    public string file_xextool = "xextool.exe";
-
-    public string file_listxbox = "gamelist_xbox.csv";
-
-    public string file_listxbox360 = "gamelist_xbox360.csv";
+    private ToolStripLabel toolStripLabel2;
+    public string pathTemp = "";
 
     protected override void Dispose(bool disposing)
     {
@@ -144,31 +137,31 @@ public class Main : Form
             this.toolStripSeparator2,
             this.restartFTPUploadToolStripMenuItem});
             this.cmQueue.Name = "cmQueue";
-            this.cmQueue.Size = new System.Drawing.Size(175, 76);
+            this.cmQueue.Size = new System.Drawing.Size(174, 76);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // restartFTPUploadToolStripMenuItem
             // 
             this.restartFTPUploadToolStripMenuItem.Name = "restartFTPUploadToolStripMenuItem";
-            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.restartFTPUploadToolStripMenuItem.Text = "Restart FTP Upload";
             this.restartFTPUploadToolStripMenuItem.Click += new System.EventHandler(this.restartFTPUploadToolStripMenuItem_Click);
             // 
@@ -196,7 +189,6 @@ public class Main : Form
             // 
             // listView1
             // 
-            this.listView1.AllowDrop = true;
             this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -220,8 +212,6 @@ public class Main : Form
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView1_DragDrop);
-            this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView1_DragEnter);
             this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
             // 
             // columnHeader3
@@ -406,6 +396,7 @@ public class Main : Form
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Iso2God - Reloaded";
+            this.Load += new System.EventHandler(this.Main_Load_1);
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.cmQueue.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -436,26 +427,57 @@ public class Main : Form
 
     private void Main_Load(object sender, EventArgs e)
     {
+        // Attach the double-click event handler for listView1
         listView1.DoubleClick += listView1_DoubleClick;
+
+        // Append the version number to the window title
         Text = Text + " " + getVersion(build: true, revision: false);
+
+        // Set up a temporary directory path for the application
         pathTemp = Path.GetTempPath() + "i2g" + Path.DirectorySeparatorChar;
         Directory.CreateDirectory(pathTemp);
-        pathXT = Application.StartupPath + Path.DirectorySeparatorChar + file_xextool;
-        Width = (int)Properties.Settings.Default["Width"];
-        Height = (int)Properties.Settings.Default["Height"];
+
+        // Set up the path for the xextool.exe file
+        pathXT = Application.StartupPath + Path.DirectorySeparatorChar + "xextool.exe";
+
+        // Set the window dimensions based on saved user settings
+        Width = (int)Chilano.Iso2God.Properties.Settings.Default["Width"];
+        Height = (int)Chilano.Iso2God.Properties.Settings.Default["Height"];
+
+        // Center the window on the screen
         CenterToScreen();
-        if ((bool)Properties.Settings.Default["Maximized"])
+
+        // Restore the window state if it was maximized the last time
+        if ((bool)Chilano.Iso2God.Properties.Settings.Default["Maximized"])
         {
             WindowState = FormWindowState.Maximized;
         }
-        string[] ColumnsWidth = Properties.Settings.Default["ColumnsWidth"].ToString().Split(',');
+
+        // Restore the column widths in listView1 from saved settings
+        string[] ColumnsWidth = Chilano.Iso2God.Properties.Settings.Default["ColumnsWidth"].ToString().Split(',');
         for (int i = 0; i < ColumnsWidth.Length; i++)
         {
-            if (listView1.Columns.Count > i) listView1.Columns[i].Width = Convert.ToInt32(ColumnsWidth[i]);
-            else break;
+            if (listView1.Columns.Count > i)
+            {
+                listView1.Columns[i].Width = Convert.ToInt32(ColumnsWidth[i]);
+            }
+            else
+            {
+                break;
+            }
         }
-        UpdateSpace();
-        checkStartupFiles();
+
+        // Check if the XexTool executable exists
+        if (!File.Exists(pathXT))
+        {
+            // Display a warning if XexTool is not found
+            tsStatus.Text = "Could not locate XexTool! Please ensure it is in the same directory as Iso2God or thumbnail extraction will not work.";
+        }
+        else
+        {
+            // Update available disk space status if XexTool is found
+            UpdateSpace();
+        }
     }
 
     private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -488,21 +510,21 @@ public class Main : Form
         }
         if (WindowState == FormWindowState.Maximized)
         {
-            Properties.Settings.Default["Maximized"] = true;
+            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = true;
         }
         else
         {
-            Properties.Settings.Default["Maximized"] = false;
+            Chilano.Iso2God.Properties.Settings.Default["Maximized"] = false;
         }
-        Properties.Settings.Default.Save();
+        Chilano.Iso2God.Properties.Settings.Default.Save();
 
         List<string> ColumnsWidth = new List<string>();
         foreach (ColumnHeader column in listView1.Columns)
         {
             ColumnsWidth.Add(column.Width.ToString());
         }
-        Properties.Settings.Default["ColumnsWidth"] = String.Join(",", ColumnsWidth.ToArray());
-        Properties.Settings.Default.Save();
+        Chilano.Iso2God.Properties.Settings.Default["ColumnsWidth"] = String.Join(",", ColumnsWidth.ToArray());
+        Chilano.Iso2God.Properties.Settings.Default.Save();
     }
 
     private void freeDiskCheck_Tick(object sender, EventArgs e)
@@ -549,10 +571,10 @@ public class Main : Form
                 ftp = new FtpUploader();
                 ftp.RunWorkerCompleted += ftp_RunWorkerCompleted;
                 ftp.ProgressChanged += ftp_ProgressChanged;
-                string ip = Properties.Settings.Default["FtpIP"].ToString();
-                string user = Properties.Settings.Default["FtpUser"].ToString();
-                string pass = Properties.Settings.Default["FtpPass"].ToString();
-                string port = Properties.Settings.Default["FtpPort"].ToString();
+                string ip = Chilano.Iso2God.Properties.Settings.Default["FtpIP"].ToString();
+                string user = Chilano.Iso2God.Properties.Settings.Default["FtpUser"].ToString();
+                string pass = Chilano.Iso2God.Properties.Settings.Default["FtpPass"].ToString();
+                string port = Chilano.Iso2God.Properties.Settings.Default["FtpPort"].ToString();
                 string gameDirectory = (isoEntry.TitleDirectory && Utils.sanitizePath(isoEntry.TitleName).Length != 0 ? Utils.sanitizePath(isoEntry.TitleName) : isoEntry.ID.TitleID);
                 _ = isoEntry.ID.ContainerID;
                 ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, gameDirectory, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
@@ -640,40 +662,79 @@ public class Main : Form
 
     private void i2g_Completed(object sender, Iso2GodCompletedArgs e)
     {
-        foreach (ListViewItem item in listView1.Items)
+        try
         {
-            IsoEntry isoEntry = (IsoEntry)item.Tag;
-            if (isoEntry.Status == IsoEntryStatus.InProgress)
+            // Log when the method is called for debugging purposes
+            Debug.WriteLine("i2g_Completed called");
+
+            // Your existing code here
+            foreach (ListViewItem item in listView1.Items)
             {
-                ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if ((bool)Properties.Settings.Default["FtpUpload"])
+                IsoEntry isoEntry = (IsoEntry)item.Tag;
+                if (isoEntry.Status == IsoEntryStatus.InProgress)
                 {
-                    isoEntry.Status = IsoEntryStatus.UploadQueue;
-                    isoEntry.ID.ContainerID = e.ContainerId;
-                    progressBar.Value = 0;
-                    item.SubItems[6].Text = "Queued for upload.";
-                    ftpCheck.Enabled = true;
-                }
-                else
-                {
-                    isoEntry.Status = IsoEntryStatus.Completed;
-                    progressBar.Value = 100;
-                    item.SubItems[6].Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
-                    FlashWindow(base.Handle, bInvert: false);
-                }
+                    ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
 
-                if (isoEntry.DeleteSource && e.Error == null)
-                {
-                    DeleteOriginalIso(isoEntry.Path, item); // Call the method to delete the original ISO
-                }
+                    // Handle FTP upload if enabled
+                    if ((bool)Chilano.Iso2God.Properties.Settings.Default["FtpUpload"])
+                    {
+                        isoEntry.Status = IsoEntryStatus.UploadQueue;
+                        isoEntry.ID.ContainerID = e.ContainerId;
+                        progressBar.Value = 0;
+                        item.SubItems[6].Text = "Queued for upload.";
+                        ftpCheck.Enabled = true;
+                    }
+                    else
+                    {
+                        // Mark the entry as complete
+                        isoEntry.Status = IsoEntryStatus.Completed;
+                        progressBar.Value = 100;
+                        item.SubItems[6].Text = e.Message + (e.Error != null ? (". Error: " + e.Error.Message) : "");
+                        FlashWindow(base.Handle, bInvert: false);
+                    }
 
-                jobCheck.Enabled = true;
-                item.Tag = isoEntry;
-                item.ForeColor = Color.Green;
-                break;
+                    // If Delete ISO checkbox is checked, delete the original ISO file
+                    if (Chilano.Iso2God.Properties.Settings.Default.DeleteIsoAfterCompletion)
+                    {
+                        DeleteOriginalIso(isoEntry.Path, item); // Call the method to delete the original ISO
+                    }
+
+                    // Mark the job as completed
+                    jobCheck.Enabled = true;
+                    item.Tag = isoEntry;
+                    item.ForeColor = Color.Green;
+                    break;
+                }
             }
         }
+        catch (Exception ex)
+        {
+            // Log any exceptions that occur for debugging purposes
+            Debug.WriteLine("Error in i2g_Completed: " + ex.Message);
+            throw;  // Rethrow the exception if needed
+        }
     }
+
+    private void DeleteOriginalIso(string isoFilePath, ListViewItem item)
+    {
+        try
+        {
+            if (File.Exists(isoFilePath))
+            {
+                File.Delete(isoFilePath);  // Delete the file
+                item.SubItems[6].Text += " Original ISO file deleted.";
+            }
+            else
+            {
+                item.SubItems[6].Text += " Original ISO file not found.";
+            }
+        }
+        catch (Exception ex)
+        {
+            item.SubItems[6].Text += " Error deleting original ISO: " + ex.Message;
+        }
+    }
+
 
     private void i2g_Progress(object sender, Iso2GodProgressArgs e)
     {
@@ -726,26 +787,6 @@ public class Main : Form
         listViewItem.SubItems[6].Text = Entry.Path;
     }
 
-    private void DeleteOriginalIso(string isoFilePath, ListViewItem item)
-    {
-        try
-        {
-            if (File.Exists(isoFilePath))
-            {
-                File.Delete(isoFilePath);  // Delete the file
-                item.SubItems[6].Text += ". Original ISO file deleted.";
-            }
-            else
-            {
-                item.SubItems[6].Text += ". Original ISO file not found.";
-            }
-        }
-        catch (Exception ex)
-        {
-            item.SubItems[6].Text += ". Error deleting original ISO: " + ex.Message;
-        }
-    }
-
     public string getVersion(bool build, bool revision)
     {
         Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -784,7 +825,7 @@ public class Main : Form
 
     public void UpdateSpace(out long FreeSpace)
     {
-        string text = Properties.Settings.Default["OutputPath"].ToString();
+        string text = Chilano.Iso2God.Properties.Settings.Default["OutputPath"].ToString();
         if (!IsRunningOnMono())
         {
             FreeSpace = GetFreeSpace((text.Length > 0) ? text[0].ToString() : "C");
@@ -913,59 +954,12 @@ public class Main : Form
 
     private void Main_ResizeEnd(object sender, EventArgs e)
     {
-        Properties.Settings.Default["Width"] = Width;
-        Properties.Settings.Default["Height"] = Height;
+        Chilano.Iso2God.Properties.Settings.Default["Width"] = Width;
+        Chilano.Iso2God.Properties.Settings.Default["Height"] = Height;
     }
 
-    private async void listView1_DragDrop(object sender, DragEventArgs e)
+    private void Main_Load_1(object sender, EventArgs e)
     {
-        string[] files = await Task.Run(() =>
-        {
-            // Get the files being dropped
-            return (string[])e.Data.GetData(DataFormats.FileDrop);
-        });
 
-        using (AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360))
-        {
-            addISO.Owner = this;
-            addISO.Drop(files);
-            addISO.ShowDialog(this);
-            return;
-        }
-    }
-
-    private void listView1_DragEnter(object sender, DragEventArgs e)
-    {
-        // Check if the data being dragged is a file
-        if (e.Data.GetDataPresent(DataFormats.FileDrop))
-        {
-            e.Effect = DragDropEffects.All; // Show a copy cursor
-        }
-        else
-        {
-            e.Effect = DragDropEffects.None; // No drag-and-drop allowed
-        }
-    }
-
-    private void checkStartupFiles()
-    {
-        string message = "";
-        if (!File.Exists(file_listxbox))
-        {
-            message += "• " + file_listxbox + " is missing, Xbox game titles will not be corrected.\n";
-        }
-        if (!File.Exists(file_listxbox360))
-        {
-            message += "• " + file_listxbox360 + " is missing, Xbox360 game titles will not be corrected.\n";
-        }
-        if (!File.Exists(pathXT))
-        {
-            message += "• " + file_xextool + " is missing, Xbox360 thumbnail extraction will not work.\n";
-        }
-
-        if (message != "")
-        {
-            MessageBox.Show("Please ensure the files are in the same directory as Iso2God:\n\n" + message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
     }
 }

@@ -10,9 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Chilano.Iso2God;
 
@@ -87,20 +85,6 @@ internal class IsoDetails : BackgroundWorker
         return true;
     }
 
-    public static string calcMD5(byte[] input)
-    {
-        using (MD5 md5 = MD5.Create())
-        {
-            byte[] hashBytes = md5.ComputeHash(input);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hashBytes.Length; i++)
-            {
-                sb.Append(hashBytes[i].ToString("x2"));
-            }
-            return sb.ToString();
-        }
-    }
-
     private void readXbe(DoWorkEventArgs e)
     {
         IsoDetailsResults isoDetailsResults = null;
@@ -123,7 +107,7 @@ internal class IsoDetails : BackgroundWorker
                 ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Default.xbe was not valid."));
                 return;
             }
-            isoDetailsResults = new IsoDetailsResults(xbeInfo.Certifcate.TitleName, xbeInfo.Certifcate.TitleID, (xbeInfo.Certifcate.DiskNumber != 0) ? xbeInfo.Certifcate.DiskNumber.ToString() : "1", calcMD5(array));
+            isoDetailsResults = new IsoDetailsResults(xbeInfo.Certifcate.TitleName, xbeInfo.Certifcate.TitleID, (xbeInfo.Certifcate.DiskNumber != 0) ? xbeInfo.Certifcate.DiskNumber.ToString() : "1");
             isoDetailsResults.DiscCount = "1";
             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Progress, "Extracting thumbnail..."));
             foreach (XbeSection section in xbeInfo.Sections)
@@ -157,51 +141,51 @@ internal class IsoDetails : BackgroundWorker
                         ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex2)
                 {
-                    ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex.Message));
+                    ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex2.Message));
                 }
             }
             if (isoDetailsResults.Thumbnail == null)
             {
-                foreach (XbeSection section in xbeInfo.Sections)
+                foreach (XbeSection section2 in xbeInfo.Sections)
                 {
-                    if (!(section.Name == "$$XTIMAGE"))
+                    if (!(section2.Name == "$$XTIMAGE"))
                     {
                         continue;
                     }
                     try
                     {
-                        XPR xPR = new XPR(section.Data);
-                        DDS dDS = xPR.ConvertToDDS(128, 128);
-                        Bitmap bitmap = new Bitmap(128, 128);
-                        switch (xPR.Format)
+                        XPR xPR2 = new XPR(section2.Data);
+                        DDS dDS2 = xPR2.ConvertToDDS(128, 128);
+                        Bitmap bitmap2 = new Bitmap(128, 128);
+                        switch (xPR2.Format)
                         {
                             case XPRFormat.ARGB:
-                                bitmap = (Bitmap)dDS.GetImage(DDSType.ARGB);
+                                bitmap2 = (Bitmap)dDS2.GetImage(DDSType.ARGB);
                                 break;
                             case XPRFormat.DXT1:
-                                bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
+                                bitmap2 = (Bitmap)dDS2.GetImage(DDSType.DXT1);
                                 break;
                         }
                         Image image = new Bitmap(64, 64);
                         Graphics graphics = Graphics.FromImage(image);
-                        graphics.DrawImage(bitmap, 0, 0, 64, 64);
-                        MemoryStream memoryStream = new MemoryStream();
-                        image.Save(memoryStream, ImageFormat.Png);
+                        graphics.DrawImage(bitmap2, 0, 0, 64, 64);
+                        MemoryStream memoryStream2 = new MemoryStream();
+                        image.Save(memoryStream2, ImageFormat.Png);
                         isoDetailsResults.Thumbnail = (Image)image.Clone();
-                        isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
-                        memoryStream.Dispose();
-                        bitmap.Dispose();
+                        isoDetailsResults.RawThumbnail = (byte[])memoryStream2.ToArray().Clone();
+                        memoryStream2.Dispose();
+                        bitmap2.Dispose();
                         graphics.Dispose();
-                        if (xPR.Format == XPRFormat.ARGB)
+                        if (xPR2.Format == XPRFormat.ARGB)
                         {
-                            ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
+                            ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE Thumbnail type is not supported or is corrupt."));
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex3)
                     {
-                        ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex.Message));
+                        ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex3.Message));
                     }
                 }
             }

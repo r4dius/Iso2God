@@ -48,15 +48,13 @@ internal class IsoDetailsResults
         this.Thumbnail = Thumbnail;
     }
 
-    public IsoDetailsResults(string Name, string TitleID, string DiscNumber, string MD5)
+    public IsoDetailsResults(string Name, string TitleID, string DiscNumber)
     {
         Results = IsoDetailsResultsType.Completed;
         ConsolePlatform = IsoDetailsPlatform.Xbox;
         this.Name = Name;
         this.TitleID = TitleID;
-        //MediaID = "00000000";
-        // we need a unique id, 8 chars from md5 is good enough
-        MediaID = MD5.Substring(0, 8).ToUpper();
+        MediaID = "00000000";
         Platform = "0";
         ExType = "0";
         this.DiscNumber = DiscNumber;
