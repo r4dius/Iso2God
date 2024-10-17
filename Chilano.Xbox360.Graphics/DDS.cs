@@ -99,15 +99,11 @@ public class DDS
     {
         uint width = (uint)Header.Width;
         uint height = (uint)Header.Height;
-
-        // Decompress the swizzled data into a linear format
         byte[] linearData = new byte[width * height * 4];
         int num = 0;
 
         UnswizzleRect(Data, width, height, linearData, width * 4, 4);
 
-        // Now set the pixels using the linear data
-        num = 0;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
