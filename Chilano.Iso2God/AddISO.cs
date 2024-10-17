@@ -319,7 +319,7 @@ public class AddISO : Form
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox2.Location = new System.Drawing.Point(10, 97);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(444, 159);
+            this.groupBox2.Size = new System.Drawing.Size(444, 143);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Title Details";
@@ -471,7 +471,7 @@ public class AddISO : Form
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Title ID:";
             // 
@@ -584,11 +584,11 @@ public class AddISO : Form
             this.cbDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDeleteSource.AutoSize = true;
             this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteSource.Location = new System.Drawing.Point(232, 24);
+            this.cbDeleteSource.Location = new System.Drawing.Point(225, 24);
             this.cbDeleteSource.Name = "cbDeleteSource";
-            this.cbDeleteSource.Size = new System.Drawing.Size(205, 17);
+            this.cbDeleteSource.Size = new System.Drawing.Size(211, 17);
             this.cbDeleteSource.TabIndex = 15;
-            this.cbDeleteSource.Text = "Delete source ISO after completion";
+            this.cbDeleteSource.Text = "Delete original ISO after completion";
             this.cbDeleteSource.UseVisualStyleBackColor = true;
             // 
             // cbDeleteRebuilt
@@ -596,7 +596,7 @@ public class AddISO : Form
             this.cbDeleteRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDeleteRebuilt.AutoSize = true;
             this.cbDeleteRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteRebuilt.Location = new System.Drawing.Point(232, 47);
+            this.cbDeleteRebuilt.Location = new System.Drawing.Point(225, 47);
             this.cbDeleteRebuilt.Name = "cbDeleteRebuilt";
             this.cbDeleteRebuilt.Size = new System.Drawing.Size(205, 17);
             this.cbDeleteRebuilt.TabIndex = 16;
