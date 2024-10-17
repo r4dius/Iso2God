@@ -97,18 +97,91 @@ public class DDS
 
     private void rgbaDecompressImage(Image img)
     {
-        int width = Header.Width;
-        int height = Header.Height;
+        uint width = (uint)Header.Width;
+        uint height = (uint)Header.Height;
+
+        // Decompress the swizzled data into a linear format
+        byte[] linearData = new byte[width * height * 4];
         int num = 0;
+
+        UnswizzleRect(Data, width, height, linearData, width * 4, 4);
+
+        // Now set the pixels using the linear data
+        num = 0;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                Color color = Color.FromArgb(Data[num + 3], Data[num + 2], Data[num + 1], Data[num]);
+                Color color = Color.FromArgb(linearData[num + 3], linearData[num + 2], linearData[num + 1], linearData[num]);
                 ((Bitmap)img).SetPixel(j, i, color);
                 num += 4;
             }
         }
+    }
+
+    private static void UnswizzleBox(byte[] src_buf, uint width, uint height, uint depth, byte[] dst_buf, uint row_pitch, uint slice_pitch, uint bytes_per_pixel)
+    {
+        uint dstBaseOffset = 0;
+        GenerateSwizzleMasks(width, height, depth, out uint mask_x, out uint mask_y, out uint mask_z);
+        for (uint z = 0; z < depth; z++)
+        {
+            for (uint y = 0; y < height; y++)
+            {
+                for (uint x = 0; x < width; x++)
+                {
+                    uint srcOffset = GetSwizzledOffset(x, y, z, mask_x, mask_y, mask_z, bytes_per_pixel);
+                    uint dstOffset = dstBaseOffset + y * row_pitch + x * bytes_per_pixel;
+                    Buffer.BlockCopy(src_buf, (int)srcOffset, dst_buf, (int)dstOffset, (int)bytes_per_pixel);
+                }
+            }
+            dstBaseOffset += slice_pitch;
+        }
+    }
+
+    private static void UnswizzleRect(byte[] src_buf, uint width, uint height, byte[] dst_buf, uint pitch, uint bytes_per_pixel)
+    {
+        UnswizzleBox(src_buf, width, height, 1, dst_buf, pitch, 0, bytes_per_pixel);
+    }
+
+    private static void GenerateSwizzleMasks(uint width, uint height, uint depth, out uint mask_x, out uint mask_y, out uint mask_z)
+    {
+        uint x = 0, y = 0, z = 0;
+        uint bit = 1;
+        uint mask_bit = 1;
+        bool done;
+        do
+        {
+            done = true;
+            if (bit < width) { x |= mask_bit; mask_bit <<= 1; done = false; }
+            if (bit < height) { y |= mask_bit; mask_bit <<= 1; done = false; }
+            if (bit < depth) { z |= mask_bit; mask_bit <<= 1; done = false; }
+            bit <<= 1;
+        } while (!done);
+        mask_x = x;
+        mask_y = y;
+        mask_z = z;
+    }
+
+    private static uint GetSwizzledOffset(uint x, uint y, uint z, uint mask_x, uint mask_y, uint mask_z, uint bytes_per_pixel)
+    {
+        return bytes_per_pixel * (FillPattern(mask_x, x) | FillPattern(mask_y, y) | FillPattern(mask_z, z));
+    }
+
+    private static uint FillPattern(uint pattern, uint value)
+    {
+        uint result = 0;
+        uint bit = 1;
+        while (value != 0)
+        {
+            if ((pattern & bit) != 0)
+            {
+                /* Copy bit to result */
+                result |= ((value & 1) != 0) ? bit : 0;
+                value >>= 1;
+            }
+            bit <<= 1;
+        }
+        return result;
     }
 
     private void blockDecompressImageDXT1(ulong width, ulong height, byte[] data, Image img)

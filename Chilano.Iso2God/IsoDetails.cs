@@ -152,10 +152,12 @@ internal class IsoDetails : BackgroundWorker
                     isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
                     bitmap.Dispose();
                     memoryStream.Dispose();
+                    /*
                     if (xPR.Format == XPRFormat.ARGB)
                     {
                         ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
                     }
+                    */
                 }
                 catch (Exception ex)
                 {
@@ -194,10 +196,12 @@ internal class IsoDetails : BackgroundWorker
                         memoryStream.Dispose();
                         bitmap.Dispose();
                         graphics.Dispose();
+                        /*
                         if (xPR.Format == XPRFormat.ARGB)
                         {
                             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
                         }
+                        */
                     }
                     catch (Exception ex)
                     {
