@@ -1,270 +1,311 @@
+using System;
 using System.CodeDom.Compiler;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
-namespace Chilano.Iso2God.Properties;
-
-[CompilerGenerated]
-[GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "9.0.0.0")]
-internal sealed class Settings : ApplicationSettingsBase
+namespace Chilano.Iso2God.Properties
 {
-    private static Settings defaultInstance = (Settings)SettingsBase.Synchronized(new Settings());
-
-    public static Settings Default => defaultInstance;
-
-    [DefaultSettingValue("")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public string OutputPath
+    [CompilerGenerated]
+    [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "9.0.0.0")]
+    internal sealed class Settings : ApplicationSettingsBase
     {
-        get
-        {
-            return (string)this["OutputPath"];
-        }
-        set
-        {
-            this["OutputPath"] = value;
-        }
-    }
+        private static Settings defaultInstance = (Settings)SettingsBase.Synchronized(new Settings());
 
-    [DefaultSettingValue("")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public string RebuildPath
-    {
-        get
-        {
-            return (string)this["RebuildPath"];
-        }
-        set
-        {
-            this["RebuildPath"] = value;
-        }
-    }
+        public static Settings Default => defaultInstance;
 
-    [DefaultSettingValue("")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public string FtpIP
-    {
-        get
+        [DefaultSettingValue("")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public string OutputPath
         {
-            return (string)this["FtpIP"];
+            get
+            {
+                return (string)this["OutputPath"];
+            }
+            set
+            {
+                this["OutputPath"] = value;
+            }
         }
-        set
-        {
-            this["FtpIP"] = value;
-        }
-    }
 
-    [DefaultSettingValue("xbox")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public string FtpUser
-    {
-        get
+        [DefaultSettingValue("")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public string RebuildPath
         {
-            return (string)this["FtpUser"];
+            get
+            {
+                return (string)this["RebuildPath"];
+            }
+            set
+            {
+                this["RebuildPath"] = value;
+            }
         }
-        set
-        {
-            this["FtpUser"] = value;
-        }
-    }
 
-    [DefaultSettingValue("xbox")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public string FtpPass
-    {
-        get
+        [UserScopedSetting]
+        [DefaultSettingValue("True")]
+        [DebuggerNonUserCode]
+        public bool RebuiltCheck
         {
-            return (string)this["FtpPass"];
+            get
+            {
+                return (bool)this["RebuiltCheck"];
+            }
+            set
+            {
+                this["RebuiltCheck"] = value;
+            }
         }
-        set
-        {
-            this["FtpPass"] = value;
-        }
-    }
 
-    [DebuggerNonUserCode]
-    [DefaultSettingValue("21")]
-    [UserScopedSetting]
-    public string FtpPort
-    {
-        get
+        [DefaultSettingValue("True")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public bool AlwaysSave
         {
-            return (string)this["FtpPort"];
+            get
+            {
+                return (bool)this["AlwaysSave"];
+            }
+            set
+            {
+                this["AlwaysSave"] = value;
+            }
         }
-        set
-        {
-            this["FtpPort"] = value;
-        }
-    }
 
-    [DefaultSettingValue("True")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public bool AutoRenameMultiDisc
-    {
-        get
+        [DefaultSettingValue("")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public string FtpIP
         {
-            return (bool)this["AutoRenameMultiDisc"];
+            get
+            {
+                return (string)this["FtpIP"];
+            }
+            set
+            {
+                this["FtpIP"] = value;
+            }
         }
-        set
-        {
-            this["AutoRenameMultiDisc"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public bool FtpUpload
-    {
-        get
+        [DefaultSettingValue("xbox")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public string FtpUser
         {
-            return (bool)this["FtpUpload"];
+            get
+            {
+                return (string)this["FtpUser"];
+            }
+            set
+            {
+                this["FtpUser"] = value;
+            }
         }
-        set
-        {
-            this["FtpUpload"] = value;
-        }
-    }
 
-    [DefaultSettingValue("2")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public int DefaultPadding
-    {
-        get
+        [DefaultSettingValue("xbox")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public string FtpPass
         {
-            return (int)this["DefaultPadding"];
+            get
+            {
+                return (string)this["FtpPass"];
+            }
+            set
+            {
+                this["FtpPass"] = value;
+            }
         }
-        set
-        {
-            this["DefaultPadding"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool AutoBrowse
-    {
-        get
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("21")]
+        [UserScopedSetting]
+        public string FtpPort
         {
-            return (bool)this["AutoBrowse"];
+            get
+            {
+                return (string)this["FtpPort"];
+            }
+            set
+            {
+                this["FtpPort"] = value;
+            }
         }
-        set
-        {
-            this["AutoBrowse"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [UserScopedSetting]
-    [DebuggerNonUserCode]
-    public bool TitleDirectory
-    {
-        get
+        [DefaultSettingValue("True")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public bool AutoRenameMultiDisc
         {
-            return (bool)this["TitleDirectory"];
+            get
+            {
+                return (bool)this["AutoRenameMultiDisc"];
+            }
+            set
+            {
+                this["AutoRenameMultiDisc"] = value;
+            }
         }
-        set
-        {
-            this["TitleDirectory"] = value;
-        }
-    }
 
-    [DefaultSettingValue("800")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public int Width
-    {
-        get
+        [DefaultSettingValue("False")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public bool FtpUpload
         {
-            return (int)this["Width"];
+            get
+            {
+                return (bool)this["FtpUpload"];
+            }
+            set
+            {
+                this["FtpUpload"] = value;
+            }
         }
-        set
-        {
-            this["Width"] = value;
-        }
-    }
 
-    [DefaultSettingValue("400")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public int Height
-    {
-        get
+        [DefaultSettingValue("2")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public int DefaultPadding
         {
-            return (int)this["Height"];
+            get
+            {
+                return (int)this["DefaultPadding"];
+            }
+            set
+            {
+                this["DefaultPadding"] = value;
+            }
         }
-        set
-        {
-            this["Height"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool Maximized
-    {
-        get
+        [DefaultSettingValue("False")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public bool AutoBrowse
         {
-            return (bool)this["Maximized"];
+            get
+            {
+                return (bool)this["AutoBrowse"];
+            }
+            set
+            {
+                this["AutoBrowse"] = value;
+            }
         }
-        set
-        {
-            this["Maximized"] = value;
-        }
-    }
 
-    [DefaultSettingValue("190,65,35,50,55,100,270")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public string ColumnsWidth
-    {
-        get
+        [DefaultSettingValue("False")]
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public bool TitleDirectory
         {
-            return (string)this["ColumnsWidth"];
+            get
+            {
+                return (bool)this["TitleDirectory"];
+            }
+            set
+            {
+                this["TitleDirectory"] = value;
+            }
         }
-        set
-        {
-            this["ColumnsWidth"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool DeleteSource
-    {
-        get
+        [DefaultSettingValue("800")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public int Width
         {
-            return (bool)this["DeleteSource"];
+            get
+            {
+                return (int)this["Width"];
+            }
+            set
+            {
+                this["Width"] = value;
+            }
         }
-        set
-        {
-            this["DeleteSource"] = value;
-        }
-    }
 
-    [DefaultSettingValue("False")]
-    [DebuggerNonUserCode]
-    [UserScopedSetting]
-    public bool DeleteRebuilt
-    {
-        get
+        [DefaultSettingValue("400")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public int Height
         {
-            return (bool)this["DeleteRebuilt"];
+            get
+            {
+                return (int)this["Height"];
+            }
+            set
+            {
+                this["Height"] = value;
+            }
         }
-        set
+
+        [DefaultSettingValue("False")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public bool Maximized
         {
-            this["DeleteRebuilt"] = value;
+            get
+            {
+                return (bool)this["Maximized"];
+            }
+            set
+            {
+                this["Maximized"] = value;
+            }
+        }
+
+        [DefaultSettingValue("190,65,35,50,55,100,270")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public string ColumnsWidth
+        {
+            get
+            {
+                return (string)this["ColumnsWidth"];
+            }
+            set
+            {
+                this["ColumnsWidth"] = value;
+            }
+        }
+
+        [DefaultSettingValue("False")]
+        [DebuggerNonUserCode]
+        [UserScopedSetting]
+        public bool DeleteIsoAfterCompletion
+        {
+            get
+            {
+                try
+                {
+                    return (bool)this["DeleteIsoAfterCompletion"];
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the exception as needed
+                    // Example: Log to a file or show a message box
+                    // File.AppendAllText("settings_error.log", ex.ToString());
+                    MessageBox.Show($"Error retrieving setting: {ex.Message}", "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Return a default value in case of an error
+                    return false;
+                }
+            }
+            set
+            {
+                try
+                {
+                    this["DeleteIsoAfterCompletion"] = value;
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the exception as needed
+                    // Example: Log to a file or show a message box
+                    // File.AppendAllText("settings_error.log", ex.ToString());
+                    MessageBox.Show($"Error saving setting: {ex.Message}", "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -248,7 +248,6 @@ public class Iso2God : BackgroundWorker
     };
 
     public event Iso2GodProgressEventHandler Progress;
-
     public event Iso2GodCompletedEventHandler Completed;
 
     public Iso2God()
@@ -283,6 +282,56 @@ public class Iso2God : BackgroundWorker
 
     private void Iso2God_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
+        if (e.Error != null)
+        {
+            OnCompleted(new Iso2GodCompletedArgs(e, uniqueName));
+            return;
+        }
+
+        // Check if the result is of type IsoEntry
+        if (e.Result is IsoEntry iso)
+        {
+            ReportProgress(100, "Conversion complete.");
+
+            // Check the setting to determine if ISO files should be deleted
+            bool deleteIsoAfterCompletion = Properties.Settings.Default.DeleteIsoAfterCompletion;
+
+            // Delete the original ISO file if required by settings
+            if (iso.Padding.Type == IsoEntryPaddingRemoval.Full && deleteIsoAfterCompletion)
+            {
+                try
+                {
+                    if (File.Exists(iso.Path))
+                    {
+                        File.Delete(iso.Path);
+                        ReportProgress(100, "Original ISO file deleted successfully.");
+                    }
+                    else
+                    {
+                        ReportProgress(100, "Original ISO file not found for deletion.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ReportProgress(100, "Error deleting original ISO file: " + ex.Message);
+                }
+            }
+
+            // Delete temporary ISO files if they exist and settings allow
+            string tempIsoPath = iso.Path + "_rebuilt.iso";
+            if (File.Exists(tempIsoPath) && deleteIsoAfterCompletion)
+            {
+                try
+                {
+                    File.Delete(tempIsoPath);
+                    ReportProgress(100, "Temporary ISO file deleted successfully.");
+                }
+                catch (Exception ex)
+                {
+                    ReportProgress(100, "Error deleting temporary ISO file: " + ex.Message);
+                }
+            }
+        }
         OnCompleted(new Iso2GodCompletedArgs(e, uniqueName));
     }
 
@@ -398,12 +447,12 @@ public class Iso2God : BackgroundWorker
         string gameDirectory = (iso.TitleDirectory && Utils.sanitizePath(iso.TitleName).Length != 0 ? Utils.sanitizePath(iso.TitleName) : iso.ID.TitleID);
         object[] array = new object[6]
         {
-            iso.Destination,
-            gameDirectory,
-            Path.DirectorySeparatorChar,
-            "0000",
-            null,
-            null
+        iso.Destination,
+        gameDirectory,
+        Path.DirectorySeparatorChar,
+        "0000",
+        null,
+        null
         };
         uint num4 = (uint)contentType;
         array[4] = num4.ToString("X02");
@@ -431,17 +480,22 @@ public class Iso2God : BackgroundWorker
         fileStream.Close();
         fileStream.Dispose();
         gDF.Dispose();
-        if (iso.Padding.Type == IsoEntryPaddingRemoval.Full && iso.DeleteRebuilt)
+
+        // Modified section to respect the checkbox setting
+        if (iso.Padding.Type == IsoEntryPaddingRemoval.Full &&
+            (!iso.Padding.KeepIso || Properties.Settings.Default.DeleteIsoAfterCompletion))
         {
             try
             {
                 File.Delete(iso.Path);
+                ReportProgress(95, "ISO image deleted successfully.");
             }
             catch (Exception)
             {
                 ReportProgress(95, "Unable to delete ISO temporary image.");
             }
         }
+
         Finish = DateTime.Now;
         TimeSpan timeSpan = Finish - Start;
         ReportProgress(100, "Done!");

@@ -1,15 +1,11 @@
 using Chilano.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.Remoting.Lifetime;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -85,7 +81,7 @@ public class AddISO : Form
 
     private Button btnRebuiltBrowse;
 
-    private CheckBox cbDeleteRebuilt;
+    private CheckBox cbSaveRebuilt;
 
     private ToolTip ttPadding;
 
@@ -93,13 +89,9 @@ public class AddISO : Form
 
     private bool edit;
 
-    private bool drop;
-
     private string[] fileList;
 
     private int file;
-
-    private int processErrors;
 
     private IsoEntryPlatform platform = IsoEntryPlatform.Xbox360;
 
@@ -113,7 +105,6 @@ public class AddISO : Form
     private NumericUpDown txtPlatform;
     private NumericUpDown txtDiscCount;
     private CheckBox cbAutoRename;
-    private CheckBox cbDeleteSource;
     private int entryIndex;
 
     protected override void Dispose(bool disposing)
@@ -138,7 +129,6 @@ public class AddISO : Form
             this.txtDest = new System.Windows.Forms.TextBox();
             this.ttISO = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbAutoRename = new System.Windows.Forms.CheckBox();
             this.txtExType = new System.Windows.Forms.NumericUpDown();
             this.txtPlatform = new System.Windows.Forms.NumericUpDown();
             this.txtDiscCount = new System.Windows.Forms.NumericUpDown();
@@ -161,8 +151,7 @@ public class AddISO : Form
             this.ttSettings = new System.Windows.Forms.ToolTip(this.components);
             this.ttThumb = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbDeleteSource = new System.Windows.Forms.CheckBox();
-            this.cbDeleteRebuilt = new System.Windows.Forms.CheckBox();
+            this.cbSaveRebuilt = new System.Windows.Forms.CheckBox();
             this.btnRebuiltBrowse = new System.Windows.Forms.Button();
             this.cmbPaddingMode = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -173,6 +162,7 @@ public class AddISO : Form
             this.progressBarMulti = new Chilano.Common.ProgressBarEx();
             this.iso2God1 = new Chilano.Iso2God.Iso2God();
             this.ftpUploader1 = new Chilano.Iso2God.Ftp.FtpUploader();
+            this.cbAutoRename = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -214,7 +204,7 @@ public class AddISO : Form
             this.btnISOBrowse.Location = new System.Drawing.Point(364, 19);
             this.btnISOBrowse.Name = "btnISOBrowse";
             this.btnISOBrowse.Size = new System.Drawing.Size(70, 25);
-            this.btnISOBrowse.TabIndex = 2;
+            this.btnISOBrowse.TabIndex = 1;
             this.btnISOBrowse.Text = "&Browse";
             this.btnISOBrowse.UseVisualStyleBackColor = true;
             this.btnISOBrowse.Click += new System.EventHandler(this.btnISOBrowse_Click);
@@ -238,7 +228,7 @@ public class AddISO : Form
             this.txtISO.Name = "txtISO";
             this.txtISO.ReadOnly = true;
             this.txtISO.Size = new System.Drawing.Size(270, 23);
-            this.txtISO.TabIndex = 1;
+            this.txtISO.TabIndex = 0;
             // 
             // pbVideo
             // 
@@ -257,7 +247,7 @@ public class AddISO : Form
             this.btnDestBrowse.Location = new System.Drawing.Point(364, 50);
             this.btnDestBrowse.Name = "btnDestBrowse";
             this.btnDestBrowse.Size = new System.Drawing.Size(70, 25);
-            this.btnDestBrowse.TabIndex = 4;
+            this.btnDestBrowse.TabIndex = 3;
             this.btnDestBrowse.Text = "&Browse";
             this.btnDestBrowse.UseVisualStyleBackColor = true;
             this.btnDestBrowse.Click += new System.EventHandler(this.btnDestBrowse_Click);
@@ -281,7 +271,7 @@ public class AddISO : Form
             this.txtDest.Name = "txtDest";
             this.txtDest.ReadOnly = true;
             this.txtDest.Size = new System.Drawing.Size(270, 23);
-            this.txtDest.TabIndex = 3;
+            this.txtDest.TabIndex = 2;
             // 
             // ttISO
             // 
@@ -319,21 +309,10 @@ public class AddISO : Form
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox2.Location = new System.Drawing.Point(10, 97);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(444, 159);
+            this.groupBox2.Size = new System.Drawing.Size(444, 143);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Title Details";
-            // 
-            // cbAutoRename
-            // 
-            this.cbAutoRename.AutoSize = true;
-            this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAutoRename.Location = new System.Drawing.Point(225, 116);
-            this.cbAutoRename.Name = "cbAutoRename";
-            this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
-            this.cbAutoRename.TabIndex = 13;
-            this.cbAutoRename.Text = "Auto-rename multi-disc games";
-            this.cbAutoRename.UseVisualStyleBackColor = true;
             // 
             // txtExType
             // 
@@ -342,7 +321,7 @@ public class AddISO : Form
             this.txtExType.Location = new System.Drawing.Point(321, 83);
             this.txtExType.Name = "txtExType";
             this.txtExType.Size = new System.Drawing.Size(36, 22);
-            this.txtExType.TabIndex = 11;
+            this.txtExType.TabIndex = 45;
             this.txtExType.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // txtPlatform
@@ -352,7 +331,7 @@ public class AddISO : Form
             this.txtPlatform.Location = new System.Drawing.Point(257, 83);
             this.txtPlatform.Name = "txtPlatform";
             this.txtPlatform.Size = new System.Drawing.Size(36, 22);
-            this.txtPlatform.TabIndex = 10;
+            this.txtPlatform.TabIndex = 44;
             this.txtPlatform.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // txtDiscCount
@@ -362,7 +341,7 @@ public class AddISO : Form
             this.txtDiscCount.Location = new System.Drawing.Point(321, 52);
             this.txtDiscCount.Name = "txtDiscCount";
             this.txtDiscCount.Size = new System.Drawing.Size(36, 22);
-            this.txtDiscCount.TabIndex = 9;
+            this.txtDiscCount.TabIndex = 43;
             this.txtDiscCount.ValueChanged += new System.EventHandler(this.txtDiscCount_ValueChanged);
             this.txtDiscCount.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
@@ -374,7 +353,7 @@ public class AddISO : Form
             this.txtDiscNum.Location = new System.Drawing.Point(257, 52);
             this.txtDiscNum.Name = "txtDiscNum";
             this.txtDiscNum.Size = new System.Drawing.Size(36, 22);
-            this.txtDiscNum.TabIndex = 8;
+            this.txtDiscNum.TabIndex = 42;
             this.txtDiscNum.ValueChanged += new System.EventHandler(this.txtDiscNum_ValueChanged);
             this.txtDiscNum.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
@@ -385,7 +364,7 @@ public class AddISO : Form
             this.cbTitleDirectory.Location = new System.Drawing.Point(9, 116);
             this.cbTitleDirectory.Name = "cbTitleDirectory";
             this.cbTitleDirectory.Size = new System.Drawing.Size(161, 17);
-            this.cbTitleDirectory.TabIndex = 12;
+            this.cbTitleDirectory.TabIndex = 41;
             this.cbTitleDirectory.Text = "Use title name as directory";
             this.cbTitleDirectory.UseVisualStyleBackColor = true;
             // 
@@ -442,7 +421,7 @@ public class AddISO : Form
             this.txtName.Location = new System.Drawing.Point(87, 20);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(270, 23);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 4;
             // 
             // label9
             // 
@@ -471,7 +450,7 @@ public class AddISO : Form
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Title ID:";
             // 
@@ -479,10 +458,9 @@ public class AddISO : Form
             // 
             this.txtMediaID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMediaID.Location = new System.Drawing.Point(87, 82);
-            this.txtMediaID.MaxLength = 8;
             this.txtMediaID.Name = "txtMediaID";
             this.txtMediaID.Size = new System.Drawing.Size(130, 23);
-            this.txtMediaID.TabIndex = 7;
+            this.txtMediaID.TabIndex = 8;
             // 
             // txtTitleID
             // 
@@ -491,7 +469,7 @@ public class AddISO : Form
             this.txtTitleID.MaxLength = 8;
             this.txtTitleID.Name = "txtTitleID";
             this.txtTitleID.Size = new System.Drawing.Size(130, 23);
-            this.txtTitleID.TabIndex = 6;
+            this.txtTitleID.TabIndex = 5;
             // 
             // pbTime
             // 
@@ -518,10 +496,10 @@ public class AddISO : Form
             // 
             this.btnAddIso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddIso.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddIso.Location = new System.Drawing.Point(299, 356);
+            this.btnAddIso.Location = new System.Drawing.Point(299, 340);
             this.btnAddIso.Name = "btnAddIso";
             this.btnAddIso.Size = new System.Drawing.Size(75, 25);
-            this.btnAddIso.TabIndex = 19;
+            this.btnAddIso.TabIndex = 3;
             this.btnAddIso.Text = "Add";
             this.btnAddIso.UseVisualStyleBackColor = true;
             this.btnAddIso.Click += new System.EventHandler(this.btnAddIso_Click);
@@ -531,10 +509,10 @@ public class AddISO : Form
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(380, 356);
+            this.btnCancel.Location = new System.Drawing.Point(380, 340);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 20;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -558,12 +536,10 @@ public class AddISO : Form
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox3.Controls.Add(this.cbDeleteSource);
-            this.groupBox3.Controls.Add(this.cbDeleteRebuilt);
+            this.groupBox3.Controls.Add(this.cbSaveRebuilt);
             this.groupBox3.Controls.Add(this.btnRebuiltBrowse);
             this.groupBox3.Controls.Add(this.cmbPaddingMode);
             this.groupBox3.Controls.Add(this.label10);
@@ -574,44 +550,32 @@ public class AddISO : Form
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(10, 244);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(444, 104);
+            this.groupBox3.Size = new System.Drawing.Size(444, 88);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Padding";
             // 
-            // cbDeleteSource
+            // cbSaveRebuilt
             // 
-            this.cbDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbDeleteSource.AutoSize = true;
-            this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteSource.Location = new System.Drawing.Point(232, 24);
-            this.cbDeleteSource.Name = "cbDeleteSource";
-            this.cbDeleteSource.Size = new System.Drawing.Size(205, 17);
-            this.cbDeleteSource.TabIndex = 15;
-            this.cbDeleteSource.Text = "Delete source ISO after completion";
-            this.cbDeleteSource.UseVisualStyleBackColor = true;
-            // 
-            // cbDeleteRebuilt
-            // 
-            this.cbDeleteRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbDeleteRebuilt.AutoSize = true;
-            this.cbDeleteRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDeleteRebuilt.Location = new System.Drawing.Point(232, 47);
-            this.cbDeleteRebuilt.Name = "cbDeleteRebuilt";
-            this.cbDeleteRebuilt.Size = new System.Drawing.Size(205, 17);
-            this.cbDeleteRebuilt.TabIndex = 16;
-            this.cbDeleteRebuilt.Text = "Delete rebuilt ISO after completion";
-            this.cbDeleteRebuilt.UseVisualStyleBackColor = true;
+            this.cbSaveRebuilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSaveRebuilt.AutoSize = true;
+            this.cbSaveRebuilt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSaveRebuilt.Location = new System.Drawing.Point(288, 24);
+            this.cbSaveRebuilt.Name = "cbSaveRebuilt";
+            this.cbSaveRebuilt.Size = new System.Drawing.Size(149, 17);
+            this.cbSaveRebuilt.TabIndex = 12;
+            this.cbSaveRebuilt.Text = "Save Rebuilt ISO Image?";
+            this.cbSaveRebuilt.UseVisualStyleBackColor = true;
             // 
             // btnRebuiltBrowse
             // 
             this.btnRebuiltBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRebuiltBrowse.Enabled = false;
             this.btnRebuiltBrowse.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRebuiltBrowse.Location = new System.Drawing.Point(364, 66);
+            this.btnRebuiltBrowse.Location = new System.Drawing.Point(364, 50);
             this.btnRebuiltBrowse.Name = "btnRebuiltBrowse";
             this.btnRebuiltBrowse.Size = new System.Drawing.Size(70, 25);
-            this.btnRebuiltBrowse.TabIndex = 18;
+            this.btnRebuiltBrowse.TabIndex = 14;
             this.btnRebuiltBrowse.Text = "&Browse";
             this.btnRebuiltBrowse.UseVisualStyleBackColor = true;
             this.btnRebuiltBrowse.Click += new System.EventHandler(this.btnRebuiltBrowse_Click);
@@ -629,8 +593,8 @@ public class AddISO : Form
             "Remove All"});
             this.cmbPaddingMode.Location = new System.Drawing.Point(87, 20);
             this.cmbPaddingMode.Name = "cmbPaddingMode";
-            this.cmbPaddingMode.Size = new System.Drawing.Size(130, 23);
-            this.cmbPaddingMode.TabIndex = 14;
+            this.cmbPaddingMode.Size = new System.Drawing.Size(141, 23);
+            this.cmbPaddingMode.TabIndex = 11;
             this.cmbPaddingMode.SelectedIndexChanged += new System.EventHandler(this.cmbPaddingMode_SelectedIndexChanged);
             // 
             // label10
@@ -647,7 +611,7 @@ public class AddISO : Form
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 72);
+            this.label11.Location = new System.Drawing.Point(6, 56);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(76, 13);
             this.label11.TabIndex = 0;
@@ -659,11 +623,11 @@ public class AddISO : Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRebuiltIso.Enabled = false;
             this.txtRebuiltIso.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRebuiltIso.Location = new System.Drawing.Point(87, 67);
+            this.txtRebuiltIso.Location = new System.Drawing.Point(87, 51);
             this.txtRebuiltIso.Name = "txtRebuiltIso";
             this.txtRebuiltIso.ReadOnly = true;
             this.txtRebuiltIso.Size = new System.Drawing.Size(270, 23);
-            this.txtRebuiltIso.TabIndex = 17;
+            this.txtRebuiltIso.TabIndex = 13;
             // 
             // pbPadding
             // 
@@ -688,7 +652,7 @@ public class AddISO : Form
             this.progressBarMulti.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarMulti.DisplayStyle = Chilano.Common.ProgressBarDisplayText.Text;
-            this.progressBarMulti.Location = new System.Drawing.Point(10, 357);
+            this.progressBarMulti.Location = new System.Drawing.Point(10, 341);
             this.progressBarMulti.Name = "progressBarMulti";
             this.progressBarMulti.Size = new System.Drawing.Size(282, 23);
             this.progressBarMulti.TabIndex = 42;
@@ -702,13 +666,24 @@ public class AddISO : Form
             // 
             this.ftpUploader1.WorkerReportsProgress = true;
             // 
+            // cbAutoRename
+            // 
+            this.cbAutoRename.AutoSize = true;
+            this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAutoRename.Location = new System.Drawing.Point(225, 116);
+            this.cbAutoRename.Name = "cbAutoRename";
+            this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
+            this.cbAutoRename.TabIndex = 46;
+            this.cbAutoRename.Text = "Auto-rename multi-disc games";
+            this.cbAutoRename.UseVisualStyleBackColor = true;
+            // 
             // AddISO
             // 
             this.AcceptButton = this.btnAddIso;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(464, 390);
+            this.ClientSize = new System.Drawing.Size(464, 374);
             this.Controls.Add(this.progressBarMulti);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnAddIso);
@@ -751,9 +726,7 @@ public class AddISO : Form
         isoDetails.RunWorkerCompleted += isoDetails_RunWorkerCompleted;
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
-        cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
-        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
-        cbDeleteRebuilt.Checked = (bool)Properties.Settings.Default["DeleteRebuilt"];
+        cbSaveRebuilt.Checked = (bool)Properties.Settings.Default["AlwaysSave"];
         cbTitleDirectory.Checked = (bool)Properties.Settings.Default["TitleDirectory"];
         cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
         ttISO.SetToolTip(pbVideo, 
@@ -785,16 +758,10 @@ public class AddISO : Form
 
     private void AddISO_Shown(object sender, EventArgs e)
     {
-        if (!edit && !drop && (bool)Properties.Settings.Default["AutoBrowse"])
+        if (!edit && (bool)Properties.Settings.Default["AutoBrowse"])
         {
             btnISOBrowse_Click(base.Owner, null);
         }
-    }
-
-    public void Drop(string[] files)
-    {
-        drop = true;
-        AddFiles(files);
     }
 
     public void Edit(int Index, IsoEntry Entry)
@@ -812,9 +779,7 @@ public class AddISO : Form
         txtDest.Text = entry.Destination;
         txtISO.Text = entry.Path;
         txtRebuiltIso.Text = ((entry.Padding.Type == IsoEntryPaddingRemoval.Full) ? entry.Padding.IsoPath : Properties.Settings.Default["RebuildPath"].ToString());
-        cbDeleteSource.Checked = entry.DeleteSource;
-        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
-        cbDeleteRebuilt.Checked = entry.DeleteRebuilt;
+        cbSaveRebuilt.Checked = entry.Padding.KeepIso;
         cmbPaddingMode.SelectedIndex = (int)entry.Padding.Type;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
         pbThumb.Tag = entry.Thumb;
@@ -828,32 +793,9 @@ public class AddISO : Form
         {
             if (e.Result == null)
             {
-                //txtName.Text = "Failed to read details from ISO image.";
-
-                processErrors++;
-
-                if (fileList.Length > 1)
-                {
-                    progressBarMulti.PerformStep();
-                    progressBarMulti.Text = "Adding " + (progressBarMulti.Value + 1) + " / " + fileList.Length + " files";
-
-                    file++;
-                    if (file < fileList.Length)
-                    {
-                        txtISO.Text = fileList[file];
-                        clearXexFields();
-                        isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-                    }
-                    else
-                    {
-                        btnCancel.Text = "OK";
-                        EnablePageControls(true);
-                        progressBarMulti.Text = progressBarMulti.Value + " files processed, (" + processErrors + " failed)";
-                    }
-                }
+                txtName.Text = "Failed to read details from ISO image.";
                 return;
             }
-
             IsoDetailsResults isoDetailsResults = (IsoDetailsResults)e.Result;
             switch (isoDetailsResults.ConsolePlatform)
             {
@@ -869,16 +811,7 @@ public class AddISO : Form
             bool titleDirectory = cbTitleDirectory.Checked;
             int result = 0;
             int.TryParse(isoDetailsResults.DiscCount, out result);
-
-            string csvInfo = getCsvTitle(isoDetailsResults.TitleID, isoDetailsResults.MediaID);
-            if(csvInfo != "")
-            {
-                txtName.Text = csvInfo;
-            }
-            else
-            {
-                txtName.Text = isoDetailsResults.Name;
-            }
+            txtName.Text = isoDetailsResults.Name;
 
             if (txtName.Text.Trim().Length == 0)
             {
@@ -888,15 +821,13 @@ public class AddISO : Form
 
             txtName.Text += (flag && result > 1 ? " - Disc " + isoDetailsResults.DiscNumber : "");
 
-            int num = 0;
+
             txtTitleID.Text = isoDetailsResults.TitleID;
             txtMediaID.Text = isoDetailsResults.MediaID;
             txtPlatform.Text = isoDetailsResults.Platform;
             txtExType.Text = isoDetailsResults.ExType;
-            Int32.TryParse(isoDetailsResults.DiscNumber, out num);
-            txtDiscNum.Text = (num < 1 ? "1" : num.ToString());
-            Int32.TryParse(isoDetailsResults.DiscCount, out num);
-            txtDiscCount.Text = (num < 1 ? "1" : num.ToString());
+            txtDiscNum.Text = isoDetailsResults.DiscNumber;
+            txtDiscCount.Text = isoDetailsResults.DiscCount;
             if (isoDetailsResults.Thumbnail != null && isoDetailsResults.RawThumbnail != null)
             {
                 pbThumb.Image = (Image)isoDetailsResults.Thumbnail.Clone();
@@ -911,6 +842,7 @@ public class AddISO : Form
                 isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
                 isoEntryPadding.TempPath = Path.GetTempPath();
                 isoEntryPadding.IsoPath = txtRebuiltIso.Text;
+                isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
                 if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
                 {
                     isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
@@ -922,7 +854,7 @@ public class AddISO : Form
 
                 IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
                 FileInfo fileInfo = new FileInfo(txtISO.Text);
-                IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding, titleDirectory, cbDeleteRebuilt.Checked, cbDeleteSource.Checked, message);
+                IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding, titleDirectory, message);
                 if (edit)
                 {
                     (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
@@ -946,7 +878,7 @@ public class AddISO : Form
                 {
                     btnCancel.Text = "OK";
                     EnablePageControls(true);
-                    progressBarMulti.Text = progressBarMulti.Value + " files processed" + (processErrors > 0 ? ", (" + processErrors + " failed)" : "");
+                    progressBarMulti.Text = progressBarMulti.Value + " files added";
                 }
             }
         }
@@ -959,8 +891,7 @@ public class AddISO : Form
             IsoDetailsResults isoDetailsResults = (IsoDetailsResults)e.UserState;
             if (isoDetailsResults.Results == IsoDetailsResultsType.Error)
             {
-                //MessageBox.Show(isoDetailsResults.ErrorMessage, "Error Reading Title Information");
-                txtName.Text = isoDetailsResults.ErrorMessage;
+                MessageBox.Show(isoDetailsResults.ErrorMessage, "Error Reading Title Information");
             }
             else
             {
@@ -988,7 +919,7 @@ public class AddISO : Form
             string messageStart = "Please select";
             string messageISO = "An ISO image to convert";
             string messageGOD = "A destination folder to store the GOD container in";
-            string messageRebuild = "A destination folder to store the " + (cbDeleteRebuilt.Checked ? "temporary " : "") + "rebuilt ISO image in";
+            string messageRebuild = "A destination folder to store the " + (cbSaveRebuilt.Checked ? "" : "temporary ") + "rebuilt ISO image in";
             int errISO = 0, errGOD = 0, errRebuild = 0;
 
             if (txtISO.Text.Length == 0) errISO = 1;
@@ -1007,6 +938,17 @@ public class AddISO : Form
             MessageBox.Show(messageStart + " " + message);
             return false;
         }
+        if (cmbPaddingMode.SelectedIndex > 1)
+        {
+            if (!cbSaveRebuilt.Checked && (bool)Properties.Settings.Default["RebuiltCheck"])
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to discard the temporary ISO after it has been rebuilt?", "Discard Temporary ISO Image", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -1017,7 +959,7 @@ public class AddISO : Form
             return false;
         }
 
-        if (txtName.Text.Length == 0 || txtTitleID.Text.Length != 8 || !IsHexString(txtTitleID.Text) || txtMediaID.Text.Length != 8 || !IsHexString(txtMediaID.Text) || txtDiscNum.Text.Length == 0 || txtDiscNum.Text == "0" || txtPlatform.Text.Length == 0 || txtExType.Text.Length == 0 || (cbTitleDirectory.Checked && Utils.sanitizePath(txtName.Text).Trim() == ""))
+        if (txtName.Text.Length == 0 || txtTitleID.Text.Length != 8 || txtMediaID.Text.Length != 8 || txtDiscNum.Text.Length == 0 || txtDiscNum.Text == "0" || txtPlatform.Text.Length == 0 || txtExType.Text.Length == 0 || (cbTitleDirectory.Checked && Utils.sanitizePath(txtName.Text).Trim() == ""))
         {
             string message = "";
             string sep = "";
@@ -1031,8 +973,8 @@ public class AddISO : Form
             int errName = 0, errTitle = 0, errMedia = 0, errDisc = 0, errPlatform = 0, errEx = 0;
 
             if (txtName.Text.Trim().Length == 0) errName = 1;
-            if (txtTitleID.Text.Length != 8 || !IsHexString(txtTitleID.Text)) errTitle = 1;
-            if (txtMediaID.Text.Length != 8 || !IsHexString(txtMediaID.Text)) errMedia = 1;
+            if (txtTitleID.Text.Length != 8) errTitle = 1;
+            if (txtMediaID.Text.Length != 8) errMedia = 1;
             if (txtDiscNum.Text.Length == 0 || txtDiscNum.Text == "0") errDisc = 1;
             if (txtPlatform.Text.Length == 0) errPlatform = 1;
             if (txtExType.Text.Length == 0) errEx = 1;
@@ -1066,6 +1008,7 @@ public class AddISO : Form
             isoEntryPadding.Type = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryPadding.TempPath = Path.GetTempPath();
             isoEntryPadding.IsoPath = txtRebuiltIso.Text;
+            isoEntryPadding.KeepIso = cbSaveRebuilt.Checked;
             if (!isoEntryPadding.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
                 isoEntryPadding.TempPath += Path.DirectorySeparatorChar;
@@ -1077,7 +1020,7 @@ public class AddISO : Form
             bool titleDirectory = cbTitleDirectory.Checked;
             IsoEntryID iD = new IsoEntryID(txtTitleID.Text, txtMediaID.Text, byte.Parse(txtDiscNum.Text), byte.Parse(txtDiscCount.Text), byte.Parse(txtPlatform.Text), byte.Parse(txtExType.Text));
             FileInfo fileInfo = new FileInfo(txtISO.Text);
-            IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding, titleDirectory, cbDeleteRebuilt.Checked, cbDeleteSource.Checked, "");
+            IsoEntry isoEntry = new IsoEntry(platform, txtISO.Text, txtDest.Text, fileInfo.Length, txtName.Text, iD, (byte[])pbThumb.Tag, isoEntryPadding, titleDirectory, "");
             if (edit)
             {
                 (base.Owner as Main).UpdateISOEntry(entryIndex, isoEntry);
@@ -1100,43 +1043,40 @@ public class AddISO : Form
         openFileDialog.Filter = "ISO Images (*.iso, *.000)|*.iso;*.000";
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-            AddFiles(openFileDialog.FileNames);
-        }
-    }
-
-    private void AddFiles(string[] files)
-    {
-        file = 0;
-        processErrors = 0;
-        fileList = files;
-        txtISO.Text = files[0];
-        btnCancel.Text = "Cancel";
-        clearXexFields();
-        if (fileList.Length > 1)
-        {
-            if (!checkPaths())
+            file = 0;
+            fileList = openFileDialog.FileNames;
+            txtISO.Text = openFileDialog.FileName;
+            btnCancel.Text = "Cancel";
+            clearXexFields();
+            if (fileList.Length > 1)
             {
-                return;
+                if(!checkPaths())
+                {
+                    return;
+                }
+                progressBarMulti.Maximum = fileList.Length;
+                progressBarMulti.Step = 1;
+                progressBarMulti.Value = 0;
+                progressBarMulti.Visible = true;
+                progressBarMulti.Text = "Adding 1 / " + fileList.Length + " files";
+                EnablePageControls(false);
+                btnAddIso.Enabled = false;
+            } else
+            {
+                btnAddIso.Enabled = true;
             }
-            progressBarMulti.Maximum = fileList.Length;
-            progressBarMulti.Step = 1;
-            progressBarMulti.Value = 0;
-            progressBarMulti.Visible = true;
-            progressBarMulti.Text = "Adding 1 / " + fileList.Length + " files";
-            EnablePageControls(false);
-            btnAddIso.Enabled = false;
+            switch (entry.Platform)
+            {
+                case IsoEntryPlatform.Xbox360:
+                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    txtName.Text = "Reading default.xex...";
+                    break;
+                case IsoEntryPlatform.Xbox:
+                    isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
+                    txtName.Text = "Reading default.xbe...";
+                    break;
+            }
         }
-        else
-        {
-            btnAddIso.Enabled = true;
-        }
-        /*
-        Debug.WriteLine("txtISO: " + txtISO.Text);
-        Debug.WriteLine("pathTemp: " + pathTemp);
-        Debug.WriteLine("pathXT: " + pathXT);
-        */
-        isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
-        txtName.Text = "Reading default.xex/xbe...";
     }
 
     private void btnDestBrowse_Click(object sender, EventArgs e)
@@ -1204,17 +1144,33 @@ public class AddISO : Form
         }
     }
 
+    private void cbSaveRebuilt_CheckedChanged(object sender, EventArgs e)
+    {
+        if (!(bool)Properties.Settings.Default["AlwaysSave"] || (cmbPaddingMode.SelectedIndex < 2))
+        {
+            cbSaveRebuilt.Checked = false;
+            cbSaveRebuilt.Enabled = false;
+        } else
+        {
+            cbSaveRebuilt.Enabled = true;
+        }
+    }
+
     private void cmbPaddingMode_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (cmbPaddingMode.SelectedIndex < 2)
         {
-            cbDeleteRebuilt.Enabled = false;
+            /* if (!(bool)Properties.Settings.Default["AlwaysSave"])
+            {
+                cbSaveRebuilt.Checked = false;
+            }*/
+            cbSaveRebuilt.Enabled = false;
             txtRebuiltIso.Enabled = false;
             btnRebuiltBrowse.Enabled = false;
         }
         else
         {
-            cbDeleteRebuilt.Enabled = true;
+            cbSaveRebuilt.Enabled = true;
             txtRebuiltIso.Enabled = true;
             btnRebuiltBrowse.Enabled = true;
         }
@@ -1249,19 +1205,19 @@ public class AddISO : Form
         txtPlatform.Enabled = status;
         txtExType.Enabled = status;
         pbThumb.Enabled = status;
-        cbDeleteRebuilt.Enabled = status;
+        cbSaveRebuilt.Enabled = status;
         cmbPaddingMode.Enabled = status;
         cbTitleDirectory.Enabled = status;
         cbAutoRename.Enabled = status;
         if (cmbPaddingMode.SelectedIndex < 2)
         {
-            cbDeleteRebuilt.Enabled = false;
+            cbSaveRebuilt.Enabled = false;
             txtRebuiltIso.Enabled = false;
             btnRebuiltBrowse.Enabled = false;
         }
         else
         {
-            cbDeleteRebuilt.Enabled = status;
+            cbSaveRebuilt.Enabled = status;
             txtRebuiltIso.Enabled = status;
             btnRebuiltBrowse.Enabled = status;
         }
@@ -1284,90 +1240,5 @@ public class AddISO : Form
     private void txtDiscCount_ValueChanged(object sender, EventArgs e)
     {
         if (txtDiscNum.Value > txtDiscCount.Value) txtDiscNum.Value = txtDiscCount.Value;
-    }
-
-    public static bool IsHexString(string input)
-    {
-        return Regex.IsMatch(input, @"\A\b[0-9a-fA-F]+\b\Z");
-    }
-
-    public string getCsvTitle(string TitleID, string MediaID)
-    {
-        var file = (platform == IsoEntryPlatform.Xbox ? "gamelist_xbox.csv" : "gamelist_xbox360.csv");
-        var title = "";
-
-        if (File.Exists(file))
-        {
-            try
-            {
-                var data = new List<string[]>();
-                char delimiter = ',';
-                Dictionary<string, int> columnIndices = null;
-
-                using (var reader = new StreamReader(file))
-                {
-                    // Read the first line of the file
-                    var firstLine = reader.ReadLine();
-
-                    // Determine the delimiter to use based on the first line
-                    if (firstLine.Contains("\t"))
-                    {
-                        delimiter = '\t';
-                    }
-
-                    // Create the regular expression pattern
-                    string pattern = $"{delimiter}(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-
-                    // Read the header row
-                    var headers = Regex.Split(firstLine, pattern);
-
-                    // Create a dictionary to map column names to indices
-                    columnIndices = headers.Select((header, index) => new { header, index }).ToDictionary(x => x.header, x => x.index);
-
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var values = Regex.Split(line, pattern);
-
-                        data.Add(values);
-                    }
-                }
-
-                // Now you can search for values in the data array
-                foreach (var row in data)
-                {
-                    string title_id = row[columnIndices["title_id"]];
-                    string media_id = (platform == IsoEntryPlatform.Xbox ? row[columnIndices["xbe_md5"]].Substring(0, 8).ToUpper() : row[columnIndices["media_id"]]);
-
-                    if (TitleID == title_id)
-                    {
-                        title = row[columnIndices["title_name"]];
-                        if (MediaID == media_id)
-                        {
-                            return row[columnIndices["title_name"]];
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // will return empty title
-            }
-        }
-        return title;
-    }
-
-    private void cbDeleteSource_CheckedChanged(object sender, EventArgs e)
-    {
-        CheckBox checkbox = (CheckBox)sender;
-        if (checkbox.Checked)
-        {
-            DialogResult result = MessageBox.Show("This will permanently delete your original ISO files after completion, are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Cancel)
-            {
-                checkbox.Checked = false;
-                return;
-            }
-        }
     }
 }

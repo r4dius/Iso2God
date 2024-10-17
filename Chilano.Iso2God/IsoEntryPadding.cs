@@ -8,18 +8,17 @@ public class IsoEntryPadding
 
     public string IsoPath;
 
-    public bool DeleteSource = false;
-
-    public bool DeleteRebuilt = false;
+    public bool KeepIso = true;
 
     public IsoEntryPadding()
     {
     }
 
-    public IsoEntryPadding(IsoEntryPaddingRemoval Type, string TempPath, string IsoPath)
+    public IsoEntryPadding(IsoEntryPaddingRemoval Type, string TempPath, string IsoPath, bool KeepIso)
     {
         this.Type = Type;
         this.TempPath = TempPath;
         this.IsoPath = IsoPath;
+        this.KeepIso = KeepIso;
     }
 }
