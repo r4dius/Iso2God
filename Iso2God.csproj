@@ -4,7 +4,7 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net481</TargetFramework>
+    <TargetFramework>net35</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>11.0</LangVersion>
@@ -13,7 +13,6 @@
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
     <RootNamespace />
-    <UserSecretsId>14bdbf89-6efa-4b14-b876-03a958a8fcf7</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Remove="EnterpriseDT.Net.Ftp.FTPConnection.resx" />
@@ -39,16 +38,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Chilano.Iso2God.Properties.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="gamelist_xbox.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="gamelist_xbox360.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="xextool.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
