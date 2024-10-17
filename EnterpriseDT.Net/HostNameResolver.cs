@@ -18,7 +18,7 @@ internal class HostNameResolver
             throw new ArgumentNullException();
         }
         IPAddress iPAddress = null;
-        iPAddress = ((!Regex.IsMatch(hostName, "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}")) ? Dns.GetHostEntry(hostName).AddressList[0] : IPAddress.Parse(hostName));
+        iPAddress = ((!Regex.IsMatch(hostName, "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}")) ? Dns.Resolve(hostName).AddressList[0] : IPAddress.Parse(hostName));
         if (log.DebugEnabled)
         {
             log.Debug(hostName + " resolved to " + iPAddress.ToString());
