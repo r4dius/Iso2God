@@ -102,13 +102,14 @@ public class DDS
         byte[] linearData = new byte[width * height * 4];
         int num = 0;
 
-        UnswizzleRect(Data, width, height, linearData, width * 4, 4);
+        Array.Copy(Data, linearData, Data.Length);
+        UnswizzleRect(linearData, width, height, Data, width * 4, 4);
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                Color color = Color.FromArgb(linearData[num + 3], linearData[num + 2], linearData[num + 1], linearData[num]);
+                Color color = Color.FromArgb(Data[num + 3], Data[num + 2], Data[num + 1], Data[num]);
                 ((Bitmap)img).SetPixel(j, i, color);
                 num += 4;
             }
