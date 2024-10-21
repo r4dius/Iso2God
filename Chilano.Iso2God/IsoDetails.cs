@@ -5,6 +5,7 @@ using Chilano.Xbox360.Xbe;
 using Chilano.Xbox360.Xdbf;
 using Chilano.Xbox360.Xex;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -126,91 +127,56 @@ internal class IsoDetails : BackgroundWorker
             isoDetailsResults = new IsoDetailsResults(xbeInfo.Certifcate.TitleName, xbeInfo.Certifcate.TitleID, (xbeInfo.Certifcate.DiskNumber != 0) ? xbeInfo.Certifcate.DiskNumber.ToString() : "1", calcMD5(array));
             isoDetailsResults.DiscCount = "1";
             ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Progress, "Extracting thumbnail..."));
-            foreach (XbeSection section in xbeInfo.Sections)
-            {
-                if (!(section.Name == "$$XSIMAGE"))
-                {
-                    continue;
-                }
-                try
-                {
-                    XPR xPR = new XPR(section.Data);
-                    DDS dDS = xPR.ConvertToDDS(64, 64);
-                    Bitmap bitmap = new Bitmap(64, 64);
-                    switch (xPR.Format)
-                    {
-                        case XPRFormat.ARGB:
-                            bitmap = (Bitmap)dDS.GetImage(DDSType.ARGB);
-                            break;
-                        case XPRFormat.DXT1:
-                            bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
-                            break;
-                    }
-                    MemoryStream memoryStream = new MemoryStream();
-                    bitmap.Save(memoryStream, ImageFormat.Png);
-                    isoDetailsResults.Thumbnail = (Image)bitmap.Clone();
-                    isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
-                    bitmap.Dispose();
-                    memoryStream.Dispose();
-                    /*
-                    if (xPR.Format == XPRFormat.ARGB)
-                    {
-                        ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
-                    }
-                    */
-                }
-                catch (Exception ex)
-                {
-                    ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex.Message));
-                }
-            }
+
+            thumbXpr(xbeInfo.Sections, "$$XSIMAGE", isoDetailsResults);
+
             if (isoDetailsResults.Thumbnail == null)
             {
-                foreach (XbeSection section in xbeInfo.Sections)
-                {
-                    if (!(section.Name == "$$XTIMAGE"))
-                    {
-                        continue;
-                    }
-                    try
-                    {
-                        XPR xPR = new XPR(section.Data);
-                        DDS dDS = xPR.ConvertToDDS(128, 128);
-                        Bitmap bitmap = new Bitmap(128, 128);
-                        switch (xPR.Format)
-                        {
-                            case XPRFormat.ARGB:
-                                bitmap = (Bitmap)dDS.GetImage(DDSType.ARGB);
-                                break;
-                            case XPRFormat.DXT1:
-                                bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
-                                break;
-                        }
-                        Image image = new Bitmap(64, 64);
-                        Graphics graphics = Graphics.FromImage(image);
-                        graphics.DrawImage(bitmap, 0, 0, 64, 64);
-                        MemoryStream memoryStream = new MemoryStream();
-                        image.Save(memoryStream, ImageFormat.Png);
-                        isoDetailsResults.Thumbnail = (Image)image.Clone();
-                        isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
-                        memoryStream.Dispose();
-                        bitmap.Dispose();
-                        graphics.Dispose();
-                        /*
-                        if (xPR.Format == XPRFormat.ARGB)
-                        {
-                            ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "XBE thumbnail type is not supported or is corrupt."));
-                        }
-                        */
-                    }
-                    catch (Exception ex)
-                    {
-                        ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex.Message));
-                    }
-                }
+                thumbXpr(xbeInfo.Sections, "$$XTIMAGE", isoDetailsResults);
             }
         }
         e.Result = isoDetailsResults;
+    }
+
+    private void thumbXpr(List<XbeSection> sections, string name, IsoDetailsResults isoDetailsResults)
+    {
+        foreach (XbeSection section in sections)
+        {
+            if (!(section.Name == name))
+            {
+                continue;
+            }
+            try
+            {
+                XPR xPR = new XPR(section.Data);
+                //File.WriteAllBytes(name + ".xpr", section.Data);
+                DDS dDS = xPR.ConvertToDDS(xPR.Width, xPR.Height);
+                Bitmap bitmap = new Bitmap(xPR.Width, xPR.Height);
+                switch (xPR.Format)
+                {
+                    case XPRFormat.ARGB:
+                        bitmap = (Bitmap)dDS.GetImage(DDSType.ARGB);
+                        break;
+                    case XPRFormat.DXT1:
+                        bitmap = (Bitmap)dDS.GetImage(DDSType.DXT1);
+                        break;
+                }
+                Image image = new Bitmap(64, 64);
+                Graphics graphics = Graphics.FromImage(image);
+                graphics.DrawImage(bitmap, 0, 0, 64, 64);
+                MemoryStream memoryStream = new MemoryStream();
+                image.Save(memoryStream, ImageFormat.Png);
+                isoDetailsResults.Thumbnail = (Image)image.Clone();
+                isoDetailsResults.RawThumbnail = (byte[])memoryStream.ToArray().Clone();
+                memoryStream.Dispose();
+                bitmap.Dispose();
+                graphics.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ReportProgress(0, new IsoDetailsResults(IsoDetailsResultsType.Error, "Failed to convert thumbnail DDS to PNG.\n\n" + ex.Message));
+            }
+        }
     }
 
     private void readXex(DoWorkEventArgs e)

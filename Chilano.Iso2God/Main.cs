@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 
 namespace Chilano.Iso2God;
@@ -84,11 +86,17 @@ public class Main : Form
 
     public string pathXT = "";
 
-    public string file_xextool = "xextool.exe";
+    public static string file_xextool = "xextool.exe";
 
-    public string file_listxbox = "gamelist_xbox.csv";
+    public static string file_listxbox = "gamelist_xbox.csv";
 
-    public string file_listxbox360 = "gamelist_xbox360.csv";
+    public static string file_listxbox360 = "gamelist_xbox360.csv";
+
+    public static string[] IsoEntryPaddingStr = {
+        "Untouched",
+        "Partial",
+        "Remove all"
+    };
 
     protected override void Dispose(bool disposing)
     {
@@ -512,8 +520,11 @@ public class Main : Form
 
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
-        using AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360);
-        addISO.ShowDialog(this);
+        using (AddISO addISO = new AddISO(IsoEntryPlatform.Xbox360))
+        {
+            addISO.ShowDialog(this);
+            return;
+        }
     }
 
     private void toolStripButton2_Click(object sender, EventArgs e)
@@ -553,7 +564,22 @@ public class Main : Form
                 string user = Properties.Settings.Default["FtpUser"].ToString();
                 string pass = Properties.Settings.Default["FtpPass"].ToString();
                 string port = Properties.Settings.Default["FtpPort"].ToString();
-                string gameDirectory = (isoEntry.TitleDirectory && Utils.sanitizePath(isoEntry.TitleName).Length != 0 ? Utils.sanitizePath(isoEntry.TitleName) : isoEntry.ID.TitleID);
+                string gameDirectory = isoEntry.ID.TitleID;
+                if (isoEntry.FolderLayout > 0 && Utils.sanitizePath(isoEntry.TitleName).Length != 0)
+                {
+                    switch (isoEntry.FolderLayout)
+                    {
+                        case (int)IsoEntryFolderLayout.Title_ID:
+                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName) + Path.DirectorySeparatorChar + isoEntry.ID.TitleID;
+                            break;
+                        case (int)IsoEntryFolderLayout.TitleID:
+                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName) + " " + isoEntry.ID.TitleID;
+                            break;
+                        case (int)IsoEntryFolderLayout.Title:
+                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName);
+                            break;
+                    }
+                }
                 _ = isoEntry.ID.ContainerID;
                 ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, gameDirectory, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
                 ftpCheck.Enabled = false;
@@ -598,6 +624,22 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
+                if (isoEntry.Options.DeleteGod)
+                {
+                    string godpath = "";
+                    godpath = string.Concat(isoEntry.Destination, isoEntry.ID.TitleID, Path.DirectorySeparatorChar);
+                    try
+                    {
+                        if (Directory.Exists(godpath))
+                        {
+                            Directory.Delete(@godpath, true);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        item.SubItems[6].Text = item.SubItems[6].Text + " Failed to delete GOD directory: " + godpath;
+                    }
+                }
             }
             else
             {
@@ -646,7 +688,7 @@ public class Main : Form
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
                 ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
-                if ((bool)Properties.Settings.Default["FtpUpload"])
+                if ((bool)isoEntry.Options.FtpUpload)
                 {
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
@@ -698,7 +740,7 @@ public class Main : Form
         listViewItem.SubItems.Add(Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString());
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
         listViewItem.SubItems.Add(num + " GB");
-        listViewItem.SubItems.Add(Entry.Padding.Type.ToString());
+        listViewItem.SubItems.Add(IsoEntryPaddingStr[(int)Entry.Options.Padding]);
         listViewItem.SubItems.Add("");
         if(Entry.Message.Length == 0)  listViewItem.SubItems.Add(Entry.Path);
         else listViewItem.SubItems.Add(Entry.Message);
@@ -722,7 +764,7 @@ public class Main : Form
         listViewItem.SubItems[2].Text = Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString();
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
         listViewItem.SubItems[3].Text = num + " GB";
-        listViewItem.SubItems[4].Text = Entry.Padding.Type.ToString();
+        listViewItem.SubItems[4].Text = IsoEntryPaddingStr[(int)Entry.Options.Padding];
         listViewItem.SubItems[6].Text = Entry.Path;
     }
 

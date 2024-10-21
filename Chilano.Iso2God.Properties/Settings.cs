@@ -133,6 +133,36 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
+    [DefaultSettingValue("0")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public int Format
+    {
+        get
+        {
+            return (int)this["Format"];
+        }
+        set
+        {
+            this["Format"] = value;
+        }
+    }
+
+    [DefaultSettingValue("0")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public int FolderLayout
+    {
+        get
+        {
+            return (int)this["FolderLayout"];
+        }
+        set
+        {
+            this["FolderLayout"] = value;
+        }
+    }
+
     [DefaultSettingValue("2")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
@@ -223,7 +253,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("190,65,35,50,55,100,270")]
+    [DefaultSettingValue("185,60,35,55,70,100,260")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public string ColumnsWidth
@@ -265,6 +295,21 @@ internal sealed class Settings : ApplicationSettingsBase
         set
         {
             this["DeleteRebuilt"] = value;
+        }
+    }
+
+    [DefaultSettingValue("False")]
+    [DebuggerNonUserCode]
+    [UserScopedSetting]
+    public bool DeleteGod
+    {
+        get
+        {
+            return (bool)this["DeleteGod"];
+        }
+        set
+        {
+            this["DeleteGod"] = value;
         }
     }
 }

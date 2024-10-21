@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace Chilano.Iso2God.Ftp;
 
@@ -52,11 +53,16 @@ public class FtpUploader : BackgroundWorker
             return;
         }
         ftp.ChangeWorkingDirectory("Hdd1/Content/0000000000000000");
-        if (!dirExists(args.TitleDirectory))
+        // in case TitleDirectory has subfolders, mkdir and chdir recursively
+        string[] TitleDirectories = args.TitleDirectory.Split(Path.DirectorySeparatorChar);
+        foreach (string subDirectory in TitleDirectories)
         {
-            ftp.CreateDirectory(args.TitleDirectory);
+            if (!dirExists(subDirectory))
+            {
+                ftp.CreateDirectory(subDirectory);
+            }
+            ftp.ChangeWorkingDirectory(subDirectory);
         }
-        ftp.ChangeWorkingDirectory(args.TitleDirectory);
         if (!dirExists(text))
         {
             ftp.CreateDirectory(text);

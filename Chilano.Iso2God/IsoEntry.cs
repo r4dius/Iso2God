@@ -18,19 +18,19 @@ public struct IsoEntry
 
     public byte[] Thumb;
 
-    public bool TitleDirectory;
+    public int FolderLayout;
 
     public IsoEntryID ID;
 
     public IsoEntryStatus Status;
 
-    public bool DeleteRebuilt;
-
     public bool DeleteSource;
 
-    public IsoEntryPadding Padding;
+    public bool DeleteGod;
 
-    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryPadding Padding, bool titleDirectory, bool DeleteRebuilt, bool DeleteSource, string Message)
+    public IsoEntryOptions Options;
+
+    public IsoEntry(IsoEntryPlatform Platform, string Path, string Destination, long Size, string TitleName, IsoEntryID ID, byte[] Thumb, IsoEntryOptions Options, string Message)
     {
         this.Platform = Platform;
         this.Path = Path;
@@ -41,10 +41,7 @@ public struct IsoEntry
         this.ID = ID;
         Status = IsoEntryStatus.Idle;
         this.Thumb = Thumb;
-        this.Padding = Padding;
-        this.DeleteRebuilt = DeleteRebuilt;
-        this.DeleteSource = DeleteSource;
+        this.Options = Options;
         this.Message = Message;
-        this.TitleDirectory = titleDirectory;
     }
 }

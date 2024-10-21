@@ -291,7 +291,7 @@ public class Iso2God : BackgroundWorker
         Start = DateTime.Now;
         IsoEntry iso = (IsoEntry)e.Argument;
         uniqueName = createUniqueName(iso);
-        switch (iso.Padding.Type)
+        switch (iso.Options.Padding)
         {
             case IsoEntryPaddingRemoval.None:
             case IsoEntryPaddingRemoval.Partial:
@@ -342,7 +342,7 @@ public class Iso2God : BackgroundWorker
             ReportProgress((int)progress, "Generating new GDFS structures...");
             try
             {
-                fileStream2 = File.OpenWrite(iso.Padding.IsoPath + iso.Path.Substring(iso.Path.LastIndexOf(Path.DirectorySeparatorChar) + 1) + "_rebuilt.iso");
+                fileStream2 = File.OpenWrite(iso.Options.IsoPath + iso.Path.Substring(iso.Path.LastIndexOf(Path.DirectorySeparatorChar) + 1) + "_rebuilt.iso");
             }
             catch (Exception ex2)
             {
@@ -364,7 +364,18 @@ public class Iso2God : BackgroundWorker
         iso.Size = fileStream2.Length;
         fileStream2.Close();
         fileStream.Close();
-        Iso2God_Partial(sender, e, iso);
+        if (iso.Options.Format != IsoEntryFormat.Iso)
+        {
+            Iso2God_Partial(sender, e, iso);
+        }
+        else
+        {
+            Finish = DateTime.Now;
+            TimeSpan timeSpan = Finish - Start;
+            ReportProgress(100, "Done!");
+            e.Result = "Finished in " + timeSpan.Minutes + "m" + timeSpan.Seconds + "s. ISO image rebuilt";
+            GC.Collect();
+        }
     }
 
     private void Iso2God_Partial(object sender, DoWorkEventArgs e, IsoEntry iso)
@@ -391,11 +402,23 @@ public class Iso2God : BackgroundWorker
             return;
         }
         ulong num = 0uL;
-        num = ((iso.Padding.Type != IsoEntryPaddingRemoval.Partial) ? ((ulong)iso.Size - gDF.RootOffset) : ((ulong)(iso.Size - (long)gDF.RootOffset - (iso.Size - (long)(gDF.LastOffset + gDF.RootOffset)))));
+        num = ((iso.Options.Padding != IsoEntryPaddingRemoval.Partial) ? ((ulong)iso.Size - gDF.RootOffset) : ((ulong)(iso.Size - (long)gDF.RootOffset - (iso.Size - (long)(gDF.LastOffset + gDF.RootOffset)))));
         uint num2 = (uint)Math.Ceiling((double)num / (double)blockSize);
         uint num3 = (uint)Math.Ceiling((double)num2 / (double)blockPerPart);
         ContentType contentType = ((iso.Platform == IsoEntryPlatform.Xbox360) ? ContentType.GamesOnDemand : ContentType.XboxOriginal);
-        string gameDirectory = (iso.TitleDirectory && Utils.sanitizePath(iso.TitleName).Length != 0 ? Utils.sanitizePath(iso.TitleName) : iso.ID.TitleID);
+        string gameDirectory = iso.ID.TitleID;
+        if (iso.FolderLayout > 0 && Utils.sanitizePath(iso.TitleName).Length != 0)
+        {
+            switch (iso.FolderLayout)
+            {
+                case 1:
+                    gameDirectory = Utils.sanitizePath(iso.TitleName) + Path.DirectorySeparatorChar + iso.ID.TitleID;
+                    break;
+                case 2:
+                    gameDirectory = Utils.sanitizePath(iso.TitleName) + " " + iso.ID.TitleID;
+                    break;
+            }
+        }
         object[] array = new object[6]
         {
             iso.Destination,
@@ -431,7 +454,7 @@ public class Iso2God : BackgroundWorker
         fileStream.Close();
         fileStream.Dispose();
         gDF.Dispose();
-        if (iso.Padding.Type == IsoEntryPaddingRemoval.Full && iso.DeleteRebuilt)
+        if (iso.Options.Padding == IsoEntryPaddingRemoval.Full && iso.Options.Format == IsoEntryFormat.God)
         {
             try
             {
@@ -454,7 +477,7 @@ public class Iso2God : BackgroundWorker
         uint num = 0u;
         for (uint num2 = 0u; num2 < partsReq; num2++)
         {
-            progress += 1f / (float)partsReq * ((iso.Padding.Type == IsoEntryPaddingRemoval.Full) ? 0.45f : 0.9f) * 100f;
+            progress += 1f / (float)partsReq * ((iso.Options.Padding == IsoEntryPaddingRemoval.Full) ? 0.45f : 0.9f) * 100f;
             ReportProgress((int)progress, "Writing Part " + num2 + " / " + partsReq + "...");
             string text = destPath + Path.DirectorySeparatorChar + "Data";
             if (num2 < 10)
