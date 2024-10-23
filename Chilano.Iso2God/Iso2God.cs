@@ -406,19 +406,7 @@ public class Iso2God : BackgroundWorker
         uint num2 = (uint)Math.Ceiling((double)num / (double)blockSize);
         uint num3 = (uint)Math.Ceiling((double)num2 / (double)blockPerPart);
         ContentType contentType = ((iso.Platform == IsoEntryPlatform.Xbox360) ? ContentType.GamesOnDemand : ContentType.XboxOriginal);
-        string gameDirectory = iso.ID.TitleID;
-        if (iso.FolderLayout > 0 && Utils.sanitizePath(iso.TitleName).Length != 0)
-        {
-            switch (iso.FolderLayout)
-            {
-                case 1:
-                    gameDirectory = Utils.sanitizePath(iso.TitleName) + Path.DirectorySeparatorChar + iso.ID.TitleID;
-                    break;
-                case 2:
-                    gameDirectory = Utils.sanitizePath(iso.TitleName) + " " + iso.ID.TitleID;
-                    break;
-            }
-        }
+        string gameDirectory = iso.Options.Layout.Path;
         object[] array = new object[6]
         {
             iso.Destination,

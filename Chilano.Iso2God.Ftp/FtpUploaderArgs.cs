@@ -16,15 +16,15 @@ public class FtpUploaderArgs
 
     public string SourcePath;
     
-    public string TitleDirectory;
+    public string GameDirectory;
 
-    public FtpUploaderArgs(string Ip, string User, string Pass, string Port, string TitleDirectory, string ContainerID, string SourcePath, IsoEntryPlatform Platform)
+    public FtpUploaderArgs(string Ip, string User, string Pass, string Port, string GameDirectory, string ContainerID, string SourcePath, IsoEntryPlatform Platform)
     {
         this.Ip = Ip;
         this.User = User;
         this.Pass = Pass;
         this.Port = Port;
-        this.TitleDirectory = TitleDirectory;
+        this.GameDirectory = GameDirectory;
         this.ContainerID = ContainerID;
         this.SourcePath = SourcePath;
         this.Platform = Platform;

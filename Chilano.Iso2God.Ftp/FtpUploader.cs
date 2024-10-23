@@ -38,7 +38,7 @@ public class FtpUploader : BackgroundWorker
         }
 
         string text = ((args.Platform == IsoEntryPlatform.Xbox360) ? "00007000" : "00005000");
-        string text2 = args.SourcePath + args.TitleDirectory + Path.DirectorySeparatorChar + text + Path.DirectorySeparatorChar;
+        string text2 = args.SourcePath + args.GameDirectory + Path.DirectorySeparatorChar + text + Path.DirectorySeparatorChar;
         ftp.ServerAddress = args.Ip;
         ftp.UserName = args.User;
         ftp.Password = args.Pass;
@@ -54,7 +54,7 @@ public class FtpUploader : BackgroundWorker
         }
         ftp.ChangeWorkingDirectory("Hdd1/Content/0000000000000000");
         // in case TitleDirectory has subfolders, mkdir and chdir recursively
-        string[] TitleDirectories = args.TitleDirectory.Split(Path.DirectorySeparatorChar);
+        string[] TitleDirectories = args.GameDirectory.Split(Path.DirectorySeparatorChar);
         foreach (string subDirectory in TitleDirectories)
         {
             if (!dirExists(subDirectory))

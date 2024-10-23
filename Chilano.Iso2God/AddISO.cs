@@ -866,7 +866,7 @@ public class AddISO : Form
     public AddISO(IsoEntryPlatform Platform)
     {
         InitializeComponent();
-        base.Shown += AddISO_Shown;
+        //base.Shown += AddISO_Shown;
         platform = Platform;
         entry.Platform = platform;
         progressBarMulti.Visible = false;
@@ -910,7 +910,6 @@ public class AddISO : Form
         txtISO.Focus();
     }
 
-
     private void AddISO_Shown(object sender, EventArgs e)
     {
         if (!edit && !drop && (bool)Properties.Settings.Default["AutoBrowse"])
@@ -942,12 +941,12 @@ public class AddISO : Form
         txtRebuiltIso.Text = ((entry.Options.Padding == IsoEntryPaddingRemoval.Full) ? entry.Options.IsoPath : Properties.Settings.Default["RebuildPath"].ToString());
         cmbFormat.SelectedIndex = (int)entry.Options.Format;
         cmbPaddingMode.SelectedIndex = (int)entry.Options.Padding;
-        cmbFolderLayout.SelectedIndex = (int)entry.Options.FolderLayout;
+        cmbFolderLayout.SelectedIndex = (int)entry.Options.Layout.ID;
         cbFtpUpload.Checked = (bool)entry.Options.FtpUpload;
         cbDeleteGod.Enabled = cbFtpUpload.Checked;
         cbDeleteGod.Checked = (bool)entry.Options.DeleteGod;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
-        cbDeleteSource.Checked = entry.DeleteSource;
+        cbDeleteSource.Checked = entry.Options.DeleteSource;
         cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         pbThumb.Tag = entry.Thumb;
         Text = "Edit ISO Image";
@@ -1044,7 +1043,27 @@ public class AddISO : Form
                 isoEntryOptions.Format = (IsoEntryFormat)cmbFormat.SelectedIndex;
                 isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
                 isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
-                isoEntryOptions.FolderLayout = cmbFolderLayout.SelectedIndex;
+                string titlename = Utils.sanitizePath(txtName.Text);
+                string gameDirectory = txtTitleID.Text;
+                if (cmbFolderLayout.SelectedIndex > (int)IsoEntryFolderLayout.ID && titlename.Length != 0)
+                {
+                    switch (cmbFolderLayout.SelectedIndex)
+                    {
+                        case (int)IsoEntryFolderLayout.Title_ID:
+                            gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
+                            break;
+                        case (int)IsoEntryFolderLayout.TitleID:
+                            gameDirectory = titlename + " " + txtTitleID.Text;
+                            break;
+                        case (int)IsoEntryFolderLayout.Title:
+                            gameDirectory = titlename;
+                            break;
+                    }
+                }
+                IsoEntryLayout isoEntryLayout = new IsoEntryLayout();
+                isoEntryLayout.ID = cmbFolderLayout.SelectedIndex;
+                isoEntryLayout.Path = gameDirectory;
+                isoEntryOptions.Layout = isoEntryLayout;
                 isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
                 isoEntryOptions.DeleteGod = cbDeleteGod.Checked;
                 isoEntryOptions.TempPath = Path.GetTempPath();
@@ -1114,7 +1133,7 @@ public class AddISO : Form
             //isoDetails.CancelAsync();
             isoDetails.Dispose();
         }
-        if(SettingsChanged())
+        if(!edit && SettingsChanged())
         {
             DialogResult result = MessageBox.Show("Do you want to save settings ?", "Settings changed", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -1187,7 +1206,6 @@ public class AddISO : Form
                 messageName += " and is a valid directory name";
                 errName = 1;
             }
-
             if (errName + errTitle + errMedia + errDisc + errPlatform + errEx > 1)
             {
                 sep = "\n - ";
@@ -1213,7 +1231,27 @@ public class AddISO : Form
             isoEntryOptions.Format = (IsoEntryFormat)cmbFormat.SelectedIndex;
             isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
-            isoEntryOptions.FolderLayout = cmbFolderLayout.SelectedIndex;
+            string titlename = Utils.sanitizePath(txtName.Text);
+            string gameDirectory = txtTitleID.Text;
+            if (cmbFolderLayout.SelectedIndex > (int)IsoEntryFolderLayout.ID && titlename.Length != 0)
+            {
+                switch (cmbFolderLayout.SelectedIndex)
+                {
+                    case (int)IsoEntryFolderLayout.Title_ID:
+                        gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
+                        break;
+                    case (int)IsoEntryFolderLayout.TitleID:
+                        gameDirectory = titlename + " " + txtTitleID.Text;
+                        break;
+                    case (int)IsoEntryFolderLayout.Title:
+                        gameDirectory = titlename;
+                        break;
+                }
+            }
+            IsoEntryLayout isoEntryLayout = new IsoEntryLayout();
+            isoEntryLayout.ID = cmbFolderLayout.SelectedIndex;
+            isoEntryLayout.Path = gameDirectory;
+            isoEntryOptions.Layout = isoEntryLayout;
             isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
             isoEntryOptions.DeleteGod = cbDeleteGod.Checked;
             isoEntryOptions.TempPath = Path.GetTempPath();

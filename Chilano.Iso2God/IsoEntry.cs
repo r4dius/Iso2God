@@ -18,15 +18,9 @@ public struct IsoEntry
 
     public byte[] Thumb;
 
-    public int FolderLayout;
-
     public IsoEntryID ID;
 
     public IsoEntryStatus Status;
-
-    public bool DeleteSource;
-
-    public bool DeleteGod;
 
     public IsoEntryOptions Options;
 

@@ -3,6 +3,7 @@ using Chilano.Iso2God.Ftp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Management;
@@ -564,22 +565,7 @@ public class Main : Form
                 string user = Properties.Settings.Default["FtpUser"].ToString();
                 string pass = Properties.Settings.Default["FtpPass"].ToString();
                 string port = Properties.Settings.Default["FtpPort"].ToString();
-                string gameDirectory = isoEntry.ID.TitleID;
-                if (isoEntry.FolderLayout > 0 && Utils.sanitizePath(isoEntry.TitleName).Length != 0)
-                {
-                    switch (isoEntry.FolderLayout)
-                    {
-                        case (int)IsoEntryFolderLayout.Title_ID:
-                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName) + Path.DirectorySeparatorChar + isoEntry.ID.TitleID;
-                            break;
-                        case (int)IsoEntryFolderLayout.TitleID:
-                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName) + " " + isoEntry.ID.TitleID;
-                            break;
-                        case (int)IsoEntryFolderLayout.Title:
-                            gameDirectory = Utils.sanitizePath(isoEntry.TitleName);
-                            break;
-                    }
-                }
+                string gameDirectory = isoEntry.Options.Layout.Path;
                 _ = isoEntry.ID.ContainerID;
                 ftp.RunWorkerAsync(new FtpUploaderArgs(ip, user, pass, port, gameDirectory, isoEntry.ID.ContainerID, isoEntry.Destination, isoEntry.Platform));
                 ftpCheck.Enabled = false;
@@ -624,10 +610,11 @@ public class Main : Form
             {
                 item.ForeColor = Color.Green;
                 item.SubItems[6].Text = "Uploaded";
+                Debug.WriteLine("delete god: " + isoEntry.Options.DeleteGod);
                 if (isoEntry.Options.DeleteGod)
                 {
                     string godpath = "";
-                    godpath = string.Concat(isoEntry.Destination, isoEntry.ID.TitleID, Path.DirectorySeparatorChar);
+                    godpath = isoEntry.Options.Layout.Path;
                     try
                     {
                         if (Directory.Exists(godpath))
@@ -704,7 +691,7 @@ public class Main : Form
                     FlashWindow(base.Handle, bInvert: false);
                 }
 
-                if (isoEntry.DeleteSource && e.Error == null)
+                if (isoEntry.Options.DeleteSource && e.Error == null)
                 {
                     DeleteOriginalIso(isoEntry.Path, item); // Call the method to delete the original ISO
                 }

@@ -1,5 +1,3 @@
-using Chilano.Iso2God.Ftp;
-
 namespace Chilano.Iso2God;
 
 public class IsoEntryOptions
@@ -12,11 +10,11 @@ public class IsoEntryOptions
 
     public string IsoPath;
 
+    public IsoEntryLayout Layout;
+
     public bool DeleteGod = false;
 
     public bool DeleteSource = false;
-
-    public int FolderLayout;
 
     public bool FtpUpload;
 
@@ -24,15 +22,15 @@ public class IsoEntryOptions
     {
     }
 
-    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, bool DeleteGod, bool DeleteSource, int FolderLayout, bool FtpUpload)
+    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, IsoEntryLayout Layout, bool DeleteGod, bool DeleteSource, bool FtpUpload)
     {
         this.Padding = Padding;
         this.Format = Format;
         this.TempPath = TempPath;
         this.IsoPath = IsoPath;
+        this.Layout = Layout;
         this.DeleteGod = DeleteGod;
         this.DeleteSource = DeleteSource;
-        this.FolderLayout = FolderLayout;
         this.FtpUpload = FtpUpload;
     }
 }
