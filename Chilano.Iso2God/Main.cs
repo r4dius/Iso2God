@@ -609,22 +609,38 @@ public class Main : Form
             if (ftp.Errors.Count == 0)
             {
                 item.ForeColor = Color.Green;
-                item.SubItems[6].Text = "Uploaded";
-                Debug.WriteLine("delete god: " + isoEntry.Options.DeleteGod);
+                item.SubItems[6].Text = "Uploaded.";
                 if (isoEntry.Options.DeleteGod)
                 {
                     string godpath = "";
-                    godpath = isoEntry.Options.Layout.Path;
+                    godpath = isoEntry.Destination + isoEntry.Options.Layout.Path;
                     try
                     {
                         if (Directory.Exists(godpath))
                         {
                             Directory.Delete(@godpath, true);
+                            // Get first directory from Layout
+                            string firstDirectory = isoEntry.Destination + isoEntry.Options.Layout.Path.Split(Path.DirectorySeparatorChar)[0];
+                            if (godpath != firstDirectory)
+                            {
+                                // Layout created a subdirectory, we will delete the parent directory if it's empty
+                                string[] files = Directory.GetFiles(@firstDirectory);
+                                string[] subDirectories = Directory.GetDirectories(@firstDirectory);
+                                if (files.Length == 0 && subDirectories.Length == 0)
+                                {
+                                    // Delete isoEntry.Destination + firstDirectory if empty
+                                    Directory.Delete(@firstDirectory);
+                                }
+                            }
+                            item.SubItems[6].Text += " GOD directory deleted";
+                        } else
+                        {
+                            item.SubItems[6].Text += " GOD directory not found, not deleted: " + godpath;
                         }
                     }
                     catch (Exception)
                     {
-                        item.SubItems[6].Text = item.SubItems[6].Text + " Failed to delete GOD directory: " + godpath;
+                        item.SubItems[6].Text += " Failed to delete GOD directory: " + godpath;
                     }
                 }
             }
@@ -635,7 +651,7 @@ public class Main : Form
                 {
                     MessageBox.Show("Error while attempting to upload GOD container for '" + isoEntry.TitleName + "':\n\n" + error.Message);
                 }
-                item.SubItems[6].Text = "Failed to upload.";
+                item.SubItems[6].Text = "Failed to upload";
             }
             item.Tag = isoEntry;
             ftpCheck.Enabled = true;
@@ -693,7 +709,22 @@ public class Main : Form
 
                 if (isoEntry.Options.DeleteSource && e.Error == null)
                 {
-                    DeleteOriginalIso(isoEntry.Path, item); // Call the method to delete the original ISO
+                    try
+                    {
+                        if (File.Exists(isoEntry.Path))
+                        {
+                            File.Delete(isoEntry.Path);  // Delete the file
+                            item.SubItems[6].Text += ". Original ISO file deleted";
+                        }
+                        else
+                        {
+                            item.SubItems[6].Text += ". Original ISO file not found, not deleted";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        item.SubItems[6].Text += ". Failed to delete original ISO: " + ex.Message;
+                    }
                 }
 
                 jobCheck.Enabled = true;
@@ -753,26 +784,6 @@ public class Main : Form
         listViewItem.SubItems[3].Text = num + " GB";
         listViewItem.SubItems[4].Text = IsoEntryPaddingStr[(int)Entry.Options.Padding];
         listViewItem.SubItems[6].Text = Entry.Path;
-    }
-
-    private void DeleteOriginalIso(string isoFilePath, ListViewItem item)
-    {
-        try
-        {
-            if (File.Exists(isoFilePath))
-            {
-                File.Delete(isoFilePath);  // Delete the file
-                item.SubItems[6].Text += ". Original ISO file deleted.";
-            }
-            else
-            {
-                item.SubItems[6].Text += ". Original ISO file not found.";
-            }
-        }
-        catch (Exception ex)
-        {
-            item.SubItems[6].Text += ". Error deleting original ISO: " + ex.Message;
-        }
     }
 
     public string getVersion(bool build, bool revision)

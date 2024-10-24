@@ -10,7 +10,7 @@ public class IsoEntryOptions
 
     public string IsoPath;
 
-    public IsoEntryLayout Layout;
+    public IsoEntryGameDirectoryLayout Layout;
 
     public bool DeleteGod = false;
 
@@ -22,7 +22,7 @@ public class IsoEntryOptions
     {
     }
 
-    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, IsoEntryLayout Layout, bool DeleteGod, bool DeleteSource, bool FtpUpload)
+    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, IsoEntryGameDirectoryLayout Layout, bool DeleteGod, bool DeleteSource, bool FtpUpload)
     {
         this.Padding = Padding;
         this.Format = Format;

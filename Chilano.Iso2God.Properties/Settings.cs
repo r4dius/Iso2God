@@ -151,15 +151,15 @@ internal sealed class Settings : ApplicationSettingsBase
     [DefaultSettingValue("0")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
-    public int FolderLayout
+    public int Layout
     {
         get
         {
-            return (int)this["FolderLayout"];
+            return (int)this["Layout"];
         }
         set
         {
-            this["FolderLayout"] = value;
+            this["Layout"] = value;
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Iso2God;
 
-public enum IsoEntryLayoutID
+public enum IsoEntryGameDirectoryLayoutID
 {
     ///<summary>\Media ID\</summary>
     MediaID,

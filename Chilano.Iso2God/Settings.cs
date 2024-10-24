@@ -1,8 +1,10 @@
+using Chilano.Iso2God.Ftp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace Chilano.Iso2God;
 
@@ -37,8 +39,12 @@ public class Settings : Form
     private ToolTip ttOptions;
 
     private TextBox txtFtpPort;
+
     private Button btnTest;
+
     private Label label7;
+
+    private FtpTester ftp = new FtpTester();
 
 
     protected override void Dispose(bool disposing)
@@ -103,7 +109,7 @@ public class Settings : Form
             this.btnSave.Location = new System.Drawing.Point(114, 163);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 25);
-            this.btnSave.TabIndex = 16;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -115,7 +121,7 @@ public class Settings : Form
             this.btnCancel.Location = new System.Drawing.Point(188, 163);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(68, 25);
-            this.btnCancel.TabIndex = 17;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -139,7 +145,7 @@ public class Settings : Form
             this.groupBox3.Location = new System.Drawing.Point(10, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(245, 150);
-            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FTP Server";
             // 
@@ -151,7 +157,7 @@ public class Settings : Form
             this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
             this.txtFtpPort.Name = "txtFtpPort";
             this.txtFtpPort.Size = new System.Drawing.Size(159, 23);
-            this.txtFtpPort.TabIndex = 15;
+            this.txtFtpPort.TabIndex = 4;
             // 
             // label7
             // 
@@ -171,7 +177,7 @@ public class Settings : Form
             this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
             this.txtFtpPass.Name = "txtFtpPass";
             this.txtFtpPass.Size = new System.Drawing.Size(159, 23);
-            this.txtFtpPass.TabIndex = 14;
+            this.txtFtpPass.TabIndex = 3;
             // 
             // label6
             // 
@@ -191,7 +197,7 @@ public class Settings : Form
             this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
             this.txtFtpUser.Name = "txtFtpUser";
             this.txtFtpUser.Size = new System.Drawing.Size(159, 23);
-            this.txtFtpUser.TabIndex = 13;
+            this.txtFtpUser.TabIndex = 2;
             // 
             // label5
             // 
@@ -221,7 +227,7 @@ public class Settings : Form
             this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
             this.txtFtpIp.Name = "txtFtpIp";
             this.txtFtpIp.Size = new System.Drawing.Size(159, 23);
-            this.txtFtpIp.TabIndex = 12;
+            this.txtFtpIp.TabIndex = 1;
             // 
             // label4
             // 
@@ -239,9 +245,10 @@ public class Settings : Form
             this.btnTest.Location = new System.Drawing.Point(40, 163);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(68, 25);
-            this.btnTest.TabIndex = 18;
+            this.btnTest.TabIndex = 5;
             this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // Settings
             // 
@@ -262,6 +269,7 @@ public class Settings : Form
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Iso2God Settings";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFTP)).EndInit();
@@ -294,6 +302,27 @@ public class Settings : Form
         }
     }
 
+    private void ftp_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    {
+        if (ftp.Errors.Count == 0)
+        {
+            btnTest.Text = "Success";
+        }
+        else
+        {
+            if (e.Cancelled)
+            {
+                return;
+            }
+            btnTest.Text = "Failed";
+            foreach (Exception error in ftp.Errors)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        btnTest.Enabled = true;
+    }
+
     private void btnCancel_Click(object sender, EventArgs e)
     {
         Close();
@@ -308,5 +337,28 @@ public class Settings : Form
         Properties.Settings.Default.Save();
         (base.Owner as Main).UpdateSpace();
         Close();
+    }
+
+    private void btnTest_Click(object sender, EventArgs e)
+    {
+        string ip = txtFtpIp.Text;
+        string user = txtFtpUser.Text;
+        string pass = txtFtpPass.Text;
+        string port = txtFtpPort.Text;
+        ftp = new FtpTester();
+        ftp.WorkerSupportsCancellation = true;
+        ftp.RunWorkerCompleted += ftp_RunWorkerCompleted;
+        ftp.RunWorkerAsync(new FtpTesterArgs(ip, user, pass, port));
+        btnTest.Text = "Testing";
+        btnTest.Enabled = false;
+    }
+
+    private void Settings_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        if (ftp.IsBusy)
+        {
+            ftp.CancelAsync();
+            ftp.Dispose();
+        }
     }
 }

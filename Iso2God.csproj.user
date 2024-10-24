@@ -29,6 +29,9 @@
     <Compile Update="Chilano.Common\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Chilano.Iso2God.Ftp\FtpTester.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Chilano.Iso2God.Ftp\FtpUploader.cs">
       <SubType>Component</SubType>
     </Compile>
