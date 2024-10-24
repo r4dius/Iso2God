@@ -1045,23 +1045,23 @@ public class AddISO : Form
                 isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
                 string titlename = Utils.sanitizePath(txtName.Text);
                 string gameDirectory = txtTitleID.Text;
-                if (cmbFolderLayout.SelectedIndex > (int)IsoEntryFolderLayout.ID && titlename.Length != 0)
+                if (cmbFolderLayout.SelectedIndex > (int)IsoEntryLayoutID.MediaID && titlename.Length != 0)
                 {
                     switch (cmbFolderLayout.SelectedIndex)
                     {
-                        case (int)IsoEntryFolderLayout.Title_ID:
+                        case (int)IsoEntryLayoutID.TitleName_Slash_MediaID:
                             gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
                             break;
-                        case (int)IsoEntryFolderLayout.TitleID:
+                        case (int)IsoEntryLayoutID.TitleName_Space_MediaID:
                             gameDirectory = titlename + " " + txtTitleID.Text;
                             break;
-                        case (int)IsoEntryFolderLayout.Title:
+                        case (int)IsoEntryLayoutID.TitleName:
                             gameDirectory = titlename;
                             break;
                     }
                 }
                 IsoEntryLayout isoEntryLayout = new IsoEntryLayout();
-                isoEntryLayout.ID = cmbFolderLayout.SelectedIndex;
+                isoEntryLayout.ID = (IsoEntryLayoutID)cmbFolderLayout.SelectedIndex;
                 isoEntryLayout.Path = gameDirectory;
                 isoEntryOptions.Layout = isoEntryLayout;
                 isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
@@ -1233,23 +1233,23 @@ public class AddISO : Form
             isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
             string titlename = Utils.sanitizePath(txtName.Text);
             string gameDirectory = txtTitleID.Text;
-            if (cmbFolderLayout.SelectedIndex > (int)IsoEntryFolderLayout.ID && titlename.Length != 0)
+            if (cmbFolderLayout.SelectedIndex > (int)IsoEntryLayoutID.MediaID && titlename.Length != 0)
             {
                 switch (cmbFolderLayout.SelectedIndex)
                 {
-                    case (int)IsoEntryFolderLayout.Title_ID:
+                    case (int)IsoEntryLayoutID.TitleName_Slash_MediaID:
                         gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
                         break;
-                    case (int)IsoEntryFolderLayout.TitleID:
+                    case (int)IsoEntryLayoutID.TitleName_Space_MediaID:
                         gameDirectory = titlename + " " + txtTitleID.Text;
                         break;
-                    case (int)IsoEntryFolderLayout.Title:
+                    case (int)IsoEntryLayoutID.TitleName:
                         gameDirectory = titlename;
                         break;
                 }
             }
             IsoEntryLayout isoEntryLayout = new IsoEntryLayout();
-            isoEntryLayout.ID = cmbFolderLayout.SelectedIndex;
+            isoEntryLayout.ID = (IsoEntryLayoutID)cmbFolderLayout.SelectedIndex;
             isoEntryLayout.Path = gameDirectory;
             isoEntryOptions.Layout = isoEntryLayout;
             isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
@@ -1621,16 +1621,16 @@ public class AddISO : Form
         {
             switch (cmbFolderLayout.SelectedIndex)
             {
-                case (int)IsoEntryFolderLayout.ID:
+                case (int)IsoEntryLayoutID.MediaID:
                     layout = titleid != "" ? titleid : "";
                     break;
-                case (int)IsoEntryFolderLayout.Title_ID:
+                case (int)IsoEntryLayoutID.TitleName_Slash_MediaID:
                     layout = name != "" && titleid != "" ? name + Path.DirectorySeparatorChar + titleid : "";
                     break;
-                case (int)IsoEntryFolderLayout.TitleID:
+                case (int)IsoEntryLayoutID.TitleName_Space_MediaID:
                     layout = name != "" && titleid != "" ? name + " " + titleid : "";
                     break;
-                case (int)IsoEntryFolderLayout.Title:
+                case (int)IsoEntryLayoutID.TitleName:
                     layout = name != "" ? name : "";
                     break;
             }

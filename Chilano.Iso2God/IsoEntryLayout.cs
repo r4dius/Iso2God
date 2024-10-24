@@ -2,7 +2,7 @@
 
 public class IsoEntryLayout
 {
-    public int ID;
+    public IsoEntryLayoutID ID;
 
     public string Path;
 
@@ -10,7 +10,7 @@ public class IsoEntryLayout
     {
     }
 
-    public IsoEntryLayout(int ID, string Path)
+    public IsoEntryLayout(IsoEntryLayoutID ID, string Path)
     {
         this.ID = ID;
         this.Path = Path;

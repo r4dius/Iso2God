@@ -1,13 +1,13 @@
 ﻿namespace Chilano.Iso2God;
 
-public enum IsoEntryFolderLayout
+public enum IsoEntryLayoutID
 {
     ///<summary>\Media ID\</summary>
-    ID,
+    MediaID,
     ///<summary>\Title Name\Title ID\</summary>
-    Title_ID,
+    TitleName_Slash_MediaID,
     ///<summary>\Title Name Title ID\</summary>
-    TitleID,
+    TitleName_Space_MediaID,
     ///<summary>\Title Name\</summary>
-    Title
+    TitleName
 }
