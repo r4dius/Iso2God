@@ -1558,6 +1558,7 @@ public class AddISO : Form
             case (int)IsoEntryFormat.God:
                 cmbPaddingMode.Enabled = true;
                 cbFtpUpload.Enabled = true;
+                cbAutoRename.Enabled = true;
                 cmbLayout.Enabled = true;
                 cmbLayout.SelectedIndex = lastLayout;
                 break;
@@ -1565,6 +1566,7 @@ public class AddISO : Form
                 cmbPaddingMode.SelectedIndex = 2;
                 cmbPaddingMode.Enabled = false;
                 cbFtpUpload.Enabled = true;
+                cbAutoRename.Enabled = true;
                 cmbLayout.Enabled = true;
                 cmbLayout.SelectedIndex = lastLayout;
                 break;
@@ -1573,10 +1575,32 @@ public class AddISO : Form
                 cmbPaddingMode.Enabled = false;
                 cbFtpUpload.Checked = false;
                 cbFtpUpload.Enabled = false;
+                cbAutoRename.Enabled = false;
                 cmbLayout.Enabled = false;
                 cmbLayout.SelectedIndex = -1;
                 break;
         }
+        /*
+        IsoEntryFormat selectedFormat = (IsoEntryFormat)cmbFormat.SelectedIndex;
+
+        if (selectedFormat == IsoEntryFormat.Iso)
+        {
+            cmbPaddingMode.SelectedIndex = 2;
+            cmbPaddingMode.Enabled = false;
+            cbFtpUpload.Checked = false;
+            cbFtpUpload.Enabled = false;
+        }
+        else
+        {
+            cmbPaddingMode.Enabled = true;
+            cbFtpUpload.Enabled = true;
+        }
+
+        cbAutoRename.Enabled = selectedFormat != IsoEntryFormat.Iso;
+
+        cmbLayout.Enabled = selectedFormat != IsoEntryFormat.Iso;
+        cmbLayout.SelectedIndex = selectedFormat != IsoEntryFormat.Iso ? lastLayout : -1;
+        */
     }
 
     private void cbFTP_CheckedChanged(object sender, EventArgs e)
