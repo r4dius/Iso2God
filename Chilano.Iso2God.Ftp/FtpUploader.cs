@@ -147,7 +147,8 @@ public class FtpUploader : BackgroundWorker
             FTPFile[] array = fileInfos;
             foreach (FTPFile fTPFile in array)
             {
-                if (fTPFile.Dir && fTPFile.Name.StartsWith(dir))
+                //if (fTPFile.Dir && fTPFile.Name.StartsWith(dir))
+                if (fTPFile.Dir && fTPFile.Name == dir)
                 {
                     return true;
                 }

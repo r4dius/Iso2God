@@ -471,7 +471,7 @@ public class Main : Form
     {
         if (i2g.IsBusy)
         {
-            DialogResult dialogResult = MessageBox.Show("An ISO is currently being converted.\n\nAre you sure you wish to exit?", "ISO Conversion in Progress", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("An ISO is currently being converted.\n\nAre you sure you wish to exit?", "ISO conversion in progress", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.No)
             {
                 e.Cancel = true;
@@ -480,7 +480,7 @@ public class Main : Form
         }
         if (ftp.IsBusy)
         {
-            DialogResult dialogResult2 = MessageBox.Show("A GOD container is currently being uploaded.\n\nAre you sure you wish to exit?", "FTP Upload in Progress", MessageBoxButtons.YesNo);
+            DialogResult dialogResult2 = MessageBox.Show("A GOD package is currently being uploaded.\n\nAre you sure you wish to exit?", "FTP upload in progress", MessageBoxButtons.YesNo);
             if (dialogResult2 == DialogResult.No)
             {
                 e.Cancel = true;
@@ -649,7 +649,7 @@ public class Main : Form
                 item.ForeColor = Color.Red;
                 foreach (Exception error in ftp.Errors)
                 {
-                    MessageBox.Show("Error while attempting to upload GOD container for '" + isoEntry.TitleName + "':\n\n" + error.Message);
+                    MessageBox.Show("Error while attempting to upload GOD package for '" + isoEntry.TitleName + "':\n\n" + error.Message);
                 }
                 item.SubItems[6].Text = "Failed to upload";
             }

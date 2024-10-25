@@ -2,6 +2,7 @@ using Chilano.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -463,7 +464,7 @@ public class AddISO : Form
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Title ID:";
             // 
@@ -597,11 +598,11 @@ public class AddISO : Form
             this.cbFtpUpload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFtpUpload.Location = new System.Drawing.Point(249, 22);
             this.cbFtpUpload.Name = "cbFtpUpload";
-            this.cbFtpUpload.Size = new System.Drawing.Size(182, 17);
+            this.cbFtpUpload.Size = new System.Drawing.Size(184, 17);
             this.cbFtpUpload.TabIndex = 17;
             this.cbFtpUpload.Text = "Transfer GOD packages via FTP";
             this.cbFtpUpload.UseVisualStyleBackColor = true;
-            this.cbFtpUpload.CheckedChanged += new System.EventHandler(this.cbFTP_CheckedChanged);
+            this.cbFtpUpload.CheckedChanged += new System.EventHandler(this.cbFtpUpload_CheckedChanged);
             // 
             // cmbLayout
             // 
@@ -628,7 +629,7 @@ public class AddISO : Form
             this.cbDeleteGod.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDeleteGod.Location = new System.Drawing.Point(249, 44);
             this.cbDeleteGod.Name = "cbDeleteGod";
-            this.cbDeleteGod.Size = new System.Drawing.Size(201, 17);
+            this.cbDeleteGod.Size = new System.Drawing.Size(202, 17);
             this.cbDeleteGod.TabIndex = 18;
             this.cbDeleteGod.Text = "Delete GOD files after FTP transfer";
             this.cbDeleteGod.UseVisualStyleBackColor = true;
@@ -872,12 +873,8 @@ public class AddISO : Form
         isoDetails.RunWorkerCompleted += isoDetails_RunWorkerCompleted;
         txtDest.Text = Properties.Settings.Default["OutputPath"].ToString();
         txtRebuiltIso.Text = Properties.Settings.Default["RebuildPath"].ToString();
-        cmbLayout.SelectedIndex = (int)Properties.Settings.Default["Layout"];
-        cmbFormat.SelectedIndex = (int)Properties.Settings.Default["Format"];
-        cmbPaddingMode.SelectedIndex = (int)Properties.Settings.Default["DefaultPadding"];
+        cbDeleteGod.Checked = (bool)Properties.Settings.Default["DeleteGod"];
         cbFtpUpload.Checked = (bool)Properties.Settings.Default["FtpUpload"];
-        cbDeleteGod.Enabled = cbFtpUpload.Checked;
-        cbDeleteGod.Checked = cbDeleteGod.Enabled && (bool)Properties.Settings.Default["DeleteGod"];
         cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
         cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
@@ -906,6 +903,9 @@ public class AddISO : Form
             "in the Settings menu.\n\n" +
             "Auto-renaming multi disc will add the disc number to the GOD\n" +
             "package title name, example: My Game Name - Disc 1");
+        cmbLayout.SelectedIndex = (int)Properties.Settings.Default["Layout"];
+        cmbFormat.SelectedIndex = (int)Properties.Settings.Default["Format"];
+        cmbPaddingMode.SelectedIndex = (int)Properties.Settings.Default["DefaultPadding"];
         txtISO.Focus();
     }
 
@@ -938,17 +938,16 @@ public class AddISO : Form
         txtISO.Text = entry.Path;
         txtDest.Text = entry.Destination;
         txtRebuiltIso.Text = ((entry.Options.Padding == IsoEntryPaddingRemoval.Full) ? entry.Options.IsoPath : Properties.Settings.Default["RebuildPath"].ToString());
-        cmbFormat.SelectedIndex = (int)entry.Options.Format;
-        cmbPaddingMode.SelectedIndex = (int)entry.Options.Padding;
-        cmbLayout.SelectedIndex = (int)entry.Options.Layout.ID;
-        cbFtpUpload.Checked = (bool)entry.Options.FtpUpload;
-        cbDeleteGod.Enabled = cbFtpUpload.Checked;
         cbDeleteGod.Checked = (bool)entry.Options.DeleteGod;
+        cbFtpUpload.Checked = (bool)entry.Options.FtpUpload;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
         cbDeleteSource.Checked = entry.Options.DeleteSource;
         cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbAutoRename.Checked = entry.Options.AddDiscNumber;
         pbThumb.Tag = entry.Thumb;
+        cmbFormat.SelectedIndex = (int)entry.Options.Format;
+        cmbPaddingMode.SelectedIndex = (int)entry.Options.Padding;
+        cmbLayout.SelectedIndex = (int)entry.Options.Layout.ID;
         Text = "Edit ISO Image";
         btnAddIso.Text = "Save";
     }
@@ -1226,7 +1225,7 @@ public class AddISO : Form
             isoEntryOptions.Format = (IsoEntryFormat)cmbFormat.SelectedIndex;
             isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
-            isoEntryOptions.AddDiscNumber = cbAutoRename.Checked;
+            isoEntryOptions.AddDiscNumber = cbAutoRename.Checked && cbAutoRename.Enabled;
             string titlename = Utils.sanitizePath(txtName.Text);
             string gameDirectory = txtTitleID.Text;
             if (cmbLayout.SelectedIndex > (int)IsoEntryGameDirectoryLayoutID.MediaID && titlename.Length != 0)
@@ -1249,7 +1248,7 @@ public class AddISO : Form
             isoEntryLayout.Path = gameDirectory;
             isoEntryOptions.Layout = isoEntryLayout;
             isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
-            isoEntryOptions.DeleteGod = cbDeleteGod.Checked;
+            isoEntryOptions.DeleteGod = cbDeleteGod.Checked && cbDeleteGod.Enabled;
             isoEntryOptions.TempPath = Path.GetTempPath();
             isoEntryOptions.IsoPath = txtRebuiltIso.Text;
             if (!isoEntryOptions.TempPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
@@ -1315,11 +1314,6 @@ public class AddISO : Form
         {
             btnAddIso.Enabled = true;
         }
-        /*
-        Debug.WriteLine("txtISO: " + txtISO.Text);
-        Debug.WriteLine("pathTemp: " + pathTemp);
-        Debug.WriteLine("pathXT: " + pathXT);
-        */
         isoDetails.RunWorkerAsync(new IsoDetailsArgs(txtISO.Text, (base.Owner as Main).pathTemp, (base.Owner as Main).pathXT));
         txtName.Text = "Reading default.xex/xbe...";
     }
@@ -1553,11 +1547,21 @@ public class AddISO : Form
 
     private void cmbFormat_SelectedIndexChanged(object sender, EventArgs e)
     {
-        switch(cmbFormat.SelectedIndex)
+        switch (cmbFormat.SelectedIndex)
         {
             case (int)IsoEntryFormat.God:
                 cmbPaddingMode.Enabled = true;
+                if (cbFtpUpload.CheckState == CheckState.Indeterminate)
+                {
+                    cbFtpUpload.CheckState = CheckState.Checked;
+                    cbFtpUpload.ThreeState = false;
+                }
                 cbFtpUpload.Enabled = true;
+                if (cbAutoRename.CheckState == CheckState.Indeterminate)
+                {
+                    cbAutoRename.CheckState = CheckState.Checked;
+                    cbAutoRename.ThreeState = false;
+                }
                 cbAutoRename.Enabled = true;
                 cmbLayout.Enabled = true;
                 cmbLayout.SelectedIndex = lastLayout;
@@ -1565,7 +1569,17 @@ public class AddISO : Form
             case (int)IsoEntryFormat.GodIso:
                 cmbPaddingMode.SelectedIndex = 2;
                 cmbPaddingMode.Enabled = false;
+                if (cbFtpUpload.CheckState == CheckState.Indeterminate)
+                {
+                    cbFtpUpload.CheckState = CheckState.Checked;
+                    cbFtpUpload.ThreeState = false;
+                }
                 cbFtpUpload.Enabled = true;
+                if (cbAutoRename.CheckState == CheckState.Indeterminate)
+                {
+                    cbAutoRename.CheckState = CheckState.Checked;
+                    cbAutoRename.ThreeState = false;
+                }
                 cbAutoRename.Enabled = true;
                 cmbLayout.Enabled = true;
                 cmbLayout.SelectedIndex = lastLayout;
@@ -1573,13 +1587,23 @@ public class AddISO : Form
             case (int)IsoEntryFormat.Iso:
                 cmbPaddingMode.SelectedIndex = 2;
                 cmbPaddingMode.Enabled = false;
-                cbFtpUpload.Checked = false;
+                if (cbFtpUpload.Checked)
+                {
+                    cbFtpUpload.ThreeState = false;
+                    cbFtpUpload.CheckState = CheckState.Indeterminate;
+                }
                 cbFtpUpload.Enabled = false;
+                if (cbAutoRename.Checked)
+                {
+                    cbAutoRename.ThreeState = false;
+                    cbAutoRename.CheckState = CheckState.Indeterminate;
+                }
                 cbAutoRename.Enabled = false;
                 cmbLayout.Enabled = false;
                 cmbLayout.SelectedIndex = -1;
                 break;
         }
+        cbFtpUpload_CheckedChanged(sender, new EventArgs());
         /*
         IsoEntryFormat selectedFormat = (IsoEntryFormat)cmbFormat.SelectedIndex;
 
@@ -1603,16 +1627,24 @@ public class AddISO : Form
         */
     }
 
-    private void cbFTP_CheckedChanged(object sender, EventArgs e)
+    private void cbFtpUpload_CheckedChanged(object sender, EventArgs e)
     {
-        CheckBox checkbox = (CheckBox)sender;
-        if (checkbox.Checked)
+        if (cbFtpUpload.Checked && cbFtpUpload.CheckState != CheckState.Indeterminate)
         {
+            if (cbDeleteGod.CheckState == CheckState.Indeterminate)
+            {
+                cbDeleteGod.CheckState = CheckState.Checked;
+                cbDeleteGod.ThreeState = false;
+            }
             cbDeleteGod.Enabled = true;
         }
         else
         {
-            cbDeleteGod.Checked = false;
+            if (cbDeleteGod.CheckState == CheckState.Checked)
+            {
+                cbDeleteGod.ThreeState = true;
+                cbDeleteGod.CheckState = CheckState.Indeterminate;
+            }
             cbDeleteGod.Enabled = false;
         }
     }
@@ -1688,10 +1720,10 @@ public class AddISO : Form
         Properties.Settings.Default["Format"] = cmbFormat.SelectedIndex;
         Properties.Settings.Default["DefaultPadding"] = cmbPaddingMode.SelectedIndex;
         Properties.Settings.Default["Layout"] = lastLayout;
-        Properties.Settings.Default["FtpUpload"] = cbFtpUpload.Checked;
-        Properties.Settings.Default["DeleteGod"] = cbDeleteGod.Checked;
+        Properties.Settings.Default["FtpUpload"] = cbFtpUpload.Checked || cbFtpUpload.CheckState == CheckState.Indeterminate;
+        Properties.Settings.Default["DeleteGod"] = cbDeleteGod.Checked || cbDeleteGod.CheckState == CheckState.Indeterminate;
         Properties.Settings.Default["DeleteSource"] = cbDeleteSource.Checked;
-        Properties.Settings.Default["AutoRenameMultiDisc"] = cbAutoRename.Checked;
+        Properties.Settings.Default["AutoRenameMultiDisc"] = cbAutoRename.Checked || cbAutoRename.CheckState == CheckState.Indeterminate;
         Properties.Settings.Default.Save();
     }
 

@@ -282,7 +282,7 @@ public class Settings : Form
         InitializeComponent();
         loadSettings();
         ttFTP.SetToolTip(pbFTP, 
-            "Once an ISO image has been converted to a GOD container,\n" +
+            "Once an ISO image has been converted to a GOD package,\n" +
             "it can be automatically uploaded to your Xbox 360 using FTP,\n" +
             "you'll need to have an FTP server running on it.");
     }
@@ -349,7 +349,7 @@ public class Settings : Form
         ftp.WorkerSupportsCancellation = true;
         ftp.RunWorkerCompleted += ftp_RunWorkerCompleted;
         ftp.RunWorkerAsync(new FtpTesterArgs(ip, user, pass, port));
-        btnTest.Text = "Testing";
+        btnTest.Text = "Testing...";
         btnTest.Enabled = false;
     }
 
