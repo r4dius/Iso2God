@@ -947,6 +947,7 @@ public class AddISO : Form
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
         cbDeleteSource.Checked = entry.Options.DeleteSource;
         cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
+        cbAutoRename.Checked = entry.Options.AddDiscNumber;
         pbThumb.Tag = entry.Thumb;
         Text = "Edit ISO Image";
         btnAddIso.Text = "Save";
@@ -995,8 +996,6 @@ public class AddISO : Form
                     break;
             }
             string message = "";
-            int result = 0;
-            int.TryParse(isoDetailsResults.DiscCount, out result);
 
             string csvInfo = getCsvTitle(isoDetailsResults.TitleID, isoDetailsResults.MediaID);
             if(csvInfo != "")
