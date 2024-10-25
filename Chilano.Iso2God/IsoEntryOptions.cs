@@ -18,11 +18,13 @@ public class IsoEntryOptions
 
     public bool FtpUpload;
 
+    public bool AddDiscNumber;
+
     public IsoEntryOptions()
     {
     }
 
-    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, IsoEntryGameDirectoryLayout Layout, bool DeleteGod, bool DeleteSource, bool FtpUpload)
+    public IsoEntryOptions(IsoEntryPaddingRemoval Padding, IsoEntryFormat Format, string TempPath, string IsoPath, IsoEntryGameDirectoryLayout Layout, bool DeleteGod, bool DeleteSource, bool FtpUpload, bool AddDiscNumber)
     {
         this.Padding = Padding;
         this.Format = Format;
@@ -32,5 +34,6 @@ public class IsoEntryOptions
         this.DeleteGod = DeleteGod;
         this.DeleteSource = DeleteSource;
         this.FtpUpload = FtpUpload;
+        this.AddDiscNumber = AddDiscNumber;
     }
 }

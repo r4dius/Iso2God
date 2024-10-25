@@ -268,7 +268,7 @@ public class Settings : Form
             this.Name = "Settings";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Iso2God Settings";
+            this.Text = "Settings";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -306,7 +306,7 @@ public class Settings : Form
     {
         if (ftp.Errors.Count == 0)
         {
-            btnTest.Text = "Success";
+            MessageBox.Show("Connection test was successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
         else
         {
@@ -314,10 +314,10 @@ public class Settings : Form
             {
                 return;
             }
-            btnTest.Text = "Failed";
+            btnTest.Text = "Test";
             foreach (Exception error in ftp.Errors)
             {
-                MessageBox.Show(error.Message);
+                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         btnTest.Enabled = true;

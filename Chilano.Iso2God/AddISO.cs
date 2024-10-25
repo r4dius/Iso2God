@@ -463,7 +463,7 @@ public class AddISO : Form
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Title ID:";
             // 
@@ -597,9 +597,9 @@ public class AddISO : Form
             this.cbFtpUpload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFtpUpload.Location = new System.Drawing.Point(249, 22);
             this.cbFtpUpload.Name = "cbFtpUpload";
-            this.cbFtpUpload.Size = new System.Drawing.Size(157, 17);
+            this.cbFtpUpload.Size = new System.Drawing.Size(182, 17);
             this.cbFtpUpload.TabIndex = 17;
-            this.cbFtpUpload.Text = "Transfer GOD files via FTP";
+            this.cbFtpUpload.Text = "Transfer GOD packages via FTP";
             this.cbFtpUpload.UseVisualStyleBackColor = true;
             this.cbFtpUpload.CheckedChanged += new System.EventHandler(this.cbFTP_CheckedChanged);
             // 
@@ -628,7 +628,7 @@ public class AddISO : Form
             this.cbDeleteGod.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDeleteGod.Location = new System.Drawing.Point(249, 44);
             this.cbDeleteGod.Name = "cbDeleteGod";
-            this.cbDeleteGod.Size = new System.Drawing.Size(202, 17);
+            this.cbDeleteGod.Size = new System.Drawing.Size(201, 17);
             this.cbDeleteGod.TabIndex = 18;
             this.cbDeleteGod.Text = "Delete GOD files after FTP transfer";
             this.cbDeleteGod.UseVisualStyleBackColor = true;
@@ -881,29 +881,31 @@ public class AddISO : Form
         cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
         cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
-        ttSource.SetToolTip(pbSource, 
-            "Choose a location to output the GOD packages to.\n" +
-            "It will be written into sub-directories named using the TitleID.\n" +
-            "A default location can be set in the Settings screen.");
+        ttSource.SetToolTip(pbSource,
+            "Select the ISO images to convert to GOD packages.\n\n" +
+            "Selecting multiple files will automatically add them to the list,\n" +
+            "you will then be able to edit them individually from there");
         ttOutput.SetToolTip(pbOutput,
-            "Choose a location to output the GOD packages to.\n" +
-            "It will be written into sub-directories named using the TitleID.\n" +
-            "A default location can be set in the Settings screen.");
-        ttTitleDetails.SetToolTip(pbTitleDetails, 
-            "The details are automatically extracted from default.xex in the root\n" +
-            "directory of the ISO image. They can be manually altered if required.\n\n" +
-            "The Title Name MUST be entered, or else it will show up as an \n" +
-            "unknown game on the 360.");
+            "Choose locations to output the GOD packages\n" +
+            "and for rebuilt or temporary ISO files.");
+        ttTitleDetails.SetToolTip(pbTitleDetails,
+            "The details are automatically extracted from the default.xex\n" +
+            "file for Xbox 360 images and from default.xbe file for Xbox images.\n" +
+            "They can be manually edited if required.\n\n" +
+            "Title name is extracted from game list file if available,\n" +
+            "all the inputs need to be filled");
         ttThumb.SetToolTip(pbThumb, "Click to set a custom thumbnail for this title.");
-        ttOptions.SetToolTip(pbOptions, 
+        ttOptions.SetToolTip(pbOptions,
             "Format: choose to create GOD and / or ISO files\n\n" +
             "Padding: remove unused padding space to reduce file size\n" +
             "  - Untouched: left untouched, biggest file size.\n" +
             "  - Partial: the ISO image is cropped at the end of the file,\n" +
             "    very quick to do, but it will only save 800-1500MB of space.\n" +
-            "  - Remove All: all padding is removed, file size is the smallest.\n\n" +
-            "\n\n" +
-            "    Rebuilt image can be saved temporarily or kept for future use.");
+            "  - Remove all: padding is completely removed, file size is the smallest.\n\n" +
+            "Transfering GOD packages via FTP requires configuration to be set\n" +
+            "in the Settings menu.\n\n" +
+            "Auto-renaming multi disc will add the disc number to the GOD\n" +
+            "package title name, example: My Game Name - Disc 1");
         txtISO.Focus();
     }
 
@@ -993,7 +995,6 @@ public class AddISO : Form
                     break;
             }
             string message = "";
-            bool flag = cbAutoRename.Checked;
             int result = 0;
             int.TryParse(isoDetailsResults.DiscCount, out result);
 
@@ -1012,8 +1013,6 @@ public class AddISO : Form
                 txtName.Text = "Undefined";
                 message = "The name of the game was not automatically detected";
             }
-
-            txtName.Text += (flag && result > 1 ? " - Disc " + isoDetailsResults.DiscNumber : "");
 
             int num = 0;
             txtTitleID.Text = isoDetailsResults.TitleID;
@@ -1228,6 +1227,7 @@ public class AddISO : Form
             isoEntryOptions.Format = (IsoEntryFormat)cmbFormat.SelectedIndex;
             isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
+            isoEntryOptions.AddDiscNumber = cbAutoRename.Checked;
             string titlename = Utils.sanitizePath(txtName.Text);
             string gameDirectory = txtTitleID.Text;
             if (cmbLayout.SelectedIndex > (int)IsoEntryGameDirectoryLayoutID.MediaID && titlename.Length != 0)

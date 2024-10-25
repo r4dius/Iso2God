@@ -35,7 +35,7 @@ public struct IsoEntry
         this.ID = ID;
         Status = IsoEntryStatus.Idle;
         this.Thumb = Thumb;
-        this.Options = Options;
         this.Message = Message;
+        this.Options = Options;
     }
 }

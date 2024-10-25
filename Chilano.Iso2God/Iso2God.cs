@@ -594,7 +594,7 @@ public class Iso2God : BackgroundWorker
     private void createConHeader(string path, IsoEntry iso, uint blocksAllocated, ushort blocksNotAllocated, uint totalParts, ulong sizeParts, byte[] mhtHash)
     {
         ConHeaderWriter conHeaderWriter = new ConHeaderWriter();
-        conHeaderWriter.WriteIDs(iso.ID.TitleID, iso.ID.MediaID, iso.TitleName);
+        conHeaderWriter.WriteIDs(iso.ID.TitleID, iso.ID.MediaID, iso.TitleName + (iso.Options.AddDiscNumber ? " - Disc " + iso.ID.DiscNumber : ""));
         conHeaderWriter.WriteExecutionDetails(iso.ID.DiscNumber, iso.ID.DiscCount, iso.ID.Platform, iso.ID.ExType);
         conHeaderWriter.WriteBlockCounts(blocksAllocated, blocksNotAllocated);
         conHeaderWriter.WriteDataPartsInfo(totalParts, sizeParts);
