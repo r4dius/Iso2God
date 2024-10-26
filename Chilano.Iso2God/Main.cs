@@ -647,11 +647,14 @@ public class Main : Form
             else
             {
                 item.ForeColor = Color.Red;
+                item.SubItems[6].Text = "Failed to upload:";
+                int errorindex = 0;
                 foreach (Exception error in ftp.Errors)
                 {
-                    MessageBox.Show("Error while attempting to upload GOD package for '" + isoEntry.TitleName + "':\n\n" + error.Message);
+                    item.SubItems[6].Text += (errorindex > 0 ? ", " : " ") + char.ToLower(error.Message[0]) + error.Message.Substring(1);
+                    errorindex++;
+                    //MessageBox.Show("Error while attempting to upload GOD package for '" + isoEntry.TitleName + "':\n\n" + error.Message);
                 }
-                item.SubItems[6].Text = "Failed to upload";
             }
             item.Tag = isoEntry;
             ftpCheck.Enabled = true;

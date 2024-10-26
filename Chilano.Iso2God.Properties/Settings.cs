@@ -253,7 +253,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("185,60,35,55,70,100,260")]
+    [DefaultSettingValue("185,65,35,55,70,100,255")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public string ColumnsWidth
