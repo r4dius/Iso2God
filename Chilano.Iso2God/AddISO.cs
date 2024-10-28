@@ -91,6 +91,8 @@ public class AddISO : Form
 
     private bool drop;
 
+    private bool initialized;
+
     private string[] fileList;
 
     private int file;
@@ -102,25 +104,45 @@ public class AddISO : Form
     private IsoEntryPlatform platform = IsoEntryPlatform.Xbox360;
 
     private IsoEntry entry;
+
     private Iso2God iso2God1;
+
     private Ftp.FtpUploader ftpUploader1;
+
     private ProgressBarEx progressBarMulti;
+
     private NumericUpDown txtDiscNum;
+
     private NumericUpDown txtExType;
+
     private NumericUpDown txtPlatform;
+
     private NumericUpDown txtDiscCount;
+
     private CheckBox cbAutoRename;
+
     private CheckBox cbDeleteSource;
+
     private GroupBox groupBox2;
+
     private PictureBox pbOutput;
+
     private ComboBox cmbFormat;
+
     private Label label12;
+
     private CheckBox cbDeleteGod;
+
     private ComboBox cmbLayout;
+
     private Label label13;
+
     private CheckBox cbFtpUpload;
+
     private ToolTip ttGodLayout;
+
     private ToolTip ttOutput;
+
     private int entryIndex;
 
     protected override void Dispose(bool disposing)
@@ -248,10 +270,10 @@ public class AddISO : Form
             this.txtISO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtISO.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtISO.Location = new System.Drawing.Point(87, 20);
+            this.txtISO.Location = new System.Drawing.Point(89, 20);
             this.txtISO.Name = "txtISO";
             this.txtISO.ReadOnly = true;
-            this.txtISO.Size = new System.Drawing.Size(292, 23);
+            this.txtISO.Size = new System.Drawing.Size(290, 23);
             this.txtISO.TabIndex = 1;
             // 
             // pbSource
@@ -291,10 +313,10 @@ public class AddISO : Form
             this.txtDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDest.Location = new System.Drawing.Point(87, 20);
+            this.txtDest.Location = new System.Drawing.Point(89, 20);
             this.txtDest.Name = "txtDest";
             this.txtDest.ReadOnly = true;
-            this.txtDest.Size = new System.Drawing.Size(292, 23);
+            this.txtDest.Size = new System.Drawing.Size(290, 23);
             this.txtDest.TabIndex = 3;
             // 
             // ttSource
@@ -432,10 +454,10 @@ public class AddISO : Form
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(87, 20);
+            this.txtName.Location = new System.Drawing.Point(89, 20);
             this.txtName.MaxLength = 128;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(292, 23);
+            this.txtName.Size = new System.Drawing.Size(290, 23);
             this.txtName.TabIndex = 7;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -476,10 +498,10 @@ public class AddISO : Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMediaID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMediaID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMediaID.Location = new System.Drawing.Point(87, 82);
+            this.txtMediaID.Location = new System.Drawing.Point(89, 82);
             this.txtMediaID.MaxLength = 8;
             this.txtMediaID.Name = "txtMediaID";
-            this.txtMediaID.Size = new System.Drawing.Size(152, 23);
+            this.txtMediaID.Size = new System.Drawing.Size(150, 23);
             this.txtMediaID.TabIndex = 9;
             this.txtMediaID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHexadecimal_KeyPress);
             // 
@@ -489,10 +511,10 @@ public class AddISO : Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitleID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTitleID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTitleID.Location = new System.Drawing.Point(87, 51);
+            this.txtTitleID.Location = new System.Drawing.Point(89, 51);
             this.txtTitleID.MaxLength = 8;
             this.txtTitleID.Name = "txtTitleID";
-            this.txtTitleID.Size = new System.Drawing.Size(152, 23);
+            this.txtTitleID.Size = new System.Drawing.Size(150, 23);
             this.txtTitleID.TabIndex = 8;
             this.txtTitleID.TextChanged += new System.EventHandler(this.txtTitleID_TextChanged);
             this.txtTitleID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHexadecimal_KeyPress);
@@ -520,7 +542,7 @@ public class AddISO : Form
             // 
             // cbAutoRename
             // 
-            this.cbAutoRename.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbAutoRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbAutoRename.AutoSize = true;
             this.cbAutoRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAutoRename.Location = new System.Drawing.Point(249, 88);
@@ -599,7 +621,7 @@ public class AddISO : Form
             // 
             // cbFtpUpload
             // 
-            this.cbFtpUpload.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbFtpUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFtpUpload.AutoSize = true;
             this.cbFtpUpload.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFtpUpload.Location = new System.Drawing.Point(249, 22);
@@ -619,18 +641,18 @@ public class AddISO : Form
             this.cmbLayout.FormattingEnabled = true;
             this.cmbLayout.Items.AddRange(new object[] {
             "\\Title ID\\",
-            "\\Title Name\\Title ID\\",
-            "\\Title Name Title ID\\",
-            "\\Title Name\\"});
-            this.cmbLayout.Location = new System.Drawing.Point(88, 82);
+            "\\Name\\",
+            "\\Name\\Title ID\\",
+            "\\Name - Title ID\\"});
+            this.cmbLayout.Location = new System.Drawing.Point(89, 82);
             this.cmbLayout.Name = "cmbLayout";
-            this.cmbLayout.Size = new System.Drawing.Size(151, 23);
+            this.cmbLayout.Size = new System.Drawing.Size(150, 23);
             this.cmbLayout.TabIndex = 16;
             this.cmbLayout.SelectedIndexChanged += new System.EventHandler(this.cmbFolderLayout_SelectedIndexChanged);
             // 
             // cbDeleteGod
             // 
-            this.cbDeleteGod.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbDeleteGod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDeleteGod.AutoSize = true;
             this.cbDeleteGod.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDeleteGod.Location = new System.Drawing.Point(249, 44);
@@ -658,12 +680,12 @@ public class AddISO : Form
             this.cmbFormat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbFormat.FormattingEnabled = true;
             this.cmbFormat.Items.AddRange(new object[] {
-            "GOD",
-            "GOD + ISO",
-            "ISO"});
-            this.cmbFormat.Location = new System.Drawing.Point(87, 20);
+            "GOD package",
+            "GOD package + ISO file",
+            "ISO file"});
+            this.cmbFormat.Location = new System.Drawing.Point(89, 20);
             this.cmbFormat.Name = "cmbFormat";
-            this.cmbFormat.Size = new System.Drawing.Size(152, 23);
+            this.cmbFormat.Size = new System.Drawing.Size(150, 23);
             this.cmbFormat.TabIndex = 14;
             this.cmbFormat.SelectedIndexChanged += new System.EventHandler(this.cmbFormat_SelectedIndexChanged);
             // 
@@ -679,7 +701,7 @@ public class AddISO : Form
             // 
             // cbDeleteSource
             // 
-            this.cbDeleteSource.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDeleteSource.AutoSize = true;
             this.cbDeleteSource.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDeleteSource.Location = new System.Drawing.Point(249, 66);
@@ -688,6 +710,7 @@ public class AddISO : Form
             this.cbDeleteSource.TabIndex = 19;
             this.cbDeleteSource.Text = "Delete original ISO after completion";
             this.cbDeleteSource.UseVisualStyleBackColor = true;
+            this.cbDeleteSource.CheckedChanged += new System.EventHandler(this.cbDeleteSource_CheckedChanged);
             // 
             // cmbPaddingMode
             // 
@@ -700,9 +723,9 @@ public class AddISO : Form
             "Untouched",
             "Partial",
             "Remove all"});
-            this.cmbPaddingMode.Location = new System.Drawing.Point(87, 51);
+            this.cmbPaddingMode.Location = new System.Drawing.Point(89, 51);
             this.cmbPaddingMode.Name = "cmbPaddingMode";
-            this.cmbPaddingMode.Size = new System.Drawing.Size(152, 23);
+            this.cmbPaddingMode.Size = new System.Drawing.Size(150, 23);
             this.cmbPaddingMode.TabIndex = 15;
             this.cmbPaddingMode.SelectedIndexChanged += new System.EventHandler(this.cmbPaddingMode_SelectedIndexChanged);
             // 
@@ -755,10 +778,10 @@ public class AddISO : Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRebuiltIso.Enabled = false;
             this.txtRebuiltIso.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRebuiltIso.Location = new System.Drawing.Point(87, 51);
+            this.txtRebuiltIso.Location = new System.Drawing.Point(89, 51);
             this.txtRebuiltIso.Name = "txtRebuiltIso";
             this.txtRebuiltIso.ReadOnly = true;
-            this.txtRebuiltIso.Size = new System.Drawing.Size(292, 23);
+            this.txtRebuiltIso.Size = new System.Drawing.Size(290, 23);
             this.txtRebuiltIso.TabIndex = 5;
             // 
             // ttOptions
@@ -882,7 +905,6 @@ public class AddISO : Form
         cbDeleteGod.Checked = (bool)Properties.Settings.Default["DeleteGod"];
         cbFtpUpload.Checked = (bool)Properties.Settings.Default["FtpUpload"];
         cbDeleteSource.Checked = (bool)Properties.Settings.Default["DeleteSource"];
-        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbAutoRename.Checked = (bool)Properties.Settings.Default["AutoRenameMultiDisc"];
         ttSource.SetToolTip(pbSource,
             "Select the ISO images to convert to GOD packages.\n\n" +
@@ -905,6 +927,7 @@ public class AddISO : Form
             "  - Partial: the ISO image is cropped at the end of the file,\n" +
             "    very quick to do, but it will only save 800-1500MB of space.\n" +
             "  - Remove all: padding is completely removed, file size is the smallest.\n\n" +
+            "GOD layout: use default Title ID as output directory and / or Name.\n\n" +
             "Transfering GOD packages via FTP requires configuration to be set\n" +
             "in the Settings menu.\n\n" +
             "Auto-renaming multi disc will add the disc number to the GOD\n" +
@@ -913,6 +936,7 @@ public class AddISO : Form
         cmbFormat.SelectedIndex = (int)Properties.Settings.Default["Format"];
         cmbPaddingMode.SelectedIndex = (int)Properties.Settings.Default["DefaultPadding"];
         txtISO.Focus();
+        initialized = true;
     }
 
     private void AddISO_Shown(object sender, EventArgs e)
@@ -948,7 +972,6 @@ public class AddISO : Form
         cbFtpUpload.Checked = (bool)entry.Options.FtpUpload;
         pbThumb.Image = ((entry.Thumb == null) ? null : Image.FromStream(new MemoryStream(entry.Thumb)));
         cbDeleteSource.Checked = entry.Options.DeleteSource;
-        cbDeleteSource.CheckedChanged += new EventHandler(cbDeleteSource_CheckedChanged);
         cbAutoRename.Checked = entry.Options.AddDiscNumber;
         pbThumb.Tag = entry.Thumb;
         cmbFormat.SelectedIndex = (int)entry.Options.Format;
@@ -956,6 +979,7 @@ public class AddISO : Form
         cmbLayout.SelectedIndex = (int)entry.Options.Layout.ID;
         Text = "Edit ISO Image";
         btnAddIso.Text = "Save";
+        initialized = true;
     }
 
     private void isoDetails_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1043,26 +1067,9 @@ public class AddISO : Form
                 isoEntryOptions.Format = (IsoEntryFormat)cmbFormat.SelectedIndex;
                 isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
                 isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
-                string titlename = Utils.sanitizePath(txtName.Text);
-                string gameDirectory = txtTitleID.Text;
-                if (cmbLayout.SelectedIndex > (int)IsoEntryGameDirectoryLayoutID.MediaID && titlename.Length != 0)
-                {
-                    switch (cmbLayout.SelectedIndex)
-                    {
-                        case (int)IsoEntryGameDirectoryLayoutID.TitleName_Slash_MediaID:
-                            gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
-                            break;
-                        case (int)IsoEntryGameDirectoryLayoutID.TitleName_Space_MediaID:
-                            gameDirectory = titlename + " " + txtTitleID.Text;
-                            break;
-                        case (int)IsoEntryGameDirectoryLayoutID.TitleName:
-                            gameDirectory = titlename;
-                            break;
-                    }
-                }
                 IsoEntryGameDirectoryLayout isoEntryLayout = new IsoEntryGameDirectoryLayout();
                 isoEntryLayout.ID = (IsoEntryGameDirectoryLayoutID)cmbLayout.SelectedIndex;
-                isoEntryLayout.Path = gameDirectory;
+                isoEntryLayout.Path = GetLayoutDirectory();
                 isoEntryOptions.Layout = isoEntryLayout;
                 isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
                 isoEntryOptions.DeleteGod = cbDeleteGod.Checked;
@@ -1227,26 +1234,9 @@ public class AddISO : Form
             isoEntryOptions.Padding = (IsoEntryPaddingRemoval)cmbPaddingMode.SelectedIndex;
             isoEntryOptions.DeleteSource = cbDeleteSource.Checked;
             isoEntryOptions.AddDiscNumber = cbAutoRename.Checked && cbAutoRename.Enabled;
-            string titlename = Utils.sanitizePath(txtName.Text);
-            string gameDirectory = txtTitleID.Text;
-            if (cmbLayout.SelectedIndex > (int)IsoEntryGameDirectoryLayoutID.MediaID && titlename.Length != 0)
-            {
-                switch (cmbLayout.SelectedIndex)
-                {
-                    case (int)IsoEntryGameDirectoryLayoutID.TitleName_Slash_MediaID:
-                        gameDirectory = titlename + Path.DirectorySeparatorChar + txtTitleID.Text;
-                        break;
-                    case (int)IsoEntryGameDirectoryLayoutID.TitleName_Space_MediaID:
-                        gameDirectory = titlename + " " + txtTitleID.Text;
-                        break;
-                    case (int)IsoEntryGameDirectoryLayoutID.TitleName:
-                        gameDirectory = titlename;
-                        break;
-                }
-            }
             IsoEntryGameDirectoryLayout isoEntryLayout = new IsoEntryGameDirectoryLayout();
             isoEntryLayout.ID = (IsoEntryGameDirectoryLayoutID)cmbLayout.SelectedIndex;
-            isoEntryLayout.Path = gameDirectory;
+            isoEntryLayout.Path = GetLayoutDirectory();
             isoEntryOptions.Layout = isoEntryLayout;
             isoEntryOptions.FtpUpload = cbFtpUpload.Checked;
             isoEntryOptions.DeleteGod = cbDeleteGod.Checked && cbDeleteGod.Enabled;
@@ -1533,14 +1523,18 @@ public class AddISO : Form
 
     private void cbDeleteSource_CheckedChanged(object sender, EventArgs e)
     {
-        CheckBox checkbox = (CheckBox)sender;
-        if (checkbox.Checked)
+        // don't trigger on window opening
+        if (initialized)
         {
-            DialogResult result = MessageBox.Show("This will permanently delete your original ISO files after completion, are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.No)
+            if (cbDeleteSource.Checked)
             {
-                checkbox.Checked = false;
-                return;
+                DialogResult result = MessageBox.Show("This will permanently delete your original ISO files after completion. Are you sure you want to proceed?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.No)
+                {
+                    initialized = false;
+                    cbDeleteSource.Checked = false;
+                    initialized = true;
+                }
             }
         }
     }
@@ -1561,11 +1555,27 @@ public class AddISO : Form
             cbFtpUpload.CheckState = cbFtpUpload.CheckState == CheckState.Indeterminate ? CheckState.Checked : cbFtpUpload.CheckState;
             cbAutoRename.CheckState = cbAutoRename.CheckState == CheckState.Indeterminate ? CheckState.Checked : cbAutoRename.CheckState;
         }
+        initialized = false;
         cbFtpUpload_CheckedChanged(sender, new EventArgs());
+        initialized = true;
     }
 
     private void cbFtpUpload_CheckedChanged(object sender, EventArgs e)
     {
+        // don't trigger on window opening
+        if (initialized)
+        {
+            if (cbFtpUpload.Checked && Properties.Settings.Default["FtpIP"].ToString().Trim() == "")
+            {
+                DialogResult result = MessageBox.Show("FTP configuration is missing. Would you like to configure it now?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    using Settings settings = new Settings();
+                    settings.ShowDialog(this);
+                }
+            }
+        }
+
         if (cbFtpUpload.Checked && cbFtpUpload.CheckState != CheckState.Indeterminate)
         {
             if (cbDeleteGod.CheckState == CheckState.Indeterminate)
@@ -1588,30 +1598,36 @@ public class AddISO : Form
 
     private void UpdateLayout()
     {
-        string layout = "";
-        string name = Utils.sanitizePath(txtName.Text).Length > 0 ? Utils.sanitizePath(txtName.Text) : "";
-        string titleid = txtTitleID.Text.Length == 8 && IsHexString(txtTitleID.Text) ? txtTitleID.Text : "";
+        string layoutdirectory = GetLayoutDirectory();
+        string layout = layoutdirectory != "" ? Path.DirectorySeparatorChar + layoutdirectory + Path.DirectorySeparatorChar : "";
 
-        if (cmbLayout.SelectedIndex >= 0)
+        ttGodLayout.SetToolTip(cmbLayout, layout);
+    }
+
+    private string GetLayoutDirectory()
+    {
+        string name = Utils.sanitizePath(txtName.Text).Length > 0 ? Utils.sanitizePath(txtName.Text) : "";
+        string titleid = txtTitleID.Text.Length > 0 ? txtTitleID.Text : "";
+        string layoutdirectory = "";
+        if (cmbLayout.SelectedIndex >= (int)IsoEntryGameDirectoryLayoutID.MediaID && name.Length != 0)
         {
             switch (cmbLayout.SelectedIndex)
             {
                 case (int)IsoEntryGameDirectoryLayoutID.MediaID:
-                    layout = titleid != "" ? titleid : "";
-                    break;
-                case (int)IsoEntryGameDirectoryLayoutID.TitleName_Slash_MediaID:
-                    layout = name != "" && titleid != "" ? name + Path.DirectorySeparatorChar + titleid : "";
-                    break;
-                case (int)IsoEntryGameDirectoryLayoutID.TitleName_Space_MediaID:
-                    layout = name != "" && titleid != "" ? name + " " + titleid : "";
+                    layoutdirectory = titleid != "" ? titleid : "";
                     break;
                 case (int)IsoEntryGameDirectoryLayoutID.TitleName:
-                    layout = name != "" ? name : "";
+                    layoutdirectory = name;
+                    break;
+                case (int)IsoEntryGameDirectoryLayoutID.TitleName_Slash_MediaID:
+                    layoutdirectory = name != "" && titleid != "" ? name + Path.DirectorySeparatorChar + titleid : "";
+                    break;
+                case (int)IsoEntryGameDirectoryLayoutID.TitleName_Minus_MediaID:
+                    layoutdirectory = name != "" && titleid != "" ? name + " - " + titleid : "";
                     break;
             }
-            layout = layout != "" ? Path.DirectorySeparatorChar + layout + Path.DirectorySeparatorChar : "";
         }
-        ttGodLayout.SetToolTip(cmbLayout, layout);
+        return layoutdirectory;
     }
 
     private void txtName_TextChanged(object sender, EventArgs e)

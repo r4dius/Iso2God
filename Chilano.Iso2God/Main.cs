@@ -414,7 +414,7 @@ public class Main : Form
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Iso2God - Reloaded";
+            this.Text = "Iso2God - Reloaded -";
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             this.cmQueue.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);

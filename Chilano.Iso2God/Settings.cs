@@ -154,9 +154,9 @@ public class Settings : Form
             this.txtFtpPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpPort.Location = new System.Drawing.Point(75, 113);
+            this.txtFtpPort.Location = new System.Drawing.Point(89, 113);
             this.txtFtpPort.Name = "txtFtpPort";
-            this.txtFtpPort.Size = new System.Drawing.Size(159, 23);
+            this.txtFtpPort.Size = new System.Drawing.Size(145, 23);
             this.txtFtpPort.TabIndex = 4;
             // 
             // label7
@@ -174,9 +174,9 @@ public class Settings : Form
             this.txtFtpPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpPass.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpPass.Location = new System.Drawing.Point(75, 82);
+            this.txtFtpPass.Location = new System.Drawing.Point(89, 82);
             this.txtFtpPass.Name = "txtFtpPass";
-            this.txtFtpPass.Size = new System.Drawing.Size(159, 23);
+            this.txtFtpPass.Size = new System.Drawing.Size(145, 23);
             this.txtFtpPass.TabIndex = 3;
             // 
             // label6
@@ -194,9 +194,9 @@ public class Settings : Form
             this.txtFtpUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpUser.Location = new System.Drawing.Point(75, 51);
+            this.txtFtpUser.Location = new System.Drawing.Point(89, 51);
             this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(159, 23);
+            this.txtFtpUser.Size = new System.Drawing.Size(145, 23);
             this.txtFtpUser.TabIndex = 2;
             // 
             // label5
@@ -213,7 +213,7 @@ public class Settings : Form
             // 
             this.pbFTP.BackgroundImage = global::Chilano_Iso2God_Properties_Resources.icon_hint;
             this.pbFTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbFTP.Location = new System.Drawing.Point(70, 0);
+            this.pbFTP.Location = new System.Drawing.Point(71, 0);
             this.pbFTP.Name = "pbFTP";
             this.pbFTP.Size = new System.Drawing.Size(14, 14);
             this.pbFTP.TabIndex = 26;
@@ -224,9 +224,9 @@ public class Settings : Form
             this.txtFtpIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpIp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFtpIp.Location = new System.Drawing.Point(75, 20);
+            this.txtFtpIp.Location = new System.Drawing.Point(89, 20);
             this.txtFtpIp.Name = "txtFtpIp";
-            this.txtFtpIp.Size = new System.Drawing.Size(159, 23);
+            this.txtFtpIp.Size = new System.Drawing.Size(145, 23);
             this.txtFtpIp.TabIndex = 1;
             // 
             // label4
@@ -335,7 +335,10 @@ public class Settings : Form
         Properties.Settings.Default["FtpPass"] = txtFtpPass.Text;
         Properties.Settings.Default["FtpPort"] = txtFtpPort.Text;
         Properties.Settings.Default.Save();
-        (base.Owner as Main).UpdateSpace();
+        if (base.Owner.Name != "AddISO")
+        {
+            (base.Owner as Main).UpdateSpace();
+        }
         Close();
     }
 
