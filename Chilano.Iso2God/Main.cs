@@ -47,21 +47,23 @@ public class Main : Form
 
     private ColumnHeader columnHeader2;
 
-    private ColumnHeader columnHeader4;
-
-    private Timer jobCheck;
-
-    private ToolStripStatusLabel tsStatus;
-
     private ColumnHeader columnHeader3;
+
+    private ColumnHeader columnHeader4;
 
     private ColumnHeader columnHeader5;
 
     private ColumnHeader columnHeader6;
 
-    private Timer ftpCheck;
-
     private ColumnHeader columnHeader7;
+
+    private ColumnHeader columnHeader8;
+
+    private Timer jobCheck;
+
+    private ToolStripStatusLabel tsStatus;
+
+    private Timer ftpCheck;
 
     private ContextMenuStrip cmQueue;
 
@@ -122,13 +124,14 @@ public class Main : Form
             this.ftpCheck = new System.Windows.Forms.Timer(this.components);
             this.freeDiskCheck = new System.Windows.Forms.Timer(this.components);
             this.listView1 = new Chilano.Common.CListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new Chilano.Common.ToolStripEx();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -211,13 +214,14 @@ public class Main : Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader5,
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader7,
+            this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader6});
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
             this.listView1.ContextMenuStrip = this.cmQueue;
             this.listView1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
@@ -233,40 +237,45 @@ public class Main : Form
             this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView1_DragEnter);
             this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
             // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 190;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Title ID";
-            this.columnHeader5.Width = 65;
-            // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Disc";
-            this.columnHeader1.Width = 35;
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 190;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Size";
-            this.columnHeader2.Width = 50;
+            this.columnHeader2.Text = "Title ID";
+            this.columnHeader2.Width = 65;
             // 
-            // columnHeader7
+            // columnHeader3
             // 
-            this.columnHeader7.Text = "Padding";
-            this.columnHeader7.Width = 55;
+            this.columnHeader3.Text = "Media ID";
+            this.columnHeader3.Width = 65;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Progress";
-            this.columnHeader4.Width = 100;
+            this.columnHeader4.Text = "Disc";
+            this.columnHeader4.Width = 35;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Size";
+            this.columnHeader5.Width = 50;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Status Message";
-            this.columnHeader6.Width = 270;
+            this.columnHeader6.Text = "Padding";
+            this.columnHeader6.Width = 55;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Progress";
+            this.columnHeader7.Width = 100;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Status Message";
+            this.columnHeader8.Width = 270;
             // 
             // toolStrip1
             // 
@@ -582,10 +591,10 @@ public class Main : Form
             IsoEntry isoEntry = (IsoEntry)item.Tag;
             if (isoEntry.Status == IsoEntryStatus.Uploading)
             {
-                ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
+                ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(6, item.Index);
                 progressBar.Value = ((e.ProgressPercentage > 100) ? 100 : e.ProgressPercentage);
                 item.ForeColor = Color.Blue;
-                item.SubItems[6].Text = e.UserState.ToString();
+                item.SubItems[7].Text = e.UserState.ToString();
                 item.Tag = isoEntry;
                 break;
             }
@@ -596,20 +605,21 @@ public class Main : Form
     {
         foreach (ListViewItem item in listView1.Items)
         {
+            ListViewItem.ListViewSubItem messageColumn = item.SubItems[7];
             IsoEntry isoEntry = (IsoEntry)item.Tag;
             if (isoEntry.Status != IsoEntryStatus.Uploading)
             {
                 continue;
             }
             isoEntry.Status = IsoEntryStatus.Completed;
-            ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
+            ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(6, item.Index);
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.Value = 100;
             FlashWindow(base.Handle, bInvert: false);
             if (ftp.Errors.Count == 0)
             {
                 item.ForeColor = Color.Green;
-                item.SubItems[6].Text = "Uploaded.";
+                messageColumn.Text = "Uploaded.";
                 if (isoEntry.Options.DeleteGod)
                 {
                     string godpath = "";
@@ -632,26 +642,26 @@ public class Main : Form
                                     Directory.Delete(@firstDirectory);
                                 }
                             }
-                            item.SubItems[6].Text += " GOD directory deleted";
+                            messageColumn.Text += " GOD directory deleted";
                         } else
                         {
-                            item.SubItems[6].Text += " GOD directory not found, not deleted: " + godpath;
+                            messageColumn.Text += " GOD directory not found, not deleted: " + godpath;
                         }
                     }
                     catch (Exception)
                     {
-                        item.SubItems[6].Text += " Failed to delete GOD directory: " + godpath;
+                        messageColumn.Text += " Failed to delete GOD directory: " + godpath;
                     }
                 }
             }
             else
             {
                 item.ForeColor = Color.Red;
-                item.SubItems[6].Text = "Failed to upload:";
+                messageColumn.Text = "Failed to upload:";
                 int errorindex = 0;
                 foreach (Exception error in ftp.Errors)
                 {
-                    item.SubItems[6].Text += (errorindex > 0 ? ", " : " ") + char.ToLower(error.Message[0]) + error.Message.Substring(1);
+                    messageColumn.Text += (errorindex > 0 ? ", " : " ") + char.ToLower(error.Message[0]) + error.Message.Substring(1);
                     errorindex++;
                     //MessageBox.Show("Error while attempting to upload GOD package for '" + isoEntry.TitleName + "':\n\n" + error.Message);
                 }
@@ -693,20 +703,22 @@ public class Main : Form
             IsoEntry isoEntry = (IsoEntry)item.Tag;
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
-                ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(5, item.Index);
+                ListViewItem.ListViewSubItem MessageColumn = item.SubItems[7];
+                ProgressBar progressBar = (ProgressBar)listView1.GetEmbeddedControl(6, item.Index);
+
                 if ((bool)isoEntry.Options.FtpUpload)
                 {
                     isoEntry.Status = IsoEntryStatus.UploadQueue;
                     isoEntry.ID.ContainerID = e.ContainerId;
                     progressBar.Value = 0;
-                    item.SubItems[6].Text = "Queued for upload.";
+                    MessageColumn.Text = "Queued for upload.";
                     ftpCheck.Enabled = true;
                 }
                 else
                 {
                     isoEntry.Status = IsoEntryStatus.Completed;
                     progressBar.Value = 100;
-                    item.SubItems[6].Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
+                    MessageColumn.Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
                     FlashWindow(base.Handle, bInvert: false);
                 }
 
@@ -717,16 +729,16 @@ public class Main : Form
                         if (File.Exists(isoEntry.Path))
                         {
                             File.Delete(isoEntry.Path);  // Delete the file
-                            item.SubItems[6].Text += ". Original ISO file deleted";
+                            MessageColumn.Text += ". Original ISO file deleted";
                         }
                         else
                         {
-                            item.SubItems[6].Text += ". Original ISO file not found, not deleted";
+                            MessageColumn.Text += ". Original ISO file not found, not deleted";
                         }
                     }
                     catch (Exception ex)
                     {
-                        item.SubItems[6].Text += ". Failed to delete original ISO: " + ex.Message;
+                        MessageColumn.Text += ". Failed to delete original ISO: " + ex.Message;
                     }
                 }
 
@@ -745,8 +757,8 @@ public class Main : Form
             IsoEntry isoEntry = (IsoEntry)item.Tag;
             if (isoEntry.Status == IsoEntryStatus.InProgress)
             {
-                ((ProgressBar)listView1.GetEmbeddedControl(5, item.Index)).Value = ((e.Percentage > 100) ? 100 : e.Percentage);
-                item.SubItems[6].Text = e.Message;
+                ((ProgressBar)listView1.GetEmbeddedControl(6, item.Index)).Value = ((e.Percentage > 100) ? 100 : e.Percentage);
+                item.SubItems[7].Text = e.Message;
                 item.Tag = isoEntry;
                 break;
             }
@@ -758,6 +770,7 @@ public class Main : Form
         ListViewItem listViewItem = new ListViewItem();
         listViewItem.Text = Entry.TitleName;
         listViewItem.SubItems.Add(Entry.ID.TitleID);
+        listViewItem.SubItems.Add(Entry.ID.MediaID);
         listViewItem.SubItems.Add(Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString());
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
         listViewItem.SubItems.Add(num + " GB");
@@ -767,7 +780,7 @@ public class Main : Form
         else listViewItem.SubItems.Add(Entry.Message);
         listViewItem.Tag = Entry;
         listView1.Items.Add(listViewItem);
-        listView1.AddEmbeddedControl(new ProgressBar(), 5, listViewItem.Index);
+        listView1.AddEmbeddedControl(new ProgressBar(), 6, listViewItem.Index);
         long FreeSpace = 0L;
         UpdateSpace(out FreeSpace);
         if (FreeSpace < Entry.Size)
@@ -782,11 +795,12 @@ public class Main : Form
         listViewItem.Tag = Entry;
         listViewItem.Text = Entry.TitleName;
         listViewItem.SubItems[1].Text = Entry.ID.TitleID;
-        listViewItem.SubItems[2].Text = Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString();
+        listViewItem.SubItems[2].Text = Entry.ID.TitleID;
+        listViewItem.SubItems[3].Text = Entry.ID.DiscNumber.ToString() + "/" + Entry.ID.DiscCount.ToString();
         double num = Math.Round((double)Entry.Size / 1073741824.0, 2);
-        listViewItem.SubItems[3].Text = num + " GB";
-        listViewItem.SubItems[4].Text = IsoEntryPaddingStr[(int)Entry.Options.Padding];
-        listViewItem.SubItems[6].Text = Entry.Path;
+        listViewItem.SubItems[4].Text = num + " GB";
+        listViewItem.SubItems[6].Text = IsoEntryPaddingStr[(int)Entry.Options.Padding];
+        listViewItem.SubItems[7].Text = Entry.Path;
     }
 
     public string getVersion(bool build, bool revision)
@@ -947,8 +961,8 @@ public class Main : Form
                 isoEntry.Status = IsoEntryStatus.UploadQueue;
                 listViewItem.Tag = isoEntry;
                 listViewItem.ForeColor = Color.Blue;
-                listViewItem.SubItems[6].Text = "Queued for upload.";
-                ((ProgressBar)listView1.GetEmbeddedControl(5, listViewItem.Index)).Value = 0;
+                listViewItem.SubItems[7].Text = "Queued for upload.";
+                ((ProgressBar)listView1.GetEmbeddedControl(6, listViewItem.Index)).Value = 0;
                 ftpCheck.Enabled = true;
             }
         }
