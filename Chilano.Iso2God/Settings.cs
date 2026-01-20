@@ -44,6 +44,10 @@ public class Settings : Form
 
     private Label label7;
 
+    private TextBox txtFtpPath;
+
+    private Label label8;
+
     private FtpTester ftp = new FtpTester();
 
 
@@ -65,6 +69,8 @@ public class Settings : Form
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtFtpPath = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtFtpPort = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtFtpPass = new System.Windows.Forms.TextBox();
@@ -106,7 +112,7 @@ public class Settings : Form
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(114, 163);
+            this.btnSave.Location = new System.Drawing.Point(114, 190);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 25);
             this.btnSave.TabIndex = 6;
@@ -118,7 +124,7 @@ public class Settings : Form
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(188, 163);
+            this.btnCancel.Location = new System.Drawing.Point(188, 190);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(68, 25);
             this.btnCancel.TabIndex = 7;
@@ -131,6 +137,8 @@ public class Settings : Form
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.txtFtpPath);
+            this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.txtFtpPort);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.txtFtpPass);
@@ -144,10 +152,30 @@ public class Settings : Form
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(10, 5);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(245, 150);
+            this.groupBox3.Size = new System.Drawing.Size(245, 180);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FTP Server";
+            // 
+            // txtFtpPath
+            // 
+            this.txtFtpPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFtpPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFtpPath.Location = new System.Drawing.Point(89, 144);
+            this.txtFtpPath.Name = "txtFtpPath";
+            this.txtFtpPath.Size = new System.Drawing.Size(145, 23);
+            this.txtFtpPath.TabIndex = 28;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(6, 149);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 13);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "FTP Path:";
             // 
             // txtFtpPort
             // 
@@ -242,7 +270,7 @@ public class Settings : Form
             // btnTest
             // 
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTest.Location = new System.Drawing.Point(40, 163);
+            this.btnTest.Location = new System.Drawing.Point(40, 190);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(68, 25);
             this.btnTest.TabIndex = 5;
@@ -256,7 +284,7 @@ public class Settings : Form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(265, 197);
+            this.ClientSize = new System.Drawing.Size(265, 224);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnSave);
@@ -295,6 +323,7 @@ public class Settings : Form
             txtFtpUser.Text = Properties.Settings.Default["FtpUser"].ToString();
             txtFtpPass.Text = Properties.Settings.Default["FtpPass"].ToString();
             txtFtpPort.Text = Properties.Settings.Default["FtpPort"].ToString();
+            txtFtpPath.Text = Properties.Settings.Default["FtpPath"].ToString();
         }
         catch
         {
@@ -334,6 +363,7 @@ public class Settings : Form
         Properties.Settings.Default["FtpUser"] = txtFtpUser.Text;
         Properties.Settings.Default["FtpPass"] = txtFtpPass.Text;
         Properties.Settings.Default["FtpPort"] = txtFtpPort.Text;
+        Properties.Settings.Default["FtpPath"] = txtFtpPath.Text;
         Properties.Settings.Default.Save();
         if (base.Owner.Name != "AddISO")
         {

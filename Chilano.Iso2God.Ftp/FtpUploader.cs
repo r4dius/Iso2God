@@ -51,7 +51,12 @@ public class FtpUploader : BackgroundWorker
             Errors.Add(item);
             return;
         }
-        ftp.ChangeWorkingDirectory("Hdd1/Content/0000000000000000");
+        string ftpPath = Properties.Settings.Default["FtpPath"].ToString();
+        if(!dirExists(ftpPath))
+        {
+            ftp.CreateDirectory(ftpPath);
+        }
+        ftp.ChangeWorkingDirectory(ftpPath);
         // in case TitleDirectory has subfolders, mkdir and chdir recursively
         string[] TitleDirectories = args.GameDirectory.Split(Path.DirectorySeparatorChar);
         foreach (string subDirectory in TitleDirectories)
