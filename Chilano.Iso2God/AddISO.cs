@@ -239,7 +239,7 @@ public class AddISO : Form
             this.groupBox1.Location = new System.Drawing.Point(10, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(464, 57);
-            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source";
             // 
@@ -293,7 +293,7 @@ public class AddISO : Form
             this.btnDestBrowse.Location = new System.Drawing.Point(386, 19);
             this.btnDestBrowse.Name = "btnDestBrowse";
             this.btnDestBrowse.Size = new System.Drawing.Size(68, 25);
-            this.btnDestBrowse.TabIndex = 4;
+            this.btnDestBrowse.TabIndex = 2;
             this.btnDestBrowse.Text = "&Browse";
             this.btnDestBrowse.UseVisualStyleBackColor = true;
             this.btnDestBrowse.Click += new System.EventHandler(this.btnDestBrowse_Click);
@@ -317,7 +317,7 @@ public class AddISO : Form
             this.txtDest.Name = "txtDest";
             this.txtDest.ReadOnly = true;
             this.txtDest.Size = new System.Drawing.Size(290, 23);
-            this.txtDest.TabIndex = 3;
+            this.txtDest.TabIndex = 1;
             // 
             // ttSource
             // 
@@ -353,7 +353,7 @@ public class AddISO : Form
             this.groupBox3.Location = new System.Drawing.Point(10, 158);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(464, 119);
-            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Title Details";
             // 
@@ -376,7 +376,7 @@ public class AddISO : Form
             this.txtPlatform.Location = new System.Drawing.Point(279, 83);
             this.txtPlatform.Name = "txtPlatform";
             this.txtPlatform.Size = new System.Drawing.Size(36, 22);
-            this.txtPlatform.TabIndex = 12;
+            this.txtPlatform.TabIndex = 11;
             this.txtPlatform.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // txtDiscCount
@@ -387,7 +387,7 @@ public class AddISO : Form
             this.txtDiscCount.Location = new System.Drawing.Point(343, 52);
             this.txtDiscCount.Name = "txtDiscCount";
             this.txtDiscCount.Size = new System.Drawing.Size(36, 22);
-            this.txtDiscCount.TabIndex = 11;
+            this.txtDiscCount.TabIndex = 7;
             this.txtDiscCount.ValueChanged += new System.EventHandler(this.txtDiscCount_ValueChanged);
             this.txtDiscCount.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
@@ -400,7 +400,7 @@ public class AddISO : Form
             this.txtDiscNum.Location = new System.Drawing.Point(279, 52);
             this.txtDiscNum.Name = "txtDiscNum";
             this.txtDiscNum.Size = new System.Drawing.Size(36, 22);
-            this.txtDiscNum.TabIndex = 10;
+            this.txtDiscNum.TabIndex = 5;
             this.txtDiscNum.ValueChanged += new System.EventHandler(this.txtDiscNum_ValueChanged);
             this.txtDiscNum.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
@@ -425,7 +425,7 @@ public class AddISO : Form
             this.label6.Location = new System.Drawing.Point(324, 56);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 13);
-            this.label6.TabIndex = 0;
+            this.label6.TabIndex = 6;
             this.label6.Text = "/";
             // 
             // label5
@@ -436,7 +436,7 @@ public class AddISO : Form
             this.label5.Location = new System.Drawing.Point(244, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
-            this.label5.TabIndex = 0;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Disc:";
             // 
             // label3
@@ -458,7 +458,7 @@ public class AddISO : Form
             this.txtName.MaxLength = 128;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(290, 23);
-            this.txtName.TabIndex = 7;
+            this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // label9
@@ -469,7 +469,7 @@ public class AddISO : Form
             this.label9.Location = new System.Drawing.Point(319, 87);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(21, 13);
-            this.label9.TabIndex = 0;
+            this.label9.TabIndex = 12;
             this.label9.Text = "Ex:";
             // 
             // label7
@@ -479,7 +479,7 @@ public class AddISO : Form
             this.label7.Location = new System.Drawing.Point(6, 87);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
-            this.label7.TabIndex = 0;
+            this.label7.TabIndex = 8;
             this.label7.Text = "Media ID:";
             // 
             // label4
@@ -489,7 +489,7 @@ public class AddISO : Form
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 0;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Title ID:";
             // 
             // txtMediaID
@@ -515,7 +515,7 @@ public class AddISO : Form
             this.txtTitleID.MaxLength = 8;
             this.txtTitleID.Name = "txtTitleID";
             this.txtTitleID.Size = new System.Drawing.Size(150, 23);
-            this.txtTitleID.TabIndex = 8;
+            this.txtTitleID.TabIndex = 3;
             this.txtTitleID.TextChanged += new System.EventHandler(this.txtTitleID_TextChanged);
             this.txtTitleID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHexadecimal_KeyPress);
             // 
@@ -537,7 +537,7 @@ public class AddISO : Form
             this.label8.Location = new System.Drawing.Point(244, 87);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 13);
-            this.label8.TabIndex = 0;
+            this.label8.TabIndex = 10;
             this.label8.Text = "Plat:";
             // 
             // cbAutoRename
@@ -548,7 +548,7 @@ public class AddISO : Form
             this.cbAutoRename.Location = new System.Drawing.Point(249, 88);
             this.cbAutoRename.Name = "cbAutoRename";
             this.cbAutoRename.Size = new System.Drawing.Size(182, 17);
-            this.cbAutoRename.TabIndex = 20;
+            this.cbAutoRename.TabIndex = 9;
             this.cbAutoRename.Text = "Auto-rename multi-disc games";
             this.cbAutoRename.UseVisualStyleBackColor = true;
             // 
@@ -559,7 +559,7 @@ public class AddISO : Form
             this.btnAddIso.Location = new System.Drawing.Point(319, 408);
             this.btnAddIso.Name = "btnAddIso";
             this.btnAddIso.Size = new System.Drawing.Size(75, 25);
-            this.btnAddIso.TabIndex = 21;
+            this.btnAddIso.TabIndex = 5;
             this.btnAddIso.Text = "Add";
             this.btnAddIso.UseVisualStyleBackColor = true;
             this.btnAddIso.Click += new System.EventHandler(this.btnAddIso_Click);
@@ -572,7 +572,7 @@ public class AddISO : Form
             this.btnCancel.Location = new System.Drawing.Point(400, 408);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 22;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -615,7 +615,7 @@ public class AddISO : Form
             this.groupBox4.Location = new System.Drawing.Point(10, 281);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(464, 119);
-            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Options";
             // 
@@ -627,7 +627,7 @@ public class AddISO : Form
             this.cbFtpUpload.Location = new System.Drawing.Point(249, 22);
             this.cbFtpUpload.Name = "cbFtpUpload";
             this.cbFtpUpload.Size = new System.Drawing.Size(182, 17);
-            this.cbFtpUpload.TabIndex = 17;
+            this.cbFtpUpload.TabIndex = 6;
             this.cbFtpUpload.Text = "Transfer GOD packages via FTP";
             this.cbFtpUpload.UseVisualStyleBackColor = true;
             this.cbFtpUpload.CheckedChanged += new System.EventHandler(this.cbFtpUpload_CheckedChanged);
@@ -647,7 +647,7 @@ public class AddISO : Form
             this.cmbLayout.Location = new System.Drawing.Point(89, 82);
             this.cmbLayout.Name = "cmbLayout";
             this.cmbLayout.Size = new System.Drawing.Size(150, 23);
-            this.cmbLayout.TabIndex = 16;
+            this.cmbLayout.TabIndex = 5;
             this.cmbLayout.SelectedIndexChanged += new System.EventHandler(this.cmbFolderLayout_SelectedIndexChanged);
             // 
             // cbDeleteGod
@@ -658,7 +658,7 @@ public class AddISO : Form
             this.cbDeleteGod.Location = new System.Drawing.Point(249, 44);
             this.cbDeleteGod.Name = "cbDeleteGod";
             this.cbDeleteGod.Size = new System.Drawing.Size(201, 17);
-            this.cbDeleteGod.TabIndex = 18;
+            this.cbDeleteGod.TabIndex = 7;
             this.cbDeleteGod.Text = "Delete GOD files after FTP transfer";
             this.cbDeleteGod.UseVisualStyleBackColor = true;
             // 
@@ -669,7 +669,7 @@ public class AddISO : Form
             this.label13.Location = new System.Drawing.Point(7, 87);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(72, 13);
-            this.label13.TabIndex = 0;
+            this.label13.TabIndex = 4;
             this.label13.Text = "GOD Layout:";
             // 
             // cmbFormat
@@ -686,7 +686,7 @@ public class AddISO : Form
             this.cmbFormat.Location = new System.Drawing.Point(89, 20);
             this.cmbFormat.Name = "cmbFormat";
             this.cmbFormat.Size = new System.Drawing.Size(150, 23);
-            this.cmbFormat.TabIndex = 14;
+            this.cmbFormat.TabIndex = 1;
             this.cmbFormat.SelectedIndexChanged += new System.EventHandler(this.cmbFormat_SelectedIndexChanged);
             // 
             // label12
@@ -707,7 +707,7 @@ public class AddISO : Form
             this.cbDeleteSource.Location = new System.Drawing.Point(249, 66);
             this.cbDeleteSource.Name = "cbDeleteSource";
             this.cbDeleteSource.Size = new System.Drawing.Size(211, 17);
-            this.cbDeleteSource.TabIndex = 19;
+            this.cbDeleteSource.TabIndex = 8;
             this.cbDeleteSource.Text = "Delete original ISO after completion";
             this.cbDeleteSource.UseVisualStyleBackColor = true;
             this.cbDeleteSource.CheckedChanged += new System.EventHandler(this.cbDeleteSource_CheckedChanged);
@@ -726,7 +726,7 @@ public class AddISO : Form
             this.cmbPaddingMode.Location = new System.Drawing.Point(89, 51);
             this.cmbPaddingMode.Name = "cmbPaddingMode";
             this.cmbPaddingMode.Size = new System.Drawing.Size(150, 23);
-            this.cmbPaddingMode.TabIndex = 15;
+            this.cmbPaddingMode.TabIndex = 3;
             this.cmbPaddingMode.SelectedIndexChanged += new System.EventHandler(this.cmbPaddingMode_SelectedIndexChanged);
             // 
             // label10
@@ -736,7 +736,7 @@ public class AddISO : Form
             this.label10.Location = new System.Drawing.Point(6, 56);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 13);
-            this.label10.TabIndex = 0;
+            this.label10.TabIndex = 2;
             this.label10.Text = "Padding:";
             // 
             // pbOptions
@@ -757,7 +757,7 @@ public class AddISO : Form
             this.btnRebuiltBrowse.Location = new System.Drawing.Point(386, 50);
             this.btnRebuiltBrowse.Name = "btnRebuiltBrowse";
             this.btnRebuiltBrowse.Size = new System.Drawing.Size(68, 25);
-            this.btnRebuiltBrowse.TabIndex = 6;
+            this.btnRebuiltBrowse.TabIndex = 5;
             this.btnRebuiltBrowse.Text = "&Browse";
             this.btnRebuiltBrowse.UseVisualStyleBackColor = true;
             this.btnRebuiltBrowse.Click += new System.EventHandler(this.btnRebuiltBrowse_Click);
@@ -769,7 +769,7 @@ public class AddISO : Form
             this.label11.Location = new System.Drawing.Point(6, 56);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
-            this.label11.TabIndex = 0;
+            this.label11.TabIndex = 3;
             this.label11.Text = "ISO Path:";
             // 
             // txtRebuiltIso
@@ -782,7 +782,7 @@ public class AddISO : Form
             this.txtRebuiltIso.Name = "txtRebuiltIso";
             this.txtRebuiltIso.ReadOnly = true;
             this.txtRebuiltIso.Size = new System.Drawing.Size(290, 23);
-            this.txtRebuiltIso.TabIndex = 5;
+            this.txtRebuiltIso.TabIndex = 4;
             // 
             // ttOptions
             // 
@@ -809,7 +809,7 @@ public class AddISO : Form
             this.groupBox2.Location = new System.Drawing.Point(10, 66);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(464, 88);
-            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
             // 
@@ -839,7 +839,7 @@ public class AddISO : Form
             this.progressBarMulti.Location = new System.Drawing.Point(10, 409);
             this.progressBarMulti.Name = "progressBarMulti";
             this.progressBarMulti.Size = new System.Drawing.Size(302, 23);
-            this.progressBarMulti.TabIndex = 42;
+            this.progressBarMulti.TabIndex = 4;
             // 
             // iso2God1
             // 
@@ -894,7 +894,7 @@ public class AddISO : Form
     public AddISO(IsoEntryPlatform Platform)
     {
         InitializeComponent();
-        //base.Shown += AddISO_Shown;
+        base.Shown += AddISO_Shown;
         platform = Platform;
         entry.Platform = platform;
         progressBarMulti.Visible = false;

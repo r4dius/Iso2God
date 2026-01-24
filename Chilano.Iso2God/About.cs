@@ -41,7 +41,7 @@ public class About : Form
             this.lblVersion.Location = new System.Drawing.Point(285, 17);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(165, 16);
-            this.lblVersion.TabIndex = 1;
+            this.lblVersion.TabIndex = 0;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             // 
@@ -53,7 +53,7 @@ public class About : Form
             this.btnClose.Location = new System.Drawing.Point(400, 251);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 25);
-            this.btnClose.TabIndex = 2;
+            this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.button1_Click);
@@ -66,7 +66,7 @@ public class About : Form
             this.label1.Location = new System.Drawing.Point(10, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(466, 138);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 1;
             this.label1.Text = resources.GetString("label1.Text");
             // 
             // pictureBox1
@@ -91,7 +91,7 @@ public class About : Form
             this.label2.Location = new System.Drawing.Point(10, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(383, 35);
-            this.label2.TabIndex = 0;
+            this.label2.TabIndex = 2;
             this.label2.Text = "This update is a \"quality of life\" improvement mod from decompilation of the orig" +
     "inal v1.3.6 and is not supported by Team 360h.";
             // 

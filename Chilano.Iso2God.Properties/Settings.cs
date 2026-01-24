@@ -13,7 +13,7 @@ internal sealed class Settings : ApplicationSettingsBase
 
     public static Settings Default => defaultInstance;
 
-    [DefaultSettingValue("")]
+    [DefaultSettingValue("./god")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public string OutputPath
@@ -28,7 +28,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("")]
+    [DefaultSettingValue("./iso")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
     public string RebuildPath
@@ -104,17 +104,47 @@ internal sealed class Settings : ApplicationSettingsBase
     }
 
     [DebuggerNonUserCode]
-    [DefaultSettingValue("Hdd1/Content/0000000000000000")]
+    [DefaultSettingValue("0")]
     [UserScopedSetting]
-    public string FtpPath
+    public int FtpPathType
     {
         get
         {
-            return (string)this["FtpPath"];
+            return (int)this["FtpPathType"];
         }
         set
         {
-            this["FtpPath"] = value;
+            this["FtpPathType"] = value;
+        }
+    }
+
+    [DebuggerNonUserCode]
+    [DefaultSettingValue("Hdd1/Content/0000000000000000")]
+    [UserScopedSetting]
+    public string FtpPathCustom
+    {
+        get
+        {
+            return (string)this["FtpPathCustom"];
+        }
+        set
+        {
+            this["FtpPathCustom"] = value;
+        }
+    }
+
+    [DebuggerNonUserCode]
+    [DefaultSettingValue("0")]
+    [UserScopedSetting]
+    public int FtpPathDefaults
+    {
+        get
+        {
+            return (int)this["FtpPathDefaults"];
+        }
+        set
+        {
+            this["FtpPathDefaults"] = value;
         }
     }
 

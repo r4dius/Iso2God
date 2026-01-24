@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
+using System.Xml.Linq;
 
 namespace Chilano.Iso2God.Ftp;
 
@@ -51,7 +53,22 @@ public class FtpUploader : BackgroundWorker
             Errors.Add(item);
             return;
         }
-        string ftpPath = Properties.Settings.Default["FtpPath"].ToString();
+        string ftpPath = "Hdd1/Content/0000000000000000";
+        if (Properties.Settings.Default.FtpPathType == 0)
+        {
+            switch (Properties.Settings.Default.FtpPathDefaults)
+            {
+                case 1:
+                    ftpPath = "Usb1";
+                    break;
+                case 2:
+                    ftpPath = "Usb2";
+                    break;
+            }
+        } else
+        {
+            ftpPath = Properties.Settings.Default["FtpPathCustom"].ToString();
+        }
         if(!dirExists(ftpPath))
         {
             ftp.CreateDirectory(ftpPath);

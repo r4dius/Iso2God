@@ -190,7 +190,7 @@ public class Main : Form
             this.tsStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 339);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(824, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
@@ -229,7 +229,7 @@ public class Main : Form
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 70);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(784, 269);
+            this.listView1.Size = new System.Drawing.Size(824, 269);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -275,7 +275,7 @@ public class Main : Form
             // columnHeader8
             // 
             this.columnHeader8.Text = "Status Message";
-            this.columnHeader8.Width = 270;
+            this.columnHeader8.Width = 264;
             // 
             // toolStrip1
             // 
@@ -298,7 +298,7 @@ public class Main : Form
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(784, 71);
+            this.toolStrip1.Size = new System.Drawing.Size(824, 71);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -415,7 +415,7 @@ public class Main : Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 361);
+            this.ClientSize = new System.Drawing.Size(824, 361);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.toolStrip1);
