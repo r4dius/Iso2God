@@ -89,7 +89,7 @@ This uses code or assets from:
 | Watch_Dogs | Disk 2     | No GOD     | Extract all Disk 2 contents |
 | Watch_Dogs | Disk 1     | No GOD     | Copy contents of "installation1" and "installation2" from Disk 1 into the extracted Disk 2 |
 | Watch_Dogs | Disk 2 bis | Custom GOD  | Build a new ISO and GOD from the combined Disk 2 folder (~10GB) |
-| Wolfenstein - The New Order | Disk 1 | GOD | Install as GOD, and run to install, can be deleted afterwards |
+| Wolfenstein - The New Order | Disk 1 | GOD | Run to install, can be deleted afterwards |
 | Wolfenstein - The New Order | Disk 2 | GOD | - |
 | Wolfenstein - The New Order | Disk 3 | GOD | - |
 | Wolfenstein - The New Order | Disk 4 | GOD | - |
