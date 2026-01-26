@@ -44,7 +44,7 @@ This uses code or assets from:
 | Blue Dragon | Disk 3 | GOD | - |
 | Call of Duty - Advanced Warfare | Disk 1 | GOD | - |
 | Call of Duty - Advanced Warfare | Disk 2 | No GOD | Extract "content\\0000000000000000\\41560914\\00000002" directory to HDD |
-| Call of Duty - Black Ops III | - | /!\ no solo campaign | Copy A92CACF8DF6D9DB1C32970035A6B8B63B09C2F1641 and 4FD64D1A99FF002F54CEE0FE922808E1D2D21A5341 to "Content/0000000000000000/4156091D/00000002" |
+| Call of Duty - Black Ops III | - | - | Copy A92CACF8DF6D9DB1C32970035A6B8B63B09C2F1641 and 4FD64D1A99FF002F54CEE0FE922808E1D2D21A5341 to "Content/0000000000000000/4156091D/00000002" |
 | Call of Duty - Ghosts | Disk 1 | GOD | - |
 | Call of Duty - Ghosts | Disk 2 | No GOD | Extract "content\\0000000000000000\\415608FC\\00000002" directory to HDD |
 | Call of Duty - World at War | - | Normal install | Disable fakelive |
@@ -82,6 +82,7 @@ This uses code or assets from:
 | Saints Row - The Third - The Full Package | Disk 2 | GOD | - |
 | Saints Row IV - National Treasure Edition | Disk 1 | No GOD | Extract "content\\0000000000000000\\FFED2000\\FFFFFFFF" directory to HDD renamed to "Content\\0000000000000000\\4B4D07F6\\00000002" |
 | Saints Row IV - National Treasure Edition | Disk 2 | GOD | - |
+| Tetris - The Grand Master Ace | - | GOD | ⚠️ Will not working with "Padding: Remove all", use "Partial" |
 | Tom Clancy's Splinter Cell - Blacklist | Disk 1 | GOD | - |
 | Tom Clancy's Splinter Cell - Blacklist | Disk 2 | Mix | Install as GOD plus extract "Content\\0000000000000000\\555308B6\\00000002" directory to HDD |
 | Ultra Street Fighter IV | - | GOD | Disable fakelive |
