@@ -124,7 +124,9 @@ XexTool is used to perform decryption and decompression of XEXs. Huge thanks to 
 
 FTP support provided by the open source edtFTPnet library from Enterprise DT.
 
-Thanks go out to rolly poly, MikeJJ, Icekiller, Razkar, dstruktiv and threesixtyuser for your help.</value>
+Thanks go out to rolly poly, MikeJJ, Icekiller, Razkar, dstruktiv and threesixtyuser for your help.
+
+This update is a "quality of life" improvement mod from decompilation of the original v1.3.6 and is not supported by Team 360h.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

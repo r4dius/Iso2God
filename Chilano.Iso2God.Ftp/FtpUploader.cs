@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.Remoting.Contexts;
-using System.Xml.Linq;
 
 namespace Chilano.Iso2God.Ftp;
 
@@ -59,21 +57,29 @@ public class FtpUploader : BackgroundWorker
             switch (Properties.Settings.Default.FtpPathDefaults)
             {
                 case 1:
-                    ftpPath = "Usb1";
+                    ftpPath = "Usb0";
                     break;
                 case 2:
-                    ftpPath = "Usb2";
+                    ftpPath = "Usb1";
                     break;
             }
-        } else
+            ftp.ChangeWorkingDirectory(ftpPath);
+        }
+        else
         {
             ftpPath = Properties.Settings.Default["FtpPathCustom"].ToString();
+
+            // in case user custom path has subfolders, mkdir and chdir recursively
+            string[] CustomDirectories = ftpPath.Split('/');
+            foreach (string subDirectory in CustomDirectories)
+            {
+                if (!dirExists(subDirectory))
+                {
+                    ftp.CreateDirectory(subDirectory);
+                }
+                ftp.ChangeWorkingDirectory(subDirectory);
+            }
         }
-        if(!dirExists(ftpPath))
-        {
-            ftp.CreateDirectory(ftpPath);
-        }
-        ftp.ChangeWorkingDirectory(ftpPath);
         // in case TitleDirectory has subfolders, mkdir and chdir recursively
         string[] TitleDirectories = args.GameDirectory.Split(Path.DirectorySeparatorChar);
         foreach (string subDirectory in TitleDirectories)

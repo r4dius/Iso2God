@@ -20,81 +20,43 @@ namespace Chilano.Iso2God;
 public class Main : Form
 {
     private IContainer components;
-
     private ToolStripEx toolStrip1;
-
     private ToolStripDropDownButton toolStripDropDownButton1;
-
     private ToolStripMenuItem allToolStripMenuItem;
-
     private ToolStripMenuItem selectedToolStripMenuItem;
-
     private ToolStripMenuItem completedToolStripMenuItem;
-
     private ToolStripButton toolStripButton2;
-
     private ToolStripSeparator toolStripSeparator1;
-
     private ToolStripButton toolStripButton3;
-
     private ToolStripButton toolStripButton4;
-
     private CListView listView1;
-
     private StatusStrip statusStrip1;
-
     private ColumnHeader columnHeader1;
-
     private ColumnHeader columnHeader2;
-
     private ColumnHeader columnHeader3;
-
     private ColumnHeader columnHeader4;
-
     private ColumnHeader columnHeader5;
-
     private ColumnHeader columnHeader6;
-
     private ColumnHeader columnHeader7;
-
     private ColumnHeader columnHeader8;
-
     private Timer jobCheck;
-
     private ToolStripStatusLabel tsStatus;
-
     private Timer ftpCheck;
-
     private ContextMenuStrip cmQueue;
-
     private ToolStripMenuItem editToolStripMenuItem;
-
     private ToolStripMenuItem removeToolStripMenuItem;
-
     private ToolStripSeparator toolStripSeparator2;
-
     private ToolStripMenuItem restartFTPUploadToolStripMenuItem;
-
     private Timer freeDiskCheck;
-
     private ToolStripButton toolStripButton1;
-
     private Iso2God i2g = new Iso2God();
-
     private FtpUploader ftp = new FtpUploader();
-
     private ToolStripLabel toolStripLabel2;
-
     public string pathTemp = "";
-
     public string pathXT = "";
-
     public static string file_xextool = "xextool.exe";
-
     public static string file_listxbox = "gamelist_xbox.csv";
-
     public static string file_listxbox360 = "gamelist_xbox360.csv";
-
     public static string[] IsoEntryPaddingStr = {
         "Untouched",
         "Partial",
@@ -190,7 +152,7 @@ public class Main : Form
             this.tsStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 339);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(824, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(984, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
@@ -229,7 +191,7 @@ public class Main : Form
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 70);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(824, 269);
+            this.listView1.Size = new System.Drawing.Size(984, 269);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -265,7 +227,7 @@ public class Main : Form
             // columnHeader6
             // 
             this.columnHeader6.Text = "Padding";
-            this.columnHeader6.Width = 55;
+            this.columnHeader6.Width = 65;
             // 
             // columnHeader7
             // 
@@ -275,7 +237,7 @@ public class Main : Form
             // columnHeader8
             // 
             this.columnHeader8.Text = "Status Message";
-            this.columnHeader8.Width = 264;
+            this.columnHeader8.Width = 414;
             // 
             // toolStrip1
             // 
@@ -298,7 +260,7 @@ public class Main : Form
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(824, 71);
+            this.toolStrip1.Size = new System.Drawing.Size(984, 71);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -415,7 +377,7 @@ public class Main : Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 361);
+            this.ClientSize = new System.Drawing.Size(984, 361);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.toolStrip1);
@@ -844,7 +806,12 @@ public class Main : Form
         string text = Properties.Settings.Default["OutputPath"].ToString();
         if (!IsRunningOnMono())
         {
-            FreeSpace = GetFreeSpace((text.Length > 0) ? text[0].ToString() : "C");
+            string fullPath = Path.GetFullPath(string.IsNullOrEmpty(text) ? "." : text);
+            string root = Path.GetPathRoot(fullPath);
+            string driveLetter = root.Substring(0, 1);
+
+            FreeSpace = GetFreeSpace(driveLetter);
+
             if (FreeSpace > -1)
             {
                 tsStatus.Text = "Free Disk Space: " + Math.Round((float)FreeSpace / 1.0737418E+09f, 2) + " GB";

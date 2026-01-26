@@ -26,6 +26,11 @@
     <Reference Include="mscorlib" />
     <Reference Include="System.Management" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Net.Http.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Chilano.Iso2God.Properties.Resources.Designer.cs">

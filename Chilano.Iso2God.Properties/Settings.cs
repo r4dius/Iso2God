@@ -13,7 +13,7 @@ internal sealed class Settings : ApplicationSettingsBase
 
     public static Settings Default => defaultInstance;
 
-    [DefaultSettingValue("./god")]
+    [DefaultSettingValue(".\\god\\")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public string OutputPath
@@ -28,7 +28,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("./iso")]
+    [DefaultSettingValue(".\\iso\\")]
     [UserScopedSetting]
     [DebuggerNonUserCode]
     public string RebuildPath
@@ -253,7 +253,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("800")]
+    [DefaultSettingValue("1000")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public int Width
@@ -298,7 +298,7 @@ internal sealed class Settings : ApplicationSettingsBase
         }
     }
 
-    [DefaultSettingValue("185,65,35,55,70,100,255")]
+    [DefaultSettingValue("190,65,65,35,50,65,100,414")]
     [DebuggerNonUserCode]
     [UserScopedSetting]
     public string ColumnsWidth
