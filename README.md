@@ -82,7 +82,7 @@ This uses code or assets from:
 | Saints Row - The Third - The Full Package | Disk 2 | GOD | - |
 | Saints Row IV - National Treasure Edition | Disk 1 | No GOD | Extract ISO, rename "content\\0000000000000000\\FFED2000\\FFFFFFFF" directory to "Content\\0000000000000000\\4B4D07F6\\00000002" and copy to HDD |
 | Saints Row IV - National Treasure Edition | Disk 2 | GOD | - |
-| Tetris - The Grand Master Ace | - | GOD | ⚠️ Will not work with "Padding: Remove all", use "Partial" |
+| Tetris - The Grand Master Ace | - | GOD | ⚠️ Will not work with Padding "Remove all", use "Partial" |
 | Tom Clancy's Splinter Cell - Blacklist | Disk 1 | GOD | - |
 | Tom Clancy's Splinter Cell - Blacklist | Disk 2 | Mix | Install as GOD plus extract ISO and copy "Content\\0000000000000000\\555308B6\\00000002" directory to HDD |
 | Ultra Street Fighter IV | - | GOD | Disable fakelive |
