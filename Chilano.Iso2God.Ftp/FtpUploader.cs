@@ -70,7 +70,14 @@ public class FtpUploader : BackgroundWorker
             ftpPath = Properties.Settings.Default["FtpPathCustom"].ToString();
 
             // in case user custom path has subfolders, mkdir and chdir recursively
-            string[] CustomDirectories = ftpPath.Split('/');
+            string[] CustomDirectories = ftpPath.Trim('/').Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (CustomDirectories.Length == 0)
+            {
+                Errors.Add(new ArgumentException("FTP path cannot be empty."));
+                return;
+            }
+
             // You can't make new folders in the root folder. If it doesn't already exist, it can't exist
             if (!dirExists(CustomDirectories[0]))
             {
