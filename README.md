@@ -30,7 +30,7 @@ This uses code or assets from:
 | Batman - Arkham City - Game of the Year Edition | Disk 1 | GOD | - |
 | Batman - Arkham City - Game of the Year Edition | Disk 2 (DLC only) | No GOD | Extract ISO and copy "content\\0000000000000000\\57520802\\00000002" directory to HDD |
 | Batman - Arkham Origins | Disk 1 | GOD | - |
-| Batman - Arkham Origins | Disk 2 | No GOD | Extract ISO, rename "content\\0000000000000000\\57520828\\FFFFFFFF" directory to "Content\\0000000000000000\\57520828\\00000002" and copy to HDD |
+| Batman - Arkham Origins | Disk 2 | No GOD | Multiplayer disk - Extract ISO, rename "content\\0000000000000000\\57520828\\FFFFFFFF" directory to "Content\\0000000000000000\\57520828\\00000002" and copy to HDD |
 | Battlefield 4 | Disk 1 | No GOD | Extract ISO and copy "content\\0000000000000000\\454109BA\\00000002" directory to HDD |
 | Battlefield 4 | Disk 2 | GOD | - |
 | Bioshock | Disk 1 | GOD | - |
