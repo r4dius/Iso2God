@@ -651,6 +651,30 @@ public class Settings : Form
         }
     }
 
+    private bool ConfirmFat32IsoPath(string path)
+    {
+        try
+        {
+            string root = Path.GetPathRoot(Path.GetFullPath(path));
+            if (string.IsNullOrEmpty(root))
+            {
+                return true;
+            }
+
+            DriveInfo drive = new DriveInfo(root);
+            if (!drive.IsReady || !string.Equals(drive.DriveFormat, "FAT32", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        catch
+        {
+            return true;
+        }
+
+        return MessageBox.Show("The ISO path is on a FAT32 drive. Files larger than 4 GB are not supported.\n\nUse it anyway?", "FAT32 warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+    }
+
     private void btnRebuiltBrowse_Click(object sender, EventArgs e)
     {
         FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
@@ -660,6 +684,11 @@ public class Settings : Form
         folderBrowserDialog.Description = "Choose where to save the rebuilt ISO to:";
         if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
         {
+            if (!ConfirmFat32IsoPath(folderBrowserDialog.SelectedPath))
+            {
+                return;
+            }
+
             txtRebuiltIso.Text = folderBrowserDialog.SelectedPath;
             if (!txtRebuiltIso.Text.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {

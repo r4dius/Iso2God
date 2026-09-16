@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 
 public static class Info
 {
-    public const string version = "1.6.0.0";
+    public const string version = "1.7.0.0";
 }

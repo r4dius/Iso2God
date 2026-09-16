@@ -25,10 +25,6 @@ public class Main : Form
     private ToolStripMenuItem allToolStripMenuItem;
     private ToolStripMenuItem selectedToolStripMenuItem;
     private ToolStripMenuItem completedToolStripMenuItem;
-    private ToolStripButton toolStripButton2;
-    private ToolStripSeparator toolStripSeparator1;
-    private ToolStripButton toolStripButton3;
-    private ToolStripButton toolStripButton4;
     private CListView listView1;
     private StatusStrip statusStrip1;
     private ColumnHeader columnHeader1;
@@ -45,10 +41,16 @@ public class Main : Form
     private ContextMenuStrip cmQueue;
     private ToolStripMenuItem editToolStripMenuItem;
     private ToolStripMenuItem removeToolStripMenuItem;
-    private ToolStripSeparator toolStripSeparator2;
     private ToolStripMenuItem restartFTPUploadToolStripMenuItem;
-    private Timer freeDiskCheck;
+    private ToolStripMenuItem copyStatusMessageToolStripMenuItem;
     private ToolStripButton toolStripButton1;
+    private ToolStripButton toolStripButton2;
+    private ToolStripButton toolStripButton3;
+    private ToolStripButton toolStripButton4;
+    private ToolStripSeparator toolStripSeparator1;
+    private ToolStripSeparator toolStripSeparator2;
+    private ToolStripSeparator toolStripSeparator3;
+    private Timer freeDiskCheck;
     private Iso2God i2g = new Iso2God();
     private FtpUploader ftp = new FtpUploader();
     private ToolStripLabel toolStripLabel2;
@@ -78,8 +80,8 @@ public class Main : Form
             this.cmQueue = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.restartFTPUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyStatusMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.jobCheck = new System.Windows.Forms.Timer(this.components);
@@ -102,9 +104,11 @@ public class Main : Form
             this.selectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.completedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmQueue.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -116,33 +120,42 @@ public class Main : Form
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem,
             this.toolStripSeparator2,
-            this.restartFTPUploadToolStripMenuItem});
+            this.restartFTPUploadToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.copyStatusMessageToolStripMenuItem});
             this.cmQueue.Name = "cmQueue";
-            this.cmQueue.Size = new System.Drawing.Size(175, 76);
+            this.cmQueue.Size = new System.Drawing.Size(181, 98);
+            this.cmQueue.Opening += new System.ComponentModel.CancelEventHandler(this.cmQueue_Opening);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            //
+            // copyStatusMessageToolStripMenuItem
+            //
+            this.copyStatusMessageToolStripMenuItem.Name = "copyStatusMessageToolStripMenuItem";
+            this.copyStatusMessageToolStripMenuItem.Text = "Copy Status Message";
+            this.copyStatusMessageToolStripMenuItem.Click += new System.EventHandler(this.copyStatusMessageToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // restartFTPUploadToolStripMenuItem
             // 
             this.restartFTPUploadToolStripMenuItem.Name = "restartFTPUploadToolStripMenuItem";
-            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.restartFTPUploadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restartFTPUploadToolStripMenuItem.Text = "Restart FTP Upload";
             this.restartFTPUploadToolStripMenuItem.Click += new System.EventHandler(this.restartFTPUploadToolStripMenuItem_Click);
             // 
@@ -436,6 +449,7 @@ public class Main : Form
         }
         UpdateSpace();
         checkStartupFiles();
+        UpdateConvertButtonState();
     }
 
     private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -499,9 +513,37 @@ public class Main : Form
         }
     }
 
+    private bool HasPendingConversions()
+    {
+        foreach (ListViewItem item in listView1.Items)
+        {
+            IsoEntry isoEntry = (IsoEntry)item.Tag;
+
+            if (isoEntry.Status == IsoEntryStatus.Idle)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void UpdateConvertButtonState()
+    {
+        toolStripButton2.Enabled =
+            HasPendingConversions() &&
+            !i2g.IsBusy &&
+            !jobCheck.Enabled;
+    }
+
     private void toolStripButton2_Click(object sender, EventArgs e)
     {
+        if (!HasPendingConversions())
+        {
+            UpdateConvertButtonState();
+            return;
+        }
+
         jobCheck.Enabled = true;
+        UpdateConvertButtonState();
     }
 
     private void toolStripButton3_Click(object sender, EventArgs e)
@@ -656,6 +698,7 @@ public class Main : Form
             }
         }
         jobCheck.Enabled = false;
+        UpdateConvertButtonState();
     }
 
     private void i2g_Completed(object sender, Iso2GodCompletedArgs e)
@@ -680,7 +723,14 @@ public class Main : Form
                 {
                     isoEntry.Status = IsoEntryStatus.Completed;
                     progressBar.Value = 100;
-                    MessageColumn.Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
+                    if (e.Error != null && e.Message == "Error!")
+                    {
+                        MessageColumn.Text = "Error: " + e.Error.Message;
+                    }
+                    else
+                    {
+                        MessageColumn.Text = e.Message + ((e.Error != null) ? (". Error: " + e.Error.Message) : "");
+                    }
                     FlashWindow(base.Handle, bInvert: false);
                 }
 
@@ -707,6 +757,7 @@ public class Main : Form
                 jobCheck.Enabled = true;
                 item.Tag = isoEntry;
                 item.ForeColor = Color.Green;
+                UpdateConvertButtonState();
                 break;
             }
         }
@@ -749,6 +800,7 @@ public class Main : Form
         {
             tsStatus.Text += ". You do not have enough free disk space to convert this ISO.";
         }
+        UpdateConvertButtonState();
     }
 
     public void UpdateISOEntry(int Index, IsoEntry Entry)
@@ -763,6 +815,7 @@ public class Main : Form
         listViewItem.SubItems[4].Text = num + " GB";
         listViewItem.SubItems[6].Text = IsoEntryPaddingStr[(int)Entry.Options.Padding];
         listViewItem.SubItems[7].Text = Entry.Path;
+        UpdateConvertButtonState();
     }
 
     public string getVersion(bool build, bool revision)
@@ -863,6 +916,7 @@ public class Main : Form
             }
         }
         listView1.Remove(CListView.RemoveType.Selected);
+        UpdateConvertButtonState();
     }
 
     private void selectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -875,6 +929,7 @@ public class Main : Form
             }
         }
         listView1.Remove(CListView.RemoveType.Selected);
+        UpdateConvertButtonState();
     }
 
     private void completedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -894,6 +949,7 @@ public class Main : Form
             }
         }
         listView1.Remove(CListView.RemoveType.Selected);
+        UpdateConvertButtonState();
     }
 
     private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -914,6 +970,47 @@ public class Main : Form
         if (Keys.Delete == e.KeyCode)
         {
             selectedToolStripMenuItem_Click(sender, e);
+        }
+    }
+    private void cmQueue_Opening(object sender, CancelEventArgs e)
+    {
+        Point mousePos = listView1.PointToClient(Control.MousePosition);
+        ListViewItem item = listView1.GetItemAt(mousePos.X, mousePos.Y);
+
+        // Do not show the context menu when right-clicking empty space.
+        if (item == null)
+        {
+            e.Cancel = true;
+            return;
+        }
+
+        // Make sure actions apply to the row that was right-clicked.
+        if (!item.Selected)
+        {
+            listView1.SelectedItems.Clear();
+            item.Selected = true;
+        }
+
+        copyStatusMessageToolStripMenuItem.Enabled =
+            item.SubItems.Count > 7 &&
+            !string.IsNullOrEmpty(item.SubItems[7].Text);
+
+        IsoEntry isoEntry = (IsoEntry)item.Tag;
+
+        restartFTPUploadToolStripMenuItem.Enabled = isoEntry.Status == IsoEntryStatus.Uploading || isoEntry.Status == IsoEntryStatus.Completed;
+    }
+
+    private void copyStatusMessageToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (listView1.SelectedItems.Count == 0)
+            return;
+
+        ListViewItem item = listView1.SelectedItems[0];
+
+        if (item.SubItems.Count > 7 &&
+            !string.IsNullOrEmpty(item.SubItems[7].Text))
+        {
+            Clipboard.SetText(item.SubItems[7].Text);
         }
     }
 

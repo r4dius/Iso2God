@@ -291,6 +291,9 @@ public class Iso2God : BackgroundWorker
         Start = DateTime.Now;
         IsoEntry iso = (IsoEntry)e.Argument;
         uniqueName = createUniqueName(iso);
+
+        PrepareOutputDirectories(iso);
+
         switch (iso.Options.Padding)
         {
             case IsoEntryPaddingRemoval.None:
@@ -320,10 +323,143 @@ public class Iso2God : BackgroundWorker
         return text;
     }
 
+    private void PrepareOutputDirectories(IsoEntry iso)
+    {
+        if (iso.Options.Format != IsoEntryFormat.Iso)
+        {
+            EnsureOutputDirectoryWritable(iso.Destination, "GOD output");
+        }
+
+        // Full padding removal always creates one monolithic rebuilt ISO first,
+        // even when only a GOD package will be kept at the end.
+        if (iso.Options.Padding == IsoEntryPaddingRemoval.Full)
+        {
+            EnsureOutputDirectoryWritable(iso.Options.IsoPath, "ISO output");
+        }
+    }
+
+    private void EnsureOutputDirectoryWritable(string path, string description)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            throw new IOException(description + " directory is not configured.");
+        }
+
+        string fullPath;
+        try
+        {
+            fullPath = Path.GetFullPath(path);
+        }
+        catch (Exception ex)
+        {
+            throw new IOException(description + " path is invalid: \"" + path + "\". " + ex.Message, ex);
+        }
+
+        try
+        {
+            Directory.CreateDirectory(fullPath);
+        }
+        catch (Exception ex)
+        {
+            throw new IOException("Unable to create or access the " + description + " directory \"" + fullPath + "\". " + ex.Message, ex);
+        }
+
+        string testPath = Path.Combine(fullPath, ".iso2god_write_test_" + Guid.NewGuid().ToString("N") + ".tmp");
+        try
+        {
+            using (FileStream test = new FileStream(testPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                test.WriteByte(0);
+                test.Flush();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new IOException("Iso2God cannot write to the " + description + " directory \"" + fullPath + "\". " + ex.Message, ex);
+        }
+        finally
+        {
+            try
+            {
+                if (File.Exists(testPath))
+                {
+                    File.Delete(testPath);
+                }
+            }
+            catch
+            {
+            }
+        }
+    }
+
+    private bool IsFat32Path(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return false;
+        }
+
+        try
+        {
+            string root = Path.GetPathRoot(Path.GetFullPath(path));
+            if (string.IsNullOrEmpty(root))
+            {
+                return false;
+            }
+
+            DriveInfo drive = new DriveInfo(root);
+            return drive.IsReady && string.Equals(drive.DriveFormat, "FAT32", StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private long GetRequiredRebuiltIsoLength(GDF src, GDFDirTable table)
+    {
+        long sectorSize = src.VolDesc.SectorSize;
+        long requiredLength = (long)table.Sector * sectorSize + table.Size;
+
+        foreach (GDFDirEntry item in table)
+        {
+            if (item.IsDirectory)
+            {
+                if (item.SubDir != null)
+                {
+                    long subDirLength = GetRequiredRebuiltIsoLength(src, item.SubDir);
+                    if (subDirLength > requiredLength)
+                    {
+                        requiredLength = subDirLength;
+                    }
+                }
+            }
+            else
+            {
+                long fileEnd = (long)item.Sector * sectorSize + item.Size;
+                if (fileEnd > requiredLength)
+                {
+                    requiredLength = fileEnd;
+                }
+            }
+        }
+
+        return requiredLength;
+    }
+
+    private string FormatGiB(long bytes)
+    {
+        return ((double)bytes / 1073741824.0).ToString("0.00");
+    }
+
     private void Iso2God_Full(object sender, DoWorkEventArgs e)
     {
+        const long Fat32MaxFileSize = 4294967295L;
+
         ReportProgress((int)progress, "Preparing to rebuild ISO image...");
         IsoEntry iso = (IsoEntry)e.Argument;
+        string rebuiltPath = Path.Combine(iso.Options.IsoPath, Path.GetFileName(iso.Path) + "_rebuilt.iso");
+
         FileStream fileStream;
         try
         {
@@ -331,50 +467,82 @@ public class Iso2God : BackgroundWorker
         }
         catch (Exception ex)
         {
-            ReportProgress(0, "Error! " + ex.Message);
-            return;
+            throw new IOException("Unable to open source ISO \"" + iso.Path + "\". " + ex.Message, ex);
         }
-        FileStream fileStream2;
-        using (GDF gDF = new GDF(fileStream))
+
+        FileStream fileStream2 = null;
+        try
         {
-            uint lastSector = 0u;
-            gDF.ParseDirectory(gDF.RootDir, recursive: true, ref lastSector);
-            ReportProgress((int)progress, "Generating new GDFS structures...");
-            try
+            using (GDF gDF = new GDF(fileStream))
             {
-                fileStream2 = File.OpenWrite(iso.Options.IsoPath + iso.Path.Substring(iso.Path.LastIndexOf(Path.DirectorySeparatorChar) + 1) + "_rebuilt.iso");
+                uint lastSector = 0u;
+                gDF.ParseDirectory(gDF.RootDir, recursive: true, ref lastSector);
+                ReportProgress((int)progress, "Generating new GDFS structures...");
+
+                rootDir = (GDFDirTable)gDF.RootDir.Clone();
+                RemapSectors(gDF);
+
+                long requiredLength = GetRequiredRebuiltIsoLength(gDF, rootDir);
+                if (IsFat32Path(rebuiltPath) && requiredLength > Fat32MaxFileSize)
+                {
+                    throw new IOException("File too large for FAT32 (" + FormatGiB(requiredLength) + " GiB). Use an NTFS or exFAT drive for ISO path.");
+                }
+
+                try
+                {
+                    // FileMode.Create intentionally truncates a stale *_rebuilt.iso
+                    // left by a previous failed conversion.
+                    fileStream2 = new FileStream(rebuiltPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                }
+                catch (Exception ex)
+                {
+                    throw new IOException("Unable to create rebuilt ISO \"" + rebuiltPath + "\". " + ex.Message, ex);
+                }
+
+                try
+                {
+                    WriteGDF(gDF, fileStream2);
+                    WriteFiles(gDF, fileStream2);
+                    fileStream2.Flush();
+                }
+                catch (Exception ex)
+                {
+                    throw new IOException("Failed while writing rebuilt ISO \"" + rebuiltPath + "\". " + ex.Message, ex);
+                }
             }
-            catch (Exception ex2)
+
+            if (fileStream2.Length <= 0)
             {
-                ReportProgress(0, "Error rebuilding GDF! " + ex2.Message);
-                return;
+                throw new IOException("Failed to rebuild ISO \"" + rebuiltPath + "\": the resulting file is empty.");
             }
-            rootDir = (GDFDirTable)gDF.RootDir.Clone();
-            RemapSectors(gDF);
-            WriteGDF(gDF, fileStream2);
-            WriteFiles(gDF, fileStream2);
+
+            ReportProgress((int)progress, "ISO image rebuilt.");
+            iso.Path = fileStream2.Name;
+            iso.Size = fileStream2.Length;
+            fileStream2.Close();
+            fileStream2 = null;
+            fileStream.Close();
+
+            if (iso.Options.Format != IsoEntryFormat.Iso)
+            {
+                Iso2God_Partial(sender, e, iso);
+            }
+            else
+            {
+                Finish = DateTime.Now;
+                TimeSpan timeSpan = Finish - Start;
+                ReportProgress(100, "Done!");
+                e.Result = "Finished in " + timeSpan.Minutes + "m" + timeSpan.Seconds + "s. ISO image rebuilt";
+                GC.Collect();
+            }
         }
-        if (fileStream2.Length <= 0)
+        finally
         {
-            ReportProgress(100, "Failed to rebuild ISO. Aborting.");
-            return;
-        }
-        ReportProgress((int)progress, "ISO image rebuilt.");
-        iso.Path = fileStream2.Name;
-        iso.Size = fileStream2.Length;
-        fileStream2.Close();
-        fileStream.Close();
-        if (iso.Options.Format != IsoEntryFormat.Iso)
-        {
-            Iso2God_Partial(sender, e, iso);
-        }
-        else
-        {
-            Finish = DateTime.Now;
-            TimeSpan timeSpan = Finish - Start;
-            ReportProgress(100, "Done!");
-            e.Result = "Finished in " + timeSpan.Minutes + "m" + timeSpan.Seconds + "s. ISO image rebuilt";
-            GC.Collect();
+            if (fileStream2 != null)
+            {
+                fileStream2.Dispose();
+            }
+            fileStream.Dispose();
         }
     }
 
